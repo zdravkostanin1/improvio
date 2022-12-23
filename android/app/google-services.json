@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1052785719487",
+    "project_id": "improvio-9f372",
+    "storage_bucket": "improvio-9f372.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1052785719487:android:0c61c25f2c105f689aee0a",
+        "android_client_info": {
+          "package_name": "improvio.app.improvio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1052785719487-2usc0almfi5md263t5lk2kl28jjlfgl1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBA0omRIvqGik8-vfbwWJg5LqOqx94Zd9I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1052785719487-2usc0almfi5md263t5lk2kl28jjlfgl1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
