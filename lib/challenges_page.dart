@@ -11,16 +11,12 @@ class ChallengesPage extends StatefulWidget {
 class _ChallengesPageState extends State<ChallengesPage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Column(
-        children: const [
-          Scaffold(
-            body: Center(
-              child: Text('ADDDD'),
-            ),
-          ),
-        ],
-      ),
+    return const MaterialApp(
+      home: Scaffold(
+        body: Center(child: Text(
+          'Challenges', style: TextStyle(color: Colors.black),
+        ),),
+      )
     );
   }
 }

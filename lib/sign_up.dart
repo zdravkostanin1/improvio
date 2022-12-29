@@ -308,7 +308,7 @@ class _SignUpState extends State<SignUp> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => const HomePage()));
+                                          builder: (context) =>  const HomePage()));
                                 }
                                 // get the current user details with this line:
                                 // print(FirebaseAuth.instance.currentUser);

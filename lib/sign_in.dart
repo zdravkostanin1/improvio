@@ -200,7 +200,7 @@ class _SignInState extends State<SignIn> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const HomePage()));
+                                        builder: (context) =>  const HomePage()));
                               }
                               // to check if the user has signed in..
                               User.checkUserStatus();

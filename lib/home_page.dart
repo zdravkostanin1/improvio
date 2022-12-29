@@ -8,192 +8,108 @@ import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class HomePage extends StatefulWidget {
-  // removed const keyword
-  //const
-  HomePage({Key? key}) : super(key: key);
-
-  final routerDelegate = BeamerDelegate(
-    initialPath: '/home_page',
-    locationBuilder: RoutesLocationBuilder(
-      routes: {
-        '*': (context, state, data) => const Router(),
-      },
-    ),
-  );
-
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-void signUserOut() async {
+void signOut() async {
   await FirebaseAuth.instance.signOut();
 }
 
 class _HomePageState extends State<HomePage> {
-  // int _page = 0;
-  // final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
-
-  void switchNavBar(int screen) {
-    // switch(screen) {
-    //   case 2:
-    //     Navigator.push(
-    //         context,
-    //         MaterialPageRoute(
-    //             builder: (context) => const ChallengesPage()));
-    //     break;
-    // }
-  }
+  final routerDelegate = BeamerDelegate(
+    initialPath: '/a',
+    locationBuilder: RoutesLocationBuilder(
+      routes: {
+        '*': (context, state, data) => const BottomNav(),
+      },
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Home Page',
-      home: Scaffold(
-        bottomNavigationBar: Builder(
-          builder: (context) {
-            return CurvedNavigationBar(
-              // key: _bottomNavigationKey,
-              backgroundColor: Colors.black,
-              items: const <Widget>[
-                Icon(Icons.person, size: 35),
-                Icon(Icons.calendar_month, size: 35),
-                Icon(Icons.track_changes, size: 35),
-                Icon(Icons.settings, size: 35),
-              ],
-              onTap: (index) {
-                // TODO: Implement different pages with navigation bar
-                // if index x is clicked - then do X
-                setState(() {
-                  // switch(index) {
-                  //   case 2:
-                  //     Navigator.push(
-                  //         context,
-                  //         MaterialPageRoute(
-                  //             builder: (context) => const ChallengesPage()));
-                  //     break;
-                  }
-                  // switchNavBar(index);
-                );
-              },
-            );
-          }
-        ),
-        // remove line below if needed.
-        resizeToAvoidBottomInset: false,
-        backgroundColor: const Color(0xff0B0A0A),
-        body: Builder(builder: (BuildContext context) {
-          return SafeArea(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // Text(_page.toString(), textScaleFactor: 10.0),
-                // ElevatedButton(
-                //   child: Text('Go To Page of index 1'),
-                //   onPressed: () {
-                //     //Page change using state does the same as clicking index 1 navigation button
-                //     final CurvedNavigationBarState? navBarState =
-                //         _bottomNavigationKey.currentState;
-                //     navBarState?.setPage(1);
-                //   },
-                // ),
-                // TextButton(
-                //   onPressed: () {
-                //     signUserOut();
-                //     Navigator.push(
-                //         context,
-                //         MaterialPageRoute(
-                //             builder: (context) => const SignUp()));
-                //   },
-                //   child: const Text(
-                //     'Sign OUT',
-                //     style: TextStyle(
-                //       fontSize: 30.0,
-                //     ),
-                //   ),
-                // ),
-              ],
-            ),
-          );
-        }),
+    return MaterialApp.router(
+      routerDelegate: routerDelegate,
+      routeInformationParser: BeamerParser(),
+      backButtonDispatcher: BeamerBackButtonDispatcher(
+        delegate: routerDelegate,
       ),
     );
   }
 }
 
-class ALocation extends BeamLocation<BeamState> {
-  ALocation(super.routeInformation);
+class ProfilePage extends BeamLocation<BeamState> {
+  ProfilePage(super.routeInformation);
+
   @override
   List<String> get pathPatterns => ['/*'];
 
   @override
   List<BeamPage> buildPages(BuildContext context, BeamState state) => [
-     BeamPage(
-      key: const ValueKey('home_page'),
-      title: 'Tab A',
-      type: BeamPageType.noTransition,
-      child: HomePage(),
-    ),
-    // if (state.uri.pathSegments.length == 2)
-    //   const BeamPage(
-    //     key: ValueKey('a/details'),
-    //     title: 'Details A',
-    //     child: DetailsScreen(label: 'A'),
-    //   ),
-  ];
+        const BeamPage(
+          key: ValueKey('a'),
+          title: 'Tab A',
+          type: BeamPageType.noTransition,
+          child: SafeArea(
+            child: Scaffold(
+              body: Center(
+                child: Text(
+                  'profile',
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ];
 }
 
-class BLocation extends BeamLocation<BeamState> {
-  BLocation(super.routeInformation);
+class Challenges extends BeamLocation<BeamState> {
+  Challenges(super.routeInformation);
   @override
   List<String> get pathPatterns => ['/*'];
 
   @override
   List<BeamPage> buildPages(BuildContext context, BeamState state) => [
     const BeamPage(
-      key: ValueKey('challenges_page'),
-      title: 'Tab A',
+      key: ValueKey('b'),
+      title: 'Tab B',
       type: BeamPageType.noTransition,
-      child: ChallengesPage(),
+      child: SafeArea(child: ChallengesPage()),
     ),
-    // if (state.uri.pathSegments.length == 2)
-    //   const BeamPage(
-    //     key: ValueKey('a/details'),
-    //     title: 'Details A',
-    //     child: DetailsScreen(label: 'A'),
-    //   ),
   ];
 }
 
 
-class Router extends StatefulWidget {
-  const Router({Key? key}) : super(key: key);
+class BottomNav extends StatefulWidget {
+  const BottomNav({Key? key}) : super(key: key);
 
   @override
-  State<Router> createState() => _RouterState();
+  State<BottomNav> createState() => _BottomNavState();
 }
 
-class _RouterState extends State<Router> {
-  // keep track of the currently selected index
+class _BottomNavState extends State<BottomNav> {
+
   late int _currentIndex;
 
   // create two nested delegates
   final _routerDelegates = [
     BeamerDelegate(
-      initialPath: '/home_page',
+      initialPath: '/a',
       locationBuilder: (routeInformation, _) {
-        if (routeInformation.location!.contains('/home_page')) {
-          return ALocation(routeInformation);
+        if (routeInformation.location!.contains('/a')) {
+          return ProfilePage(routeInformation);
         }
         return NotFound(path: routeInformation.location!);
       },
     ),
     BeamerDelegate(
-      initialPath: '/challenges_page',
+      initialPath: '/b',
       locationBuilder: (routeInformation, _) {
-        if (routeInformation.location!.contains('/challenges_page')) {
-          return BLocation(routeInformation);
+        if (routeInformation.location!.contains('/b')) {
+          return Challenges(routeInformation);
         }
         return NotFound(path: routeInformation.location!);
       },
@@ -205,48 +121,53 @@ class _RouterState extends State<Router> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     final uriString = Beamer.of(context).configuration.location!;
-    _currentIndex = uriString.contains('/home_page') ? 0 : 1;
+    _currentIndex = uriString.contains('/a') ? 0 : 1;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: [
-          // use Beamer widgets as children
-          Beamer(
-            routerDelegate: _routerDelegates[0],
+    return MaterialApp(
+      // title: 'Home Page',
+      home: Scaffold(
+        bottomNavigationBar: Builder(builder: (context) {
+          return CurvedNavigationBar(
+            // key: _bottomNavigationKey,
+            backgroundColor: Colors.black,
+            items: const <Widget>[
+              Icon(Icons.person, size: 35),
+              Icon(Icons.calendar_month, size: 35),
+              Icon(Icons.track_changes, size: 35),
+              Icon(Icons.settings, size: 35),
+            ],
+            onTap: (index) {
+              if (index != _currentIndex) {
+                setState(() => _currentIndex = index);
+                _routerDelegates[_currentIndex].update(rebuild: false);
+              }
+              // TODO: Implement different pages with navigation bar
+              // if index x is clicked - then do X
+              setState(() {});
+            },
+          );
+        }),
+        // remove line below if needed.
+        resizeToAvoidBottomInset: false,
+        backgroundColor: const Color(0xff0B0A0A),
+        body: SafeArea(
+          child: IndexedStack(
+            index: _currentIndex,
+            children: [
+              // use Beamer widgets as children
+              Beamer(
+                routerDelegate: _routerDelegates[0],
+              ),
+              Beamer(
+                routerDelegate: _routerDelegates[1],
+              ),
+            ],
           ),
-          Beamer(
-            routerDelegate: _routerDelegates[1],
-          ),
-        ],
-      ),
-      bottomNavigationBar: Builder(
-          builder: (context) {
-            return CurvedNavigationBar(
-              index: _currentIndex,
-              // key: _bottomNavigationKey,
-              backgroundColor: Colors.black,
-              items: const <Widget>[
-                Icon(Icons.person, size: 35),
-                Icon(Icons.calendar_month, size: 35),
-                Icon(Icons.track_changes, size: 35),
-                Icon(Icons.settings, size: 35),
-              ],
-              onTap: (index) {
-                // TODO: Implement different pages with navigation bar
-                // if index x is clicked - then do X
-                if (index != _currentIndex) {
-                  setState(() => _currentIndex = index);
-                  _routerDelegates[_currentIndex].update(rebuild: false);
-                }
-              },
-            );
-          }
+        ),
       ),
     );
   }
 }
-

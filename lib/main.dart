@@ -6,9 +6,9 @@ import 'firebase_options.dart';
 import 'sign_up.dart';
 
 void main() async {
-  // INITIALIZE FIREBASE WITH THIS COMMAND
-  runApp(const HomePage());
-  await Firebase.initializeApp(
+    runApp(const HomePage());
+    // INITIALIZE FIREBASE WITH THIS COMMAND
+    await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 }
