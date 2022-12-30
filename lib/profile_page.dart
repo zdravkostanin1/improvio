@@ -1,4 +1,8 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'sign_up.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -7,7 +11,16 @@ class ProfilePage extends StatefulWidget {
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
+String? getUsername()  {
+  // return FirebaseAuth.instance.currentUser?.displayName!;
+  User user = FirebaseAuth.instance.currentUser!;
+  return user.displayName;
+}
+
 class _ProfilePageState extends State<ProfilePage> {
+
+  String? username = getUsername();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -36,12 +49,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       const SizedBox(
                         height: 20,
                       ),
-                      const Center(
-                        // TODO: Get Name from Firebase Account on this Text Widget
+                      Center(
                         child: Text(
-                          'John Smith',
-                          style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold),
+                          username!,
+                          style: const TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),
                         ),
                       ),
                       const SizedBox(
@@ -58,6 +70,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       const SizedBox(
                         height: 15.0,
                       ),
+                      // TODO: IMPLEMENT TROPHIES HERE
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,

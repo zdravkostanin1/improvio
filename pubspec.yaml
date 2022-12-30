@@ -50,6 +50,7 @@ dependencies:
   flutter_snake_navigationbar: ^0.6.1
   curved_navigation_bar: ^1.0.3
   beamer: ^1.5.3
+  firebase_database: ^10.0.9
 
 dev_dependencies:
   flutter_test:
