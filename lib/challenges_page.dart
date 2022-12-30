@@ -13,6 +13,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: Scaffold(
+        backgroundColor: Colors.black,
         body: Center(child: Text(
           'Challenges', style: TextStyle(color: Colors.black),
         ),),

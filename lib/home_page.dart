@@ -6,6 +6,7 @@ import 'sign_up.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'profile_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,13 +15,14 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+// SIGN USER OUT FROM FIREBASE ACCOUNT
 void signOut() async {
   await FirebaseAuth.instance.signOut();
 }
 
 class _HomePageState extends State<HomePage> {
   final routerDelegate = BeamerDelegate(
-    initialPath: '/a',
+    initialPath: '/profile_page',
     locationBuilder: RoutesLocationBuilder(
       routes: {
         '*': (context, state, data) => const BottomNav(),
@@ -40,8 +42,9 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class ProfilePage extends BeamLocation<BeamState> {
-  ProfilePage(super.routeInformation);
+// // PROFILE PAGE - WHICH CALLS PROFILE_PAGE.DART FILE
+class PageProfile extends BeamLocation<BeamState> {
+  PageProfile(super.routeInformation);
 
   @override
   List<String> get pathPatterns => ['/*'];
@@ -49,33 +52,25 @@ class ProfilePage extends BeamLocation<BeamState> {
   @override
   List<BeamPage> buildPages(BuildContext context, BeamState state) => [
         const BeamPage(
-          key: ValueKey('a'),
-          title: 'Tab A',
+          key: ValueKey('profile_page'),
+          title: 'Profile Page',
           type: BeamPageType.noTransition,
-          child: SafeArea(
-            child: Scaffold(
-              body: Center(
-                child: Text(
-                  'profile',
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-            ),
-          ),
+          child: SafeArea(child: ProfilePage()),
         ),
       ];
 }
 
-class Challenges extends BeamLocation<BeamState> {
-  Challenges(super.routeInformation);
+// CHALLENGES PAGE - WHICH CALLS CHALLENGES_PAGE.DART FILE
+class PageChallenges extends BeamLocation<BeamState> {
+  PageChallenges(super.routeInformation);
   @override
   List<String> get pathPatterns => ['/*'];
 
   @override
   List<BeamPage> buildPages(BuildContext context, BeamState state) => [
     const BeamPage(
-      key: ValueKey('b'),
-      title: 'Tab B',
+      key: ValueKey('challenges_page'),
+      title: 'Challenges Page',
       type: BeamPageType.noTransition,
       child: SafeArea(child: ChallengesPage()),
     ),
@@ -90,6 +85,7 @@ class BottomNav extends StatefulWidget {
   State<BottomNav> createState() => _BottomNavState();
 }
 
+// THE NAV BAR AND IT'S VALUES
 class _BottomNavState extends State<BottomNav> {
 
   late int _currentIndex;
@@ -97,19 +93,19 @@ class _BottomNavState extends State<BottomNav> {
   // create two nested delegates
   final _routerDelegates = [
     BeamerDelegate(
-      initialPath: '/a',
+      initialPath: '/profile_page',
       locationBuilder: (routeInformation, _) {
-        if (routeInformation.location!.contains('/a')) {
-          return ProfilePage(routeInformation);
+        if (routeInformation.location!.contains('/profile_page')) {
+          return PageProfile(routeInformation);
         }
         return NotFound(path: routeInformation.location!);
       },
     ),
     BeamerDelegate(
-      initialPath: '/b',
+      initialPath: '/challenges_page',
       locationBuilder: (routeInformation, _) {
-        if (routeInformation.location!.contains('/b')) {
-          return Challenges(routeInformation);
+        if (routeInformation.location!.contains('/challenges_page')) {
+          return PageChallenges(routeInformation);
         }
         return NotFound(path: routeInformation.location!);
       },
@@ -121,13 +117,12 @@ class _BottomNavState extends State<BottomNav> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     final uriString = Beamer.of(context).configuration.location!;
-    _currentIndex = uriString.contains('/a') ? 0 : 1;
+    _currentIndex = uriString.contains('/profile_page') ? 0 : 1;
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // title: 'Home Page',
       home: Scaffold(
         bottomNavigationBar: Builder(builder: (context) {
           return CurvedNavigationBar(
@@ -144,8 +139,6 @@ class _BottomNavState extends State<BottomNav> {
                 setState(() => _currentIndex = index);
                 _routerDelegates[_currentIndex].update(rebuild: false);
               }
-              // TODO: Implement different pages with navigation bar
-              // if index x is clicked - then do X
               setState(() {});
             },
           );

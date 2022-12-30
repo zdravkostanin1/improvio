@@ -95,6 +95,10 @@ flutter:
     - assets/baaaaack.png
     - assets/sign-in-background.png
     - assets/sign-in.png
+    - assets/cup1.png
+    - assets/cup2.png
+    - assets/cup3.png
+    - assets/cup4.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
