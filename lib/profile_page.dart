@@ -26,236 +26,251 @@ class _ProfilePageState extends State<ProfilePage> {
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.black,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Center(
-              child: SizedBox(
-                height: 660.0,
-                width: 350,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Column(
-                      children: [
-                        Container(
-                          height: 200.0,
-                          width: 360.0,
-                          color: Colors.white,
-                          child: const Center(
-                            child: Text('Background image goes here'),
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            color: Colors.black,
-                            child: Center(
-                              child: Text(
-                                username!,
-                                style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
+        body: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Center(
+                child: SizedBox(
+                  height: 650.0,
+                  width: 550,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Column(
+                        children: [
+                          Container(
+                            height: 170.0,
+                            width: 420.0,
+                            color: Colors.white,
+                            child: const Center(
+                              child: SizedBox(
+                                height: 200.0,
+                                width: 420.0,
+                                child: FittedBox(
+                                  fit: BoxFit.fill,
+                                  child: Image(
+                                    image: NetworkImage(
+                                        'https://img.freepik.com/free-photo/wide-angle-shot-single-tree-growing-clouded-sky-during-sunset-surrounded-by-grass_181624-22807.jpg'),
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        // TODO: Make the person set the image and store it here in this CircleAvatar Widget
-                        // const CircleAvatar(
-                        //   backgroundImage: NetworkImage(
-                        //       'https://img.freepik.com/free-photo/cat-white-background_155003-15381.jpg?w=2000'),
-                        //   radius: 80,
-                        // ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        // Center(
-                        //   child: Text(
-                        //     username!,
-                        //     style: const TextStyle(
-                        //         color: Colors.white,
-                        //         fontWeight: FontWeight.bold,
-                        //         fontSize: 20),
-                        //   ),
-                        // ),
-                        // const SizedBox(
-                        //   height: 10,
-                        // ),
-                        // const Center(
-                        //   // TODO: Get Tribe of user on this Text Widget
-                        //   child: Text(
-                        //     'GORILLAS',
-                        //     style: TextStyle(
-                        //         color: Colors.red, fontWeight: FontWeight.bold),
-                        //   ),
-                        // ),
-                        // const SizedBox(
-                        //   height: 8,
-                        // ),
-                        // const Center(
-                        //   // TODO: Get Tribe ROLE of user on this Text Widget
-                        //   child: Text(
-                        //     'Warrior',
-                        //     style: TextStyle(
-                        //         color: Colors.orange, fontWeight: FontWeight.bold),
-                        //   ),
-                        // ),
-                        // const SizedBox(
-                        //   height: 15.0,
-                        // ),
-                        // TODO: IMPLEMENT TROPHIES HERE
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: const [
-                            // SizedBox(
-                            //   height: 40.0,
-                            //   child: Image(
-                            //     image: AssetImage('assets/cup1.png'),
-                            //   ),
-                            // ),
-                            // SizedBox(
-                            //   height: 15.0,
-                            // ),
-                            // SizedBox(
-                            //   height: 40.0,
-                            //   child: Image(
-                            //     image: AssetImage('assets/cup2.png'),
-                            //   ),
-                            // ),
-                            // SizedBox(
-                            //   height: 15.0,
-                            // ),
-                            // SizedBox(
-                            //   height: 40.0,
-                            //   child: Image(
-                            //     image: AssetImage('assets/cup3.png'),
-                            //   ),
-                            // ),
-                            // SizedBox(
-                            //   height: 15.0,
-                            // ),
-                            // SizedBox(
-                            //   height: 40.0,
-                            //   child: Image(
-                            //     image: AssetImage('assets/cup4.png'),
-                            //   ),
-                            // ),
-                          ],
-                        ),
-                        // const SizedBox(
-                        //   height: 20,
-                        // ),
-                        // const Text(
-                        //   'SKILLS:',
-                        //   style: TextStyle(
-                        //       fontSize: 15.0, fontWeight: FontWeight.bold, color: Colors.white),
-                        // ),
-                        // const SizedBox(
-                        //   height: 15.0,
-                        // ),
-                        // const Padding(
-                        //   padding: EdgeInsets.only(right: 218.0),
-                        //   child: Text('MEDITATION:', style: TextStyle( color: Colors.white),),
-                        // ),
-                        // const SizedBox(
-                        //   height: 5.0,
-                        // ),
-                        // Padding(
-                        //   padding: const EdgeInsets.all(10.0),
-                        //   child: LinearPercentIndicator(
-                        //     animation: true,
-                        //     animationDuration: 1000,
-                        //     width: 320.0,
-                        //     lineHeight: 14.0,
-                        //     percent: 0.1,
-                        //     backgroundColor: Colors.orange,
-                        //     progressColor: Colors.red,
-                        //   ),
-                        // ),
-                        // const SizedBox(
-                        //   height: 15.0,
-                        // ),
-                        // const Padding(
-                        //   padding: EdgeInsets.only(right: 257.0),
-                        //   child: Text('STUDY:', style: TextStyle( color: Colors.white),),
-                        // ),
-                        // const SizedBox(
-                        //   height: 5.0,
-                        // ),
-                        // Padding(
-                        //   padding: const EdgeInsets.all(10.0),
-                        //   child: LinearPercentIndicator(
-                        //     animation: true,
-                        //     animationDuration: 1000,
-                        //     width: 320.0,
-                        //     lineHeight: 14.0,
-                        //     percent: 0.2,
-                        //     backgroundColor: Colors.orange,
-                        //     progressColor: Colors.red,
-                        //   ),
-                        // ),
-                        // const SizedBox(
-                        //   height: 15.0,
-                        // ),
-                        // const Padding(
-                        //   padding: EdgeInsets.only(right: 263.0),
-                        //   child: Text('READ:', style: TextStyle( color: Colors.white),),
-                        // ),
-                        // const SizedBox(
-                        //   height: 5.0,
-                        // ),
-                        // Padding(
-                        //   padding: const EdgeInsets.all(10.0),
-                        //   child: LinearPercentIndicator(
-                        //     animation: true,
-                        //     animationDuration: 1000,
-                        //     width: 320.0,
-                        //     lineHeight: 14.0,
-                        //     percent: 0.3,
-                        //     backgroundColor: Colors.orange,
-                        //     progressColor: Colors.red,
-                        //   ),
-                        // ),
-                        // const SizedBox(
-                        //   height: 15.0,
-                        // ),
-                        // const Padding(
-                        //   padding: EdgeInsets.only(right: 240.0),
-                        //   child: Text('EXERCISE:', style: TextStyle( color: Colors.white),),
-                        // ),
-                        // const SizedBox(
-                        //   height: 5.0,
-                        // ),
-                        // Padding(
-                        //   padding: const EdgeInsets.all(10.0),
-                        //   child: LinearPercentIndicator(
-                        //     animation: true,
-                        //     animationDuration: 1000,
-                        //     width: 320.0,
-                        //     lineHeight: 14.0,
-                        //     percent: 0.4,
-                        //     backgroundColor: Colors.orange,
-                        //     progressColor: Colors.red,
-                        //   ),
-                        // ),
-                      ],
-                    ),
-                    const Positioned(
-                      top: 150.0,
-                      // (background container size) - (circle height / 2)
-                      child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            'https://img.freepik.com/free-photo/cat-white-background_155003-15381.jpg?w=2000'),
-                        radius: 60,
+                          const SizedBox(height: 40.0,),
+                          Center(
+                            child: Text(
+                              username!,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20.0),
+                            ),
+                          ),
+                          // TODO: Make the person set the image and store it here in this CircleAvatar Widget
+                          // const CircleAvatar(
+                          //   backgroundImage: NetworkImage(
+                          //       'https://img.freepik.com/free-photo/cat-white-background_155003-15381.jpg?w=2000'),
+                          //   radius: 80,
+                          // ),
+                          // const SizedBox(
+                          //   height: 50,
+                          // ),
+                          // Center(
+                          //   child: Text(
+                          //     username!,
+                          //     style: const TextStyle(
+                          //         color: Colors.white,
+                          //         fontWeight: FontWeight.bold,
+                          //         fontSize: 20),
+                          //   ),
+                          // ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          const Center(
+                            // TODO: Get Tribe of user on this Text Widget
+                            child: Text(
+                              'GORILLAS',
+                              style: TextStyle(
+                                  color: Colors.red, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          const Center(
+                            // TODO: Get Tribe ROLE of user on this Text Widget
+                            child: Text(
+                              'Warrior',
+                              style: TextStyle(
+                                  color: Colors.orange, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10.0,
+                          ),
+                          // TODO: IMPLEMENT TROPHIES HERE
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: const [
+                              // SizedBox(
+                              //   height: 20.0,
+                              //   child: Image(
+                              //     image: AssetImage('assets/cup1.png'),
+                              //   ),
+                              // ),
+                              // SizedBox(
+                              //   height: 20.0,
+                              // ),
+                              // SizedBox(
+                              //   height: 20.0,
+                              //   child: Image(
+                              //     image: AssetImage('assets/cup2.png'),
+                              //   ),
+                              // ),
+                              // SizedBox(
+                              //   height: 20.0,
+                              // ),
+                              // SizedBox(
+                              //   height: 20.0,
+                              //   child: Image(
+                              //     image: AssetImage('assets/cup3.png'),
+                              //   ),
+                              // ),
+                              // SizedBox(
+                              //   height: 20.0,
+                              // ),
+                              // SizedBox(
+                              //   height: 20.0,
+                              //   child: Image(
+                              //     image: AssetImage('assets/cup4.png'),
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                          // FOR HORIZONTAL LINE..
+                          const Divider(
+                              height: 10.0,
+                              thickness: 4,
+                              color: Colors.white
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          const Text(
+                            'SKILLS:',
+                            style: TextStyle(
+                                fontSize: 15.0, fontWeight: FontWeight.bold, color: Colors.white),
+                          ),
+                          const SizedBox(
+                            height: 15.0,
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(right: 209.0),
+                            child: Text('MEDITATION:', style: TextStyle( color: Colors.white),),
+                          ),
+                          const SizedBox(
+                            height: 5.0,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(40.0, 5.0, 0, 0),
+                            child: LinearPercentIndicator(
+                              animation: true,
+                              animationDuration: 1000,
+                              width: 320.0,
+                              lineHeight: 14.0,
+                              percent: 0.1,
+                              backgroundColor: Colors.orange,
+                              progressColor: Colors.red,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15.0,
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(right: 247.0),
+                            child: Text('STUDY:', style: TextStyle( color: Colors.white),),
+                          ),
+                          const SizedBox(
+                            height: 5.0,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(40.0, 5.0, 0, 0),
+                            child: LinearPercentIndicator(
+                              animation: true,
+                              animationDuration: 1000,
+                              width: 320.0,
+                              lineHeight: 14.0,
+                              percent: 0.2,
+                              backgroundColor: Colors.orange,
+                              progressColor: Colors.red,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15.0,
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(right: 256.0),
+                            child: Text('READ:', style: TextStyle( color: Colors.white),),
+                          ),
+                          const SizedBox(
+                            height: 5.0,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(40.0, 5.0, 0, 0),
+                            child: LinearPercentIndicator(
+                              animation: true,
+                              animationDuration: 1000,
+                              width: 320.0,
+                              lineHeight: 14.0,
+                              percent: 0.3,
+                              backgroundColor: Colors.orange,
+                              progressColor: Colors.red,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15.0,
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.only(right: 230.0),
+                            child: Text('EXERCISE:', style: TextStyle( color: Colors.white),),
+                          ),
+                          const SizedBox(
+                            height: 5.0,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(40.0, 5.0, 0, 0),
+                            child: LinearPercentIndicator(
+                              animation: true,
+                              animationDuration: 1000,
+                              width: 320.0,
+                              lineHeight: 14.0,
+                              percent: 0.4,
+                              backgroundColor: Colors.orange,
+                              progressColor: Colors.red,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
+                      const Positioned(
+                        top: 90.0,
+                        // (background container size) - (circle height / 2)
+                        child: CircleAvatar(
+                          // maybe change the BORDER Of THE IMAGE TO BE BLACK
+                          backgroundImage: NetworkImage(
+                              'https://img.freepik.com/free-photo/cat-white-background_155003-15381.jpg?w=2000'),
+                          radius: 55.0,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
