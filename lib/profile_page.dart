@@ -60,12 +60,29 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           const SizedBox(height: 40.0,),
                           Center(
-                            child: Text(
-                              username!,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  username!,
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20.0),
+                                ),
+                                const SizedBox(
+                                  width: 5.5,
+                                ),
+                                // TODO: DISPLAY LVL OF USER HERE:
+                                const Text(
+                                  'lvl: 1',
+                                  style: TextStyle(
+                                      color: Colors.green,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20.0),
+                                ),
+                              ],
                             ),
                           ),
                           // TODO: Make the person set the image and store it here in this CircleAvatar Widget
@@ -151,14 +168,14 @@ class _ProfilePageState extends State<ProfilePage> {
                               // ),
                             ],
                           ),
-                          // FOR HORIZONTAL LINE..
+                          // FOR HORIZONTAL LINE.. MAYBE REMOVE IT - OR DON'T..
                           const Divider(
                               height: 10.0,
-                              thickness: 4,
+                              thickness: 6,
                               color: Colors.white
                           ),
                           const SizedBox(
-                            height: 10,
+                            height: 3,
                           ),
                           const Text(
                             'SKILLS:',
@@ -183,8 +200,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               width: 320.0,
                               lineHeight: 14.0,
                               percent: 0.1,
-                              backgroundColor: Colors.orange,
-                              progressColor: Colors.red,
+                              backgroundColor: Colors.white,
+                              progressColor: Colors.green,
                             ),
                           ),
                           const SizedBox(
@@ -205,8 +222,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               width: 320.0,
                               lineHeight: 14.0,
                               percent: 0.2,
-                              backgroundColor: Colors.orange,
-                              progressColor: Colors.red,
+                              backgroundColor: Colors.white,
+                              progressColor: Colors.green,
                             ),
                           ),
                           const SizedBox(
@@ -227,8 +244,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               width: 320.0,
                               lineHeight: 14.0,
                               percent: 0.3,
-                              backgroundColor: Colors.orange,
-                              progressColor: Colors.red,
+                              backgroundColor: Colors.white,
+                              progressColor: Colors.green,
                             ),
                           ),
                           const SizedBox(
@@ -249,8 +266,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               width: 320.0,
                               lineHeight: 14.0,
                               percent: 0.4,
-                              backgroundColor: Colors.orange,
-                              progressColor: Colors.red,
+                              backgroundColor: Colors.white,
+                              progressColor: Colors.green,
                             ),
                           ),
                         ],
