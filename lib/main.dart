@@ -11,5 +11,5 @@ Future<void> main() async {
   // INITIALIZE FIREBASE WITH THESE COMMANDS
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const HomePage());
+  runApp(const SignUp());
 }

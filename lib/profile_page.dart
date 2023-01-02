@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'home_page.dart';
 import 'sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -19,7 +20,24 @@ String? getUsername() {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    // writeToFirebase();
+    getUsername();
+    super.initState();
+  }
+
   String? username = getUsername();
+  int lvlOfUser = 0;
+
+  // // FIREBASE REAL TIME DATABASE INSTANCES:
+  // FirebaseDatabase database = FirebaseDatabase.instance;
+  // DatabaseReference ref = FirebaseDatabase.instance.ref("users/profile-info");
+  //
+  // writeToFirebase() async {
+  //   await ref.set({"lvl": lvlOfUser, "tribe": "No tribe"});
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +76,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 40.0,),
+                          const SizedBox(
+                            height: 40.0,
+                          ),
                           Center(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -76,8 +96,19 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                                 // TODO: DISPLAY LVL OF USER HERE:
                                 const Text(
-                                  'lvl: 1',
+                                  'lvl:',
                                   style: TextStyle(
+                                      color: Colors.green,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20.0),
+                                ),
+                                const SizedBox(
+                                  width: 1,
+                                ),
+                                // TODO: DISPLAY LVL OF USER IN INTEGER HERE:
+                                Text(
+                                  lvlOfUser.toString(),
+                                  style: const TextStyle(
                                       color: Colors.green,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20.0),
@@ -111,7 +142,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: Text(
                               'GORILLAS',
                               style: TextStyle(
-                                  color: Colors.red, fontWeight: FontWeight.bold),
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           const SizedBox(
@@ -122,7 +154,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: Text(
                               'Warrior',
                               style: TextStyle(
-                                  color: Colors.orange, fontWeight: FontWeight.bold),
+                                  color: Colors.orange,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           const SizedBox(
@@ -170,24 +203,26 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           // FOR HORIZONTAL LINE.. MAYBE REMOVE IT - OR DON'T..
                           const Divider(
-                              height: 10.0,
-                              thickness: 6,
-                              color: Colors.white
-                          ),
+                              height: 10.0, thickness: 6, color: Colors.white),
                           const SizedBox(
                             height: 3,
                           ),
                           const Text(
                             'SKILLS:',
                             style: TextStyle(
-                                fontSize: 15.0, fontWeight: FontWeight.bold, color: Colors.white),
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
                           ),
                           const SizedBox(
                             height: 15.0,
                           ),
                           const Padding(
                             padding: EdgeInsets.only(right: 209.0),
-                            child: Text('MEDITATION:', style: TextStyle( color: Colors.white),),
+                            child: Text(
+                              'MEDITATION:',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                           const SizedBox(
                             height: 5.0,
@@ -209,7 +244,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           const Padding(
                             padding: EdgeInsets.only(right: 247.0),
-                            child: Text('STUDY:', style: TextStyle( color: Colors.white),),
+                            child: Text(
+                              'STUDY:',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                           const SizedBox(
                             height: 5.0,
@@ -231,7 +269,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           const Padding(
                             padding: EdgeInsets.only(right: 256.0),
-                            child: Text('READ:', style: TextStyle( color: Colors.white),),
+                            child: Text(
+                              'READ:',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                           const SizedBox(
                             height: 5.0,
@@ -253,7 +294,10 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           const Padding(
                             padding: EdgeInsets.only(right: 230.0),
-                            child: Text('EXERCISE:', style: TextStyle( color: Colors.white),),
+                            child: Text(
+                              'EXERCISE:',
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                           const SizedBox(
                             height: 5.0,
@@ -270,6 +314,15 @@ class _ProfilePageState extends State<ProfilePage> {
                               progressColor: Colors.green,
                             ),
                           ),
+                          ElevatedButton(
+                            onPressed: () {
+                              signOut();
+                            },
+                            child: const Text(
+                              'SIGN OUT',
+                              style: TextStyle(color: Colors.red, fontSize: 30.0),
+                            ),
+                          )
                         ],
                       ),
                       const Positioned(

@@ -6,6 +6,7 @@ import 'firebase_options.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'sign_in.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -42,6 +43,14 @@ class CreateUser {
       // print(e);
     }
   }
+
+  static void addProfileInfoToDatabase(int lvlOfUser) async {
+    // ADD USER DETAILS TO FIREBASE REAL TIME DATABASE:
+    // FIREBASE REAL TIME DATABASE INSTANCES:
+    FirebaseDatabase database = FirebaseDatabase.instance;
+    DatabaseReference ref = FirebaseDatabase.instance.ref("users/profile-info");
+    await ref.set({"lvl": lvlOfUser, "tribe": "No tribe"});
+  }
 }
 
 // TODO: CONTINUE IMPLEMENTATION , AND ADD TOAST MESSAGES IF PASS DOESN'T MEET REQUIREMENTS, ETC...
@@ -50,13 +59,18 @@ bool validatePassword(String password, [int minLength = 7]) {
     return false;
   }
 
-  bool hasUppercase = password.contains( RegExp(r'[A-Z]'));
-  bool hasDigits = password.contains( RegExp(r'[0-9]'));
-  bool hasLowercase = password.contains( RegExp(r'[a-z]'));
-  bool hasSpecialCharacters = password.contains( RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+  bool hasUppercase = password.contains(RegExp(r'[A-Z]'));
+  bool hasDigits = password.contains(RegExp(r'[0-9]'));
+  bool hasLowercase = password.contains(RegExp(r'[a-z]'));
+  bool hasSpecialCharacters =
+      password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
   bool hasMinLength = password.length > minLength;
 
-  return hasDigits & hasUppercase & hasLowercase & hasSpecialCharacters & hasMinLength;
+  return hasDigits &
+      hasUppercase &
+      hasLowercase &
+      hasSpecialCharacters &
+      hasMinLength;
 }
 
 Future toastMessage(String message) async {
@@ -291,24 +305,27 @@ class _SignUpState extends State<SignUp> {
                                 print(username);
                                 if (termsAndConditions != true) {
                                   // REMOVE THE FLUTTER ICON THAT'S SHOWN WHEN THE MESSAGE POPS.. maybe leave it for later.
-                                  toastMessage('You haven\'t read and agreed to the Terms & Conditions.');
+                                  toastMessage(
+                                      'You haven\'t read and agreed to the Terms & Conditions.');
                                 } else if (username.isEmpty) {
                                   toastMessage('Your username is empty');
                                 } else if (password.isEmpty) {
                                   toastMessage('Your password field is empty');
                                 } else if (emailAddress.isEmpty) {
                                   toastMessage('Your email field is empty');
-                                }
-                                else if (EmailValidator.validate(emailAddress) != true) {
+                                } else if (EmailValidator.validate(
+                                        emailAddress) !=
+                                    true) {
                                   toastMessage('Invalid e-mail');
-                                }
-                                else {
+                                } else {
                                   CreateUser.signUpUser(
                                       username, emailAddress, password);
+                                  CreateUser.addProfileInfoToDatabase(0);
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) =>  const HomePage()));
+                                          builder: (context) =>
+                                              const HomePage()));
                                 }
                                 // get the current user details with this line:
                                 // print(FirebaseAuth.instance.currentUser);

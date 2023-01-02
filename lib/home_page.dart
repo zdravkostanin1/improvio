@@ -21,6 +21,8 @@ void signOut() async {
 }
 
 class _HomePageState extends State<HomePage> {
+
+
   final routerDelegate = BeamerDelegate(
     initialPath: '/profile_page',
     locationBuilder: RoutesLocationBuilder(
