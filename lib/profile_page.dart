@@ -24,7 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     // TODO: implement initState
     // writeToFirebase();
-    getUsername();
+    // getUsername();
     super.initState();
   }
 

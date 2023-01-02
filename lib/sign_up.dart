@@ -44,12 +44,33 @@ class CreateUser {
     }
   }
 
-  static void addProfileInfoToDatabase(int lvlOfUser) async {
+  // static void signInUser(String emailAddress, String password) async {
+  //   try {
+  //     final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+  //         email: emailAddress,
+  //         password: password
+  //     );
+  //   } on FirebaseAuthException catch (e) {
+  //     if (e.code == 'user-not-found') {
+  //       print('No user found for that email.');
+  //     } else if (e.code == 'wrong-password') {
+  //       print('Wrong password provided for that user.');
+  //     }
+  //   }
+  // }
+
+  static void addProfileInfoToDatabase(int lvlOfUser, String username, String tribeStatus)  {
     // ADD USER DETAILS TO FIREBASE REAL TIME DATABASE:
     // FIREBASE REAL TIME DATABASE INSTANCES:
     FirebaseDatabase database = FirebaseDatabase.instance;
-    DatabaseReference ref = FirebaseDatabase.instance.ref("users/profile-info");
-    await ref.set({"lvl": lvlOfUser, "tribe": "No tribe"});
+    DatabaseReference databaseRef = FirebaseDatabase.instance.ref().child('Users');
+    Map<String, dynamic> userInfo = {
+      "lvl": lvlOfUser,
+      "tribe": tribeStatus,
+      "name": username
+    };
+    databaseRef.push().set(userInfo);
+    // await ref.set({"lvl": lvlOfUser, "tribe": "No tribe"});
   }
 }
 
@@ -320,7 +341,8 @@ class _SignUpState extends State<SignUp> {
                                 } else {
                                   CreateUser.signUpUser(
                                       username, emailAddress, password);
-                                  CreateUser.addProfileInfoToDatabase(0);
+                                  CreateUser.addProfileInfoToDatabase(0, username, "No tribe");
+                                  // CreateUser.signInUser(emailAddress, password);
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(

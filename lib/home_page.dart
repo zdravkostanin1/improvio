@@ -20,7 +20,21 @@ void signOut() async {
   await FirebaseAuth.instance.signOut();
 }
 
+// String? getUsername() {
+//   // return FirebaseAuth.instance.currentUser?.displayName!;
+//   User user = FirebaseAuth.instance.currentUser!;
+//   // print(user.displayName);
+//   return user.displayName;
+// }
+
 class _HomePageState extends State<HomePage> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    // getUsername();
+    super.initState();
+  }
 
 
   final routerDelegate = BeamerDelegate(
