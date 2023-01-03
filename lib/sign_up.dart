@@ -341,7 +341,7 @@ class _SignUpState extends State<SignUp> {
                                 } else {
                                   CreateUser.signUpUser(
                                       username, emailAddress, password);
-                                  CreateUser.addProfileInfoToDatabase(0, username, "No tribe");
+                                  CreateUser.addProfileInfoToDatabase(0, username, "N\/A");
                                   // CreateUser.signInUser(emailAddress, password);
                                   Navigator.push(
                                       context,
