@@ -20,21 +20,20 @@ void signOut() async {
   await FirebaseAuth.instance.signOut();
 }
 
-String? getUsername() {
-  // return FirebaseAuth.instance.currentUser?.displayName!;
-  User user = FirebaseAuth.instance.currentUser!;
-  // print(user.displayName);
-  return user.displayName;
-}
+// String? getUsername() {
+//   // return FirebaseAuth.instance.currentUser?.displayName!;
+//   User user = FirebaseAuth.instance.currentUser!;
+//   // print(user.displayName);
+//   return user.displayName;
+// }
 
 class _HomePageState extends State<HomePage> {
-
-  String? username = getUsername();
+  //String? username = getUsername();
 
   @override
   void initState() {
     // TODO: implement initState
-    print(username);
+    //print(username);
     // getUsername();
     super.initState();
   }
@@ -73,7 +72,7 @@ class PageProfile extends BeamLocation<BeamState> {
           key: ValueKey('profile_page'),
           title: 'Profile Page',
           type: BeamPageType.noTransition,
-          child: SafeArea(child: ProfilePage()),
+          child: ProfilePage(),
         ),
       ];
 }
@@ -81,20 +80,20 @@ class PageProfile extends BeamLocation<BeamState> {
 // CHALLENGES PAGE - WHICH CALLS CHALLENGES_PAGE.DART FILE
 class PageChallenges extends BeamLocation<BeamState> {
   PageChallenges(super.routeInformation);
+
   @override
   List<String> get pathPatterns => ['/*'];
 
   @override
   List<BeamPage> buildPages(BuildContext context, BeamState state) => [
-    const BeamPage(
-      key: ValueKey('challenges_page'),
-      title: 'Challenges Page',
-      type: BeamPageType.noTransition,
-      child: SafeArea(child: ChallengesPage()),
-    ),
-  ];
+        const BeamPage(
+          key: ValueKey('challenges_page'),
+          title: 'Challenges Page',
+          type: BeamPageType.noTransition,
+          child: ChallengesPage(),
+        ),
+      ];
 }
-
 
 class BottomNav extends StatefulWidget {
   const BottomNav({Key? key}) : super(key: key);
@@ -105,7 +104,6 @@ class BottomNav extends StatefulWidget {
 
 // THE NAV BAR AND IT'S VALUES
 class _BottomNavState extends State<BottomNav> {
-
   late int _currentIndex;
 
   // create two nested delegates

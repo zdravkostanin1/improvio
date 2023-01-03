@@ -67,7 +67,7 @@ class CreateUser {
     Map<String, dynamic> userInfo = {
       "lvl": lvlOfUser,
       "tribe": tribeStatus,
-      "name": username
+      "username": username
     };
     databaseRef.push().set(userInfo);
     // await ref.set({"lvl": lvlOfUser, "tribe": "No tribe"});
