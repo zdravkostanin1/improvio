@@ -13,20 +13,16 @@ class ProfilePage extends StatefulWidget {
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
+
 String? getUsername()  {
+  print(FirebaseAuth.instance.currentUser?.displayName!);
   return FirebaseAuth.instance.currentUser?.displayName!;
-  // User user = FirebaseAuth.instance.currentUser!;
-  // user.reload();
-  // return user.displayName;
 }
 
 class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     // TODO: implement initState
-    // writeToFirebase();
-    //print(username);
-    // getUsername();
     setState(() {});
     super.initState();
   }
@@ -320,6 +316,11 @@ class _ProfilePageState extends State<ProfilePage> {
                           ElevatedButton(
                             onPressed: () {
                               signOut();
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) =>
+                              //         const SignUp()));
                             },
                             child: const Text(
                               'SIGN OUT',

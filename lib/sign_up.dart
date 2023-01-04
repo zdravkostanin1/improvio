@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:improvio/home_page.dart';
+import 'package:improvio/profile_page.dart';
 import 'firebase_options.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'sign_in.dart';
