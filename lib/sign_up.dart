@@ -72,6 +72,13 @@ class CreateUser {
     databaseRef.push().set(userInfo);
     // await ref.set({"lvl": lvlOfUser, "tribe": "No tribe"});
   }
+
+  // static String? getUserName() {
+  //   return FirebaseAuth.instance.currentUser!.displayName;
+  //   // User user = FirebaseAuth.instance.currentUser!;
+  //   // user.reload();
+  //   // return user.displayName;
+  // }
 }
 
 // TODO: CONTINUE IMPLEMENTATION , AND ADD TOAST MESSAGES IF PASS DOESN'T MEET REQUIREMENTS, ETC...
@@ -342,12 +349,13 @@ class _SignUpState extends State<SignUp> {
                                   CreateUser.signUpUser(
                                       username, emailAddress, password);
                                   CreateUser.addProfileInfoToDatabase(0, username, "N\/A");
+                                  // print(username);
                                   // CreateUser.signInUser(emailAddress, password);
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const HomePage()));
+                                               const HomePage()));
                                 }
                                 // get the current user details with this line:
                                 // print(FirebaseAuth.instance.currentUser);

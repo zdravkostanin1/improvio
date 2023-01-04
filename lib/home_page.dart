@@ -20,6 +20,12 @@ void signOut() async {
   await FirebaseAuth.instance.signOut();
 }
 
+// Future reloadFirebaseUser() async {
+//   User user = FirebaseAuth.instance.currentUser!;
+//   await user.reload();
+//   print(user.displayName);
+// }
+
 // String? getUsername() {
 //   // return FirebaseAuth.instance.currentUser?.displayName!;
 //   User user = FirebaseAuth.instance.currentUser!;
@@ -28,13 +34,15 @@ void signOut() async {
 // }
 
 class _HomePageState extends State<HomePage> {
-  //String? username = getUsername();
+  // String? username = getUsername();
 
   @override
   void initState() {
     // TODO: implement initState
-    //print(username);
+    // print(username);
+    // print(username);
     // getUsername();
+    // reloadFirebaseUser();
     super.initState();
   }
 

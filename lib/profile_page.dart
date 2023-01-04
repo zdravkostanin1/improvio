@@ -13,11 +13,11 @@ class ProfilePage extends StatefulWidget {
   State<ProfilePage> createState() => _ProfilePageState();
 }
 
-String? getUsername() {
-  // return FirebaseAuth.instance.currentUser?.displayName!;
-  User user = FirebaseAuth.instance.currentUser!;
+String? getUsername()  {
+  return FirebaseAuth.instance.currentUser?.displayName!;
+  // User user = FirebaseAuth.instance.currentUser!;
   // user.reload();
-  return user.displayName;
+  // return user.displayName;
 }
 
 class _ProfilePageState extends State<ProfilePage> {
@@ -26,7 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
     // TODO: implement initState
     // writeToFirebase();
     //print(username);
-    getUsername();
+    // getUsername();
     setState(() {});
     super.initState();
   }
