@@ -45,6 +45,19 @@ class CreateUser {
     }
   }
 
+  // static bool checkUserStatus() {
+  //   bool signedIn = false;
+  //   if (FirebaseAuth.instance.currentUser != null) {
+  //     signedIn = true;
+  //     // print('signed in.');
+  //     return signedIn;
+  //   } else {
+  //     signedIn = false;
+  //     // print('not signed in');
+  //     return signedIn;
+  //   }
+  // }
+
   // static void signInUser(String emailAddress, String password) async {
   //   try {
   //     final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -356,7 +369,8 @@ class _SignUpState extends State<SignUp> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                               const HomePage()));
+                                                const HomePage()));
+                                  // CreateUser.checkUserStatus();
                                 }
                                 // get the current user details with this line:
                                 // print(FirebaseAuth.instance.currentUser);
