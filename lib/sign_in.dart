@@ -14,7 +14,7 @@ class SignIn extends StatefulWidget {
   State<SignIn> createState() => _SignInState();
 }
 
-class User {
+class UserMethods {
   static void signInUser(String emailAddress, String password) async {
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -196,14 +196,14 @@ class _SignInState extends State<SignIn> {
                               else if (EmailValidator.validate(emailAddress) != true) {
                                 toastMessage('Invalid e-mail');
                               } else {
-                                User.signInUser(emailAddress, password);
+                                UserMethods.signInUser(emailAddress, password);
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>  const HomePage()));
                               }
                               // to check if the user has signed in..
-                              User.checkUserStatus();
+                              UserMethods.checkUserStatus();
                             },
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all(

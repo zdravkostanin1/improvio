@@ -22,10 +22,10 @@ class ToGetCurrentUser {
 
   static String? getUsername() {
     // refreshUser();
-    // User? user = FirebaseAuth.instance.currentUser!;
+    User? user = FirebaseAuth.instance.currentUser!;
     // FirebaseAuth.instance.userChanges();
     // print(FirebaseAuth.instance.currentUser?.displayName!);
-    return FirebaseAuth.instance.currentUser?.displayName!;
+    return user.displayName;
   }
 }
 

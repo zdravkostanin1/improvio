@@ -23,8 +23,7 @@ class CreateUser {
   //
   // CreateUser(this.username, this.emailAddress, this.password);
 
-  static void signUpUser(
-      String username, String emailAddress, String password) async {
+  static void signUpUser( String emailAddress, String password) async {
     try {
       final credential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -32,7 +31,7 @@ class CreateUser {
         password: password,
         // username: username,
       );
-      await credential.user?.updateDisplayName(username);
+      // print(credential.user?.updateDisplayName(username));
       // print(credential.user?.displayName);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -42,6 +41,31 @@ class CreateUser {
       }
     } catch (e) {
       // print(e);
+    }
+  }
+
+  static void setUsername(String username) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    await user?.updateDisplayName(username);
+    print(user?.displayName);
+  }
+
+  static void signUserOut() async {
+      await FirebaseAuth.instance.signOut();
+  }
+
+  static void signInUser(String emailAddress, String password) async {
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailAddress,
+          password: password
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        // print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        // print('Wrong password provided for that user.');
+      }
     }
   }
 
@@ -360,9 +384,14 @@ class _SignUpState extends State<SignUp> {
                                     true) {
                                   toastMessage('Invalid e-mail');
                                 } else {
-                                  CreateUser.signUpUser(
-                                      username, emailAddress, password);
-                                  CreateUser.addProfileInfoToDatabase(0, username, "N\/A");
+                                  // tt
+                                  // CreateUser.signUserOut();
+                                  CreateUser.signUpUser(emailAddress, password);
+                                  CreateUser.setUsername(username);
+                                  // TTT
+                                  // tttttt
+                                  // CreateUser.signInUser(emailAddress, password);
+                                  // CreateUser.addProfileInfoToDatabase(0, username, "N\/A");
                                   // print(username);
                                   // CreateUser.signInUser(emailAddress, password);
                                   Navigator.push(
