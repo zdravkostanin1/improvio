@@ -23,7 +23,7 @@ class CreateUser {
   //
   // CreateUser(this.username, this.emailAddress, this.password);
 
-  static void signUpUser( String emailAddress, String password) async {
+  static void signUpUser(String username, String emailAddress, String password) async {
     try {
       final credential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -31,7 +31,11 @@ class CreateUser {
         password: password,
         // username: username,
       );
-      // print(credential.user?.updateDisplayName(username));
+      // String username = 'aaaaaaaaaaa';
+      await credential.user?.updateDisplayName(username);
+      print(credential.user?.displayName);
+      print(credential.user?.displayName);
+      print(credential.user?.displayName);
       // print(credential.user?.displayName);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -45,11 +49,12 @@ class CreateUser {
   }
 
   static void setUsername(String username) {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      user.updateDisplayName(username);
-      print(user.displayName);
-    }
+    // User? user = FirebaseAuth.instance.currentUser;
+    // user?.updateDisplayName(username);
+    // print(user?.displayName);
+    // if (user != null) {
+    //   print(user.displayName);
+    // }
   }
 
   static void signUserOut() async {
@@ -388,8 +393,8 @@ class _SignUpState extends State<SignUp> {
                                 } else {
                                   // tt
                                   // CreateUser.signUserOut();
-                                  CreateUser.signUpUser(emailAddress, password);
-                                  CreateUser.setUsername(username);
+                                  CreateUser.signUpUser(username, emailAddress, password);
+                                  // CreateUser.setUsername(username);
                                   // print(username);
                                   // TTT
                                   // tttttt
