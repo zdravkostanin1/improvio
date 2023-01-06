@@ -20,11 +20,12 @@ class ToGetCurrentUser {
   //   user = FirebaseAuth.instance.currentUser;
   // }
 
-  static String? getUsername() {
-    // refreshUser();
+  static Future<String?> getUsername() async {
     User? user = FirebaseAuth.instance.currentUser!;
+    await user.reload();
     // FirebaseAuth.instance.userChanges();
     // print(FirebaseAuth.instance.currentUser?.displayName!);
+    // print(user.displayName);
     return user.displayName;
   }
 }
@@ -41,11 +42,12 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     // TODO: implement initState
     // ToGetCurrentUser.refreshUser();
+    ToGetCurrentUser.getUsername();
     setState(() {});
     super.initState();
   }
 
-  String? username = ToGetCurrentUser.getUsername();
+  String? username = ToGetCurrentUser.getUsername().toString();
   int lvlOfUser = 0;
 
   // // FIREBASE REAL TIME DATABASE INSTANCES:

@@ -44,10 +44,12 @@ class CreateUser {
     }
   }
 
-  static void setUsername(String username) async {
+  static void setUsername(String username) {
     User? user = FirebaseAuth.instance.currentUser;
-    await user?.updateDisplayName(username);
-    print(user?.displayName);
+    if (user != null) {
+      user.updateDisplayName(username);
+      print(user.displayName);
+    }
   }
 
   static void signUserOut() async {
@@ -388,9 +390,11 @@ class _SignUpState extends State<SignUp> {
                                   // CreateUser.signUserOut();
                                   CreateUser.signUpUser(emailAddress, password);
                                   CreateUser.setUsername(username);
+                                  // print(username);
                                   // TTT
                                   // tttttt
                                   // CreateUser.signInUser(emailAddress, password);
+                                  // TODO: ADD INFO TO DB: e.g. uncomment below line
                                   // CreateUser.addProfileInfoToDatabase(0, username, "N\/A");
                                   // print(username);
                                   // CreateUser.signInUser(emailAddress, password);
