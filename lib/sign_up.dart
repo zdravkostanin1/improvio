@@ -31,10 +31,19 @@ class CreateUser {
         password: password,
         // username: username,
       );
-      User? user = FirebaseAuth.instance.currentUser;
-      await user!.updateDisplayName(username);
+      User? user = credential.user;
+      if (user != null) {
+        //add display name for just created user
+        user.updateDisplayName(username);
+        //get updated user
+        await user.reload();
+        user = await FirebaseAuth.instance.currentUser;
+        print(credential.user!.displayName);
+      }
+      // User? user = FirebaseAuth.instance.currentUser;
+      // await user!.updateDisplayName(username);
       // await credential.user!.reload();
-      print(credential.user!.displayName);
+      // print(credential.user!.displayName);
       // credential.user!.reload();
       // credential.user!.reload();
       // print(credential.user!.displayName);
@@ -58,13 +67,17 @@ class CreateUser {
     }
   }
 
-  static void setUsername(String username) {
+  static Future<String?> setUsername(String username) async {
     // User? user = FirebaseAuth.instance.currentUser;
-    // user?.updateDisplayName(username);
-    // print(user?.displayName);
     // if (user != null) {
     //   print(user.displayName);
+    //   print(user.email);
+    //   await user.updateDisplayName(username);
+    //   print(user.displayName);
+    //   print(user.email);
+    //   return user.displayName;
     // }
+    // return "";
   }
 
   static void signUserOut() async {
