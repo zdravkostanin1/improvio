@@ -31,11 +31,21 @@ class CreateUser {
         password: password,
         // username: username,
       );
+      User? user = FirebaseAuth.instance.currentUser;
+      await user!.updateDisplayName(username);
+      // await credential.user!.reload();
+      print(credential.user!.displayName);
+      // credential.user!.reload();
+      // credential.user!.reload();
+      // print(credential.user!.displayName);
+      // User? user = FirebaseAuth.instance.currentUser;
+      // print(user?.displayName);
+      // await user?.reload();
+      // print(user?.displayName);
+      // user = FirebaseAuth.instance.currentUser;
+      // await user?.updateDisplayName(username);
       // String username = 'aaaaaaaaaaa';
-      await credential.user?.updateDisplayName(username);
-      print(credential.user?.displayName);
-      print(credential.user?.displayName);
-      print(credential.user?.displayName);
+      // await credential.user?.updateDisplayName(username);
       // print(credential.user?.displayName);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -394,7 +404,7 @@ class _SignUpState extends State<SignUp> {
                                   // tt
                                   // CreateUser.signUserOut();
                                   CreateUser.signUpUser(username, emailAddress, password);
-                                  // CreateUser.setUsername(username);
+                                  CreateUser.setUsername(username);
                                   // print(username);
                                   // TTT
                                   // tttttt

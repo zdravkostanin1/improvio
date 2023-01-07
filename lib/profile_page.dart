@@ -21,6 +21,7 @@ class ToGetCurrentUser {
   // }
 
   static String getUsername()  {
+    // UserCredential user = UserCredential(FirebaseAuth.instance.currentUser);
     // User? user = FirebaseAuth.instance.currentUser!;
     // FirebaseAuth.instance.userChanges();
     // print(FirebaseAuth.instance.currentUser?.displayName!);
