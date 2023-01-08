@@ -38,36 +38,7 @@ class CreateUser {
         // username: username,
       );
       // Here I set the displayName property
-      // refreshUser();
-      // credential.user!.reload();
       await credential.user!.updateDisplayName(username);
-      // print(credential.user!.displayName);
-      // credential.user!.reload();
-      // credential.user!.reload();
-      // if (user != null) {
-      //   //add display name for just created user
-      //   user.updateDisplayName(username);
-      //   //get updated user
-      //   await user.reload();
-      //   user = await FirebaseAuth.instance.currentUser;
-      //   print(credential.user!.displayName);
-      // }
-      // User? user = FirebaseAuth.instance.currentUser;
-      // await user!.updateDisplayName(username);
-      // await credential.user!.reload();
-      // print(credential.user!.displayName);
-      // credential.user!.reload();
-      // credential.user!.reload();
-      // print(credential.user!.displayName);
-      // User? user = FirebaseAuth.instance.currentUser;
-      // print(user?.displayName);
-      // await user?.reload();
-      // print(user?.displayName);
-      // user = FirebaseAuth.instance.currentUser;
-      // await user?.updateDisplayName(username);
-      // String username = 'aaaaaaaaaaa';
-      // await credential.user?.updateDisplayName(username);
-      // print(credential.user?.displayName);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         // print('The password provided is too weak.');
