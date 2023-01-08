@@ -14,20 +14,18 @@ class ProfilePage extends StatefulWidget {
 }
 
 class ToGetCurrentUser {
-  // static void refreshUser () async {
-  //   User? user = FirebaseAuth.instance.currentUser;
-  //   await user?.reload();
-  //   user = FirebaseAuth.instance.currentUser;
-  // }
+  static void refreshUser () async {
+    print(FirebaseAuth.instance.currentUser?.displayName);
+    User? user = FirebaseAuth.instance.currentUser;
+    await user?.reload();
+    print(FirebaseAuth.instance.currentUser?.displayName);
+  }
 
-  static String getUsername() {
-    // UserCredential user = UserCredential(FirebaseAuth.instance.currentUser);
-    // User? user = FirebaseAuth.instance.currentUser!;
-    // FirebaseAuth.instance.userChanges();
-    // print(FirebaseAuth.instance.currentUser?.displayName!);
-    // print(user.displayName);
-    // print(user.displayName);
-    return FirebaseAuth.instance.currentUser?.displayName ?? 'no name retrieved';
+  static String? getUsername() {
+    // print(FirebaseAuth.instance.currentUser?.displayName);
+    refreshUser();
+    // print(FirebaseAuth.instance.currentUser?.displayName);
+    return FirebaseAuth.instance.currentUser?.displayName!;
   }
 }
 
@@ -42,7 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     // TODO: implement initState
-    // ToGetCurrentUser.refreshUser();
+    ToGetCurrentUser.refreshUser();
     ToGetCurrentUser.getUsername();
     setState(() {});
     super.initState();

@@ -23,6 +23,12 @@ class CreateUser {
   //
   // CreateUser(this.username, this.emailAddress, this.password);
 
+  static void refreshUser () async {
+    User? user = FirebaseAuth.instance.currentUser;
+    await user?.reload();
+    user = FirebaseAuth.instance.currentUser;
+  }
+
   static void signUpUser(String username, String emailAddress, String password) async {
     try {
       final credential =
@@ -31,15 +37,21 @@ class CreateUser {
         password: password,
         // username: username,
       );
-      User? user = credential.user;
-      if (user != null) {
-        //add display name for just created user
-        user.updateDisplayName(username);
-        //get updated user
-        await user.reload();
-        user = await FirebaseAuth.instance.currentUser;
-        print(credential.user!.displayName);
-      }
+      // Here I set the displayName property
+      // refreshUser();
+      // credential.user!.reload();
+      await credential.user!.updateDisplayName(username);
+      // print(credential.user!.displayName);
+      // credential.user!.reload();
+      // credential.user!.reload();
+      // if (user != null) {
+      //   //add display name for just created user
+      //   user.updateDisplayName(username);
+      //   //get updated user
+      //   await user.reload();
+      //   user = await FirebaseAuth.instance.currentUser;
+      //   print(credential.user!.displayName);
+      // }
       // User? user = FirebaseAuth.instance.currentUser;
       // await user!.updateDisplayName(username);
       // await credential.user!.reload();
@@ -417,7 +429,7 @@ class _SignUpState extends State<SignUp> {
                                   // tt
                                   // CreateUser.signUserOut();
                                   CreateUser.signUpUser(username, emailAddress, password);
-                                  CreateUser.setUsername(username);
+                                  // CreateUser.setUsername(username);
                                   // print(username);
                                   // TTT
                                   // tttttt
