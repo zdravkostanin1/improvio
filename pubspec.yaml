@@ -52,6 +52,7 @@ dependencies:
   beamer: ^1.5.3
   firebase_database: ^10.0.9
   percent_indicator: ^4.2.2
+  loading_animation_widget: ^1.2.0+4
 
 dev_dependencies:
   flutter_test:

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:improvio/sign_up.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'home_page.dart';
 import 'package:email_validator/email_validator.dart';
 
@@ -236,10 +237,21 @@ class _SignInState extends State<SignIn> {
                             ),
                             TextButton(
                               onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const SignUp()));
+                                // LoadingAnimationWidget.staggeredDotsWave(color: Colors.white, size: 200);
+                                // USING FUTURE.DELAYED - TO WAIT FOR THE SIGN - UP TO FINISH SIGNING UP AND
+                                // SETTING THE DISPLAY NAME OF THE USER.
+                                // TODO: ADD SOME SORT OF CIRCULAR ANIMATION WHILE IT LOADS THE 3 SECONDS..
+                                Future.delayed(const Duration(seconds: 3), () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                          const HomePage()));
+                                });
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) => const SignUp()));
                               },
                               child: const Text(
                                 'Sign-Up',

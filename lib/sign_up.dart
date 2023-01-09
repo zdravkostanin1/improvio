@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:improvio/home_page.dart';
 import 'package:improvio/profile_page.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'firebase_options.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'sign_in.dart';
@@ -22,13 +23,6 @@ class CreateUser {
   // late String password;
   //
   // CreateUser(this.username, this.emailAddress, this.password);
-
-  // static void refreshUser () async {
-  //   User? user = FirebaseAuth.instance.currentUser;
-  //   await user?.reload();
-  //   user = FirebaseAuth.instance.currentUser;
-  // }
-
   static void signUpUser(String username, String emailAddress, String password) async {
     try {
       final credential =
@@ -37,13 +31,17 @@ class CreateUser {
         password: password,
         // username: username,
       );
-      User? user1 = FirebaseAuth.instance.currentUser;
-      // Here I set the displayName property
-      // print(credential.user!.displayName);
-      user1!.updateDisplayName(username);
-      print(user1.displayName);
-      // await user1.reload();
-      // print(credential.user!.displayName);
+      User? user = credential.user;
+      if (user != null) {
+        //add display name for just created user
+        await user.updateDisplayName(username);
+        //get updated user
+        await user.reload();
+        user = FirebaseAuth.instance.currentUser;
+        //print final version to console
+        print("Registered user:");
+        print(user);
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         // print('The password provided is too weak.');
@@ -54,39 +52,6 @@ class CreateUser {
       // print(e);
     }
   }
-
-  static Future<String?> setUsername(String username) async {
-    // User? user = FirebaseAuth.instance.currentUser;
-    // if (user != null) {
-    //   print(user.displayName);
-    //   print(user.email);
-    //   await user.updateDisplayName(username);
-    //   print(user.displayName);
-    //   print(user.email);
-    //   return user.displayName;
-    // }
-    // return "";
-  }
-
-  static void signUserOut() async {
-      await FirebaseAuth.instance.signOut();
-  }
-
-  static void signInUser(String emailAddress, String password) async {
-    try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailAddress,
-          password: password
-      );
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        // print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        // print('Wrong password provided for that user.');
-      }
-    }
-  }
-
   // static bool checkUserStatus() {
   //   bool signedIn = false;
   //   if (FirebaseAuth.instance.currentUser != null) {
@@ -97,21 +62,6 @@ class CreateUser {
   //     signedIn = false;
   //     // print('not signed in');
   //     return signedIn;
-  //   }
-  // }
-
-  // static void signInUser(String emailAddress, String password) async {
-  //   try {
-  //     final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-  //         email: emailAddress,
-  //         password: password
-  //     );
-  //   } on FirebaseAuthException catch (e) {
-  //     if (e.code == 'user-not-found') {
-  //       print('No user found for that email.');
-  //     } else if (e.code == 'wrong-password') {
-  //       print('Wrong password provided for that user.');
-  //     }
   //   }
   // }
 
@@ -128,13 +78,6 @@ class CreateUser {
     databaseRef.push().set(userInfo);
     // await ref.set({"lvl": lvlOfUser, "tribe": "No tribe"});
   }
-
-  // static String? getUserName() {
-  //   return FirebaseAuth.instance.currentUser!.displayName;
-  //   // User user = FirebaseAuth.instance.currentUser!;
-  //   // user.reload();
-  //   // return user.displayName;
-  // }
 }
 
 // TODO: CONTINUE IMPLEMENTATION , AND ADD TOAST MESSAGES IF PASS DOESN'T MEET REQUIREMENTS, ETC...
@@ -388,7 +331,7 @@ class _SignUpState extends State<SignUp> {
                                 print(password);
                                 print(username);
                                 if (termsAndConditions != true) {
-                                  // REMOVE THE FLUTTER ICON THAT'S SHOWN WHEN THE MESSAGE POPS.. maybe leave it for later.
+                                  // TODO: REMOVE THE FLUTTER ICON THAT'S SHOWN WHEN THE MESSAGE POPS.. maybe leave it for later.
                                   toastMessage(
                                       'You haven\'t read and agreed to the Terms & Conditions.');
                                 } else if (username.isEmpty) {
@@ -402,24 +345,19 @@ class _SignUpState extends State<SignUp> {
                                     true) {
                                   toastMessage('Invalid e-mail');
                                 } else {
-                                  // tt
-                                  // CreateUser.signUserOut();
                                   CreateUser.signUpUser(username, emailAddress, password);
-                                  // CreateUser.setUsername(username);
-                                  // print(username);
-                                  // TTT
-                                  // tttttt
-                                  // CreateUser.signInUser(emailAddress, password);
-                                  // TODO: ADD INFO TO DB: e.g. uncomment below line
-                                  // CreateUser.addProfileInfoToDatabase(0, username, "N\/A");
-                                  // print(username);
-                                  // CreateUser.signInUser(emailAddress, password);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                                const HomePage()));
-                                  // CreateUser.checkUserStatus();
+                                  CreateUser.addProfileInfoToDatabase(0, username, "N\/A");
+                                  // USING FUTURE.DELAYED - TO WAIT FOR THE SIGN - UP TO FINISH SIGNING UP AND
+                                  // SETTING THE DISPLAY NAME OF THE USER.
+                                  // TODO: ADD SOME SORT OF CIRCULAR ANIMATION WHILE IT LOADS THE 3 SECONDS..
+                                  Center(child: LoadingAnimationWidget.inkDrop(color: Colors.red, size: 900));
+                                  Future.delayed(const Duration(seconds: 3), () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                            const HomePage()));
+                                  });
                                 }
                                 // get the current user details with this line:
                                 // print(FirebaseAuth.instance.currentUser);
