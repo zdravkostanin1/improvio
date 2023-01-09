@@ -15,18 +15,15 @@ class ProfilePage extends StatefulWidget {
 
 class ToGetCurrentUser {
   static void refreshUser () async {
-    // print(FirebaseAuth.instance.currentUser?.displayName);
-    User? user = FirebaseAuth.instance.currentUser;
-    await user?.reload();
-    // print(FirebaseAuth.instance.currentUser?.displayName);
+    // // print(FirebaseAuth.instance.currentUser?.displayName);
+    // User? user = FirebaseAuth.instance.currentUser;
+    // await user?.reload();
+    // // print(FirebaseAuth.instance.currentUser?.displayName);
   }
 
   static String? getUsername() {
-    if (FirebaseAuth.instance.currentUser?.displayName != null) {
-      return FirebaseAuth.instance.currentUser?.displayName;
-    } else {
-      return "No name retrieved";
-    }
+    // UserCredential credential = UserCredential();
+    return FirebaseAuth.instance.currentUser?.displayName!;
   }
 }
 

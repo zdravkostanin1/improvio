@@ -23,11 +23,11 @@ class CreateUser {
   //
   // CreateUser(this.username, this.emailAddress, this.password);
 
-  static void refreshUser () async {
-    User? user = FirebaseAuth.instance.currentUser;
-    await user?.reload();
-    user = FirebaseAuth.instance.currentUser;
-  }
+  // static void refreshUser () async {
+  //   User? user = FirebaseAuth.instance.currentUser;
+  //   await user?.reload();
+  //   user = FirebaseAuth.instance.currentUser;
+  // }
 
   static void signUpUser(String username, String emailAddress, String password) async {
     try {
@@ -37,8 +37,13 @@ class CreateUser {
         password: password,
         // username: username,
       );
+      User? user1 = FirebaseAuth.instance.currentUser;
       // Here I set the displayName property
-      await credential.user!.updateDisplayName(username);
+      // print(credential.user!.displayName);
+      user1!.updateDisplayName(username);
+      print(user1.displayName);
+      // await user1.reload();
+      // print(credential.user!.displayName);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         // print('The password provided is too weak.');
