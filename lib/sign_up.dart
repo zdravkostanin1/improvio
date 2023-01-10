@@ -4,11 +4,38 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:improvio/home_page.dart';
 import 'package:improvio/profile_page.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:progress_state_button/progress_button.dart';
 import 'firebase_options.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'sign_in.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_database/firebase_database.dart';
+
+Widget loadingButton (bool isDone) {
+  return Container(
+    decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.yellow),
+    child: const CircularProgressIndicator(color: Colors.white,),
+  );
+}
+//
+// class LoadingButton extends StatefulWidget {
+//   const LoadingButton({Key? key}) : super(key: key);
+//
+//   @override
+//   State<LoadingButton> createState() => _LoadingButtonState();
+// }
+//
+// class _LoadingButtonState extends State<LoadingButton> {
+//   // ButtonState stateTextWithIcon = ButtonState.idle;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.red),
+//       child: CircularProgressIndicator(color: Colors.white,),
+//     );
+//   }
+// }
+
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -110,6 +137,8 @@ Future toastMessage(String message) async {
   );
 }
 
+enum ButtonState { init, loading}
+
 class _SignUpState extends State<SignUp> {
   // maybe add late modifier to the variables in future.. think about which decisicon is best:
   // keep them like this or add modifier..
@@ -120,9 +149,13 @@ class _SignUpState extends State<SignUp> {
   bool obscureText = true;
   int forPasswordVisibilityToggle = 0;
   final passwordTextController = TextEditingController();
+  // bool showCircularAnimation = false;
+  ButtonState state = ButtonState.init;
+  // bool isDone = true;
 
   @override
   Widget build(BuildContext context) {
+    bool signUpButtonStretched = state == ButtonState.init;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       // theme: ThemeData(
@@ -324,7 +357,7 @@ class _SignUpState extends State<SignUp> {
                         SizedBox(
                           height: 50,
                           width: 340,
-                          child: TextButton(
+                          child: signUpButtonStretched ? TextButton(
                             onPressed: () {
                               setState(() {
                                 print(emailAddress);
@@ -350,8 +383,9 @@ class _SignUpState extends State<SignUp> {
                                   // USING FUTURE.DELAYED - TO WAIT FOR THE SIGN - UP TO FINISH SIGNING UP AND
                                   // SETTING THE DISPLAY NAME OF THE USER.
                                   // TODO: ADD SOME SORT OF CIRCULAR ANIMATION WHILE IT LOADS THE 3 SECONDS..
-                                  Center(child: LoadingAnimationWidget.inkDrop(color: Colors.red, size: 900));
-                                  Future.delayed(const Duration(seconds: 3), () {
+                                  setState(() => state = ButtonState.loading);
+                                  // Center(child: LoadingAnimationWidget.inkDrop(color: Colors.red, size: 900));
+                                  Future.delayed(const Duration(seconds: 2), () {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -376,7 +410,7 @@ class _SignUpState extends State<SignUp> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                          ),
+                          ) : loadingButton(true),
                         ),
                         const SizedBox(
                           height: 2.0,
