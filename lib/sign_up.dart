@@ -4,7 +4,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:improvio/home_page.dart';
 import 'package:improvio/profile_page.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:progress_state_button/progress_button.dart';
 import 'firebase_options.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'sign_in.dart';

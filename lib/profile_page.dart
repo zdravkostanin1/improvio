@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'home_page.dart';
 import 'sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -14,9 +14,30 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
+  getTribe() {
+
+    FirebaseAuth mAuth= FirebaseAuth.instance;
+    DatabaseReference ref = FirebaseDatabase.instance.ref("users/{userId}");
+    // print(ref);
+    // String? mDatabase = FirebaseAuth.instance.currentUser?.uid;
+    // print(mDatabase);
+    // print(FirebaseDatabase.instance.ref().child(mAuth.currentUser!.uid));
+    // FirebaseDatabase database = FirebaseDatabase.instance;
+    // DatabaseReference ref = FirebaseDatabase.instance.ref();
+    DatabaseReference starCountRef =
+    FirebaseDatabase.instance.ref('Users/$ref/username');
+    starCountRef.onValue.listen((DatabaseEvent event) {
+      final data = event.snapshot.value;
+      print(data);
+      // updateStarCount(data);
+    });
+  }
+
   @override
   void initState() {
     // TODO: implement initState
+    getTribe();
     setState(() {});
     super.initState();
   }
