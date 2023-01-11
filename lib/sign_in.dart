@@ -7,7 +7,6 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'home_page.dart';
 import 'package:email_validator/email_validator.dart';
 
-
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
 
@@ -42,7 +41,6 @@ class UserMethods {
     }
   }
 }
-
 class _SignInState extends State<SignIn> {
 
   // bool termsAndConditions = false;
@@ -52,6 +50,7 @@ class _SignInState extends State<SignIn> {
   bool obscureText = true;
   int forPasswordVisibilityToggle = 0;
   final passwordTextController = TextEditingController();
+  ButtonState state = ButtonState.init;
 
 
   @override
@@ -197,6 +196,7 @@ class _SignInState extends State<SignIn> {
                               else if (EmailValidator.validate(emailAddress) != true) {
                                 toastMessage('Invalid e-mail');
                               } else {
+                                // MAYBE ADD CIRCULAR ANIMATION .. BUT YOU DO NOT NEED IT.
                                 UserMethods.signInUser(emailAddress, password);
                                 Navigator.push(
                                     context,
@@ -204,7 +204,7 @@ class _SignInState extends State<SignIn> {
                                         builder: (context) =>  const HomePage()));
                               }
                               // to check if the user has signed in..
-                              UserMethods.checkUserStatus();
+                              // UserMethods.checkUserStatus();
                             },
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all(

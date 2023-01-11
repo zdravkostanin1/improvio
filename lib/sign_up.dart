@@ -11,31 +11,13 @@ import 'sign_in.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_database/firebase_database.dart';
 
+// SMALL LOADING BUTTON - WHEN USER CLICKS SIGN UP
 Widget loadingButton (bool isDone) {
   return Container(
     decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.yellow),
-    child: const CircularProgressIndicator(color: Colors.white,),
+    child: const Center(child: CircularProgressIndicator(color: Colors.black,)),
   );
 }
-//
-// class LoadingButton extends StatefulWidget {
-//   const LoadingButton({Key? key}) : super(key: key);
-//
-//   @override
-//   State<LoadingButton> createState() => _LoadingButtonState();
-// }
-//
-// class _LoadingButtonState extends State<LoadingButton> {
-//   // ButtonState stateTextWithIcon = ButtonState.idle;
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.red),
-//       child: CircularProgressIndicator(color: Colors.white,),
-//     );
-//   }
-// }
-
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -56,7 +38,6 @@ class CreateUser {
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailAddress,
         password: password,
-        // username: username,
       );
       User? user = credential.user;
       if (user != null) {
@@ -137,6 +118,7 @@ Future toastMessage(String message) async {
   );
 }
 
+// STATES OF LOADING OUR SMALL BUTTON - WHICH REPRESENTS LOADING INDICATOR WHEN USER CLICKS SIGN UP
 enum ButtonState { init, loading}
 
 class _SignUpState extends State<SignUp> {
@@ -188,7 +170,6 @@ class _SignUpState extends State<SignUp> {
                         const SizedBox(
                           height: 310.0,
                         ),
-                        // TODO: Figure out a way to store username when registering..
                         SizedBox(
                           height: 55.0,
                           width: 340,
@@ -226,15 +207,12 @@ class _SignUpState extends State<SignUp> {
                               // maxlines property: (if you need, add it)
                               filled: true,
                               fillColor: const Color(0xffE8E8E8),
-                              // fillColor: const Color(0xff89CFF0),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: BorderSide.none,
                               ),
                               hintText: 'e-mail',
-                              // icon: Icon(Icons.email),
                               prefixIcon: const Icon(Icons.email),
-                              // suffixIcon: Icon(Icons.park),
                             ),
                             onChanged: (String email) {
                               // TODO: make a specific class for checking emails requirements, or a function perhaps.
@@ -276,15 +254,12 @@ class _SignUpState extends State<SignUp> {
                                 },
                               ),
                               fillColor: const Color(0xffE8E8E8),
-                              // fillColor: const Color(0xff89CFF0),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: BorderSide.none,
                               ),
                               hintText: 'password',
-                              // icon: Icon(Icons.email),
                               prefixIcon: const Icon(Icons.password),
-                              // suffixIcon: Icon(Icons.park),
                             ),
                             // TODO: implement toggle of obscure text
                             // TODO: this may help: https://stackoverflow.com/questions/52111853/how-to-add-a-password-input-type-in-flutter-makes-the-password-user-input-is-not
@@ -306,11 +281,6 @@ class _SignUpState extends State<SignUp> {
                                 } else {
                                   print('Password is too weak.');
                                 }
-
-                                // if (passwordSetted.length >= 8) {
-                                //   password = passwordSetted;
-                                //   print(password);
-                                // }
                               });
                             },
                           ),
@@ -324,7 +294,6 @@ class _SignUpState extends State<SignUp> {
                           // theme widget to set checkbox border color.
                           child: Theme(
                             data: ThemeData(
-                              // primarySwatch: Colors.blue,
                               unselectedWidgetColor: Colors.white, // Your color
                             ),
                             //TODO: Implement half of text to be clickable with this link:
@@ -339,7 +308,6 @@ class _SignUpState extends State<SignUp> {
                                   color: Color(0xffE8E8E8),
                                 ),
                               ),
-                              //    <-- label
                               value: termsAndConditions,
                               enabled: true,
                               checkColor: const Color(0xffE8E8E8),
@@ -380,12 +348,11 @@ class _SignUpState extends State<SignUp> {
                                 } else {
                                   CreateUser.signUpUser(username, emailAddress, password);
                                   CreateUser.addProfileInfoToDatabase(0, username, "N\/A");
+                                  // SET THE STATE TO LOADING - TO LOAD ANIMATION OF PRESSING SING-UP BUTTON - CIRCULAR MOTION
+                                  setState(() => state = ButtonState.loading);
                                   // USING FUTURE.DELAYED - TO WAIT FOR THE SIGN - UP TO FINISH SIGNING UP AND
                                   // SETTING THE DISPLAY NAME OF THE USER.
-                                  // TODO: ADD SOME SORT OF CIRCULAR ANIMATION WHILE IT LOADS THE 3 SECONDS..
-                                  setState(() => state = ButtonState.loading);
-                                  // Center(child: LoadingAnimationWidget.inkDrop(color: Colors.red, size: 900));
-                                  Future.delayed(const Duration(seconds: 2), () {
+                                  Future.delayed(const Duration(seconds: 3), () {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
