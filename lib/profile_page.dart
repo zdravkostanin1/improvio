@@ -16,45 +16,6 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
 
   getTribe() async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref();
-    DatabaseReference starCountRef =
-    FirebaseDatabase.instance.ref('Users/${ref.key}/tribe');
-    starCountRef.onValue.listen((DatabaseEvent event) {
-      final data = event.snapshot.value;
-      print(data);
-      // updateStarCount(data);
-    });
-    // DatabaseReference ref = FirebaseDatabase.instance.ref();
-    // ref.onValue.listen((event) {
-    //   DatabaseReference starCountRef =
-    //   FirebaseDatabase.instance.ref('Users/${ref.key}/username');
-    //   starCountRef.onValue.listen((DatabaseEvent event) {
-    //     final data = event.snapshot.value;
-    //     // print(FirebaseDatabase.instance.ref('Users/${ref.key}/username').toString());
-    //     // updateStarCount(data);
-    //   });
-    // });
-    // final event = await ref.once(DatabaseEventType.value);
-    // final username = event.snapshot.value?.username ?? 'Anonymous';
-    // Query dbRef = FirebaseDatabase.instance.ref().child('Users');
-    // Map user = snapshot.value as Map;
-    // // student['key']
-
-    // FirebaseAuth mAuth= FirebaseAuth.instance;
-    // DatabaseReference ref = FirebaseDatabase.instance.ref("users/{userId}");
-    // // print(ref);
-    // // String? mDatabase = FirebaseAuth.instance.currentUser?.uid;
-    // // print(mDatabase);
-    // // print(FirebaseDatabase.instance.ref().child(mAuth.currentUser!.uid));
-    // // FirebaseDatabase database = FirebaseDatabase.instance;
-    // // DatabaseReference ref = FirebaseDatabase.instance.ref();
-    // DatabaseReference starCountRef =
-    // FirebaseDatabase.instance.ref('Users/$ref/username');
-    // starCountRef.onValue.listen((DatabaseEvent event) {
-    //   final data = event.snapshot.value;
-    //   print(data);
-    //   // updateStarCount(data);
-    // });
   }
 
   @override
