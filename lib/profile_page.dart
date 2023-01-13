@@ -15,7 +15,25 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
 
+  getKey() {
+    // late DataSnapshot snap;
+    // String? eventKey = snap.key;
+    // print(eventKey);
+  }
+
   getTribe() async {
+    // DatabaseReference ref = FirebaseDatabase.instance.ref();
+    // String? key = ref.child('Users').push().key;
+    // print(key);
+    DatabaseReference starCountRef =
+    FirebaseDatabase.instance.ref('Users/${FirebaseDatabase.instance.ref().key}/username');
+    // getKey();
+    // getKey(starCountRef.once());
+    starCountRef.onValue.listen((DatabaseEvent event) {
+      final data = event.snapshot.value;
+      // print(data);
+      // updateStarCount(data);
+    });
   }
 
   @override

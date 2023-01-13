@@ -83,6 +83,7 @@ class CreateUser {
       "username": username
     };
     databaseRef.push().set(userInfo);
+    // print(databaseRef.ref.key);
     // await ref.set({"lvl": lvlOfUser, "tribe": "No tribe"});
   }
 }
