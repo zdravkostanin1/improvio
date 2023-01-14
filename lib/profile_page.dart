@@ -15,23 +15,24 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
 
-  getKey() {
-    // late DataSnapshot snap;
-    // String? eventKey = snap.key;
-    // print(eventKey);
-  }
-
   getTribe() async {
-    // DatabaseReference ref = FirebaseDatabase.instance.ref();
-    // String? key = ref.child('Users').push().key;
-    // print(key);
+    String? childKey = "";
+    final dbRef = FirebaseDatabase.instance
+        .ref()
+        .child("Users");
+    dbRef.onValue.listen((event) => {
+      event.snapshot.children.forEach((child) {
+        childKey = child.key;
+        // print(child.key);
+      })
+    });
+    print(childKey);
+    // get the specific user details with these lines:
     DatabaseReference starCountRef =
-    FirebaseDatabase.instance.ref('Users/${FirebaseDatabase.instance.ref().key}/username');
-    // getKey();
-    // getKey(starCountRef.once());
+    FirebaseDatabase.instance.ref('Users/$childKey/username');
     starCountRef.onValue.listen((DatabaseEvent event) {
       final data = event.snapshot.value;
-      // print(data);
+      print(data);
       // updateStarCount(data);
     });
   }
