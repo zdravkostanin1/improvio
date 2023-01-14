@@ -15,32 +15,37 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
 
-  getTribe() async {
+  getTribeStatus() async {
+    var childKeys = [];
     String? childKey = "";
+    // We limit the node from the Root Users to the last 1 , to get the current NODE - with the current user's tribe status
     final dbRef = FirebaseDatabase.instance
         .ref()
-        .child("Users");
+        .child("Users").orderByKey().limitToLast(1);
     dbRef.onValue.listen((event) => {
       event.snapshot.children.forEach((child) {
-        childKey = child.key;
+        setState(() {
+          // childKeys.add(child.key);
+          childKey = child.key;
+        });
         // print(child.key);
       })
     });
     print(childKey);
+    // print(childKeys);
     // get the specific user details with these lines:
-    DatabaseReference starCountRef =
-    FirebaseDatabase.instance.ref('Users/$childKey/username');
-    starCountRef.onValue.listen((DatabaseEvent event) {
-      final data = event.snapshot.value;
-      print(data);
-      // updateStarCount(data);
-    });
+    // DatabaseReference starCountRef =
+    // FirebaseDatabase.instance.ref('Users/${childKeys.last}/username');
+    // starCountRef.onValue.listen((DatabaseEvent event) {
+    //   final data = event.snapshot.value;
+    //   print(data);
+    // });
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    getTribe();
+    getTribeStatus();
     setState(() {});
     super.initState();
   }
