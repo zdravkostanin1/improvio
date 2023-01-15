@@ -14,23 +14,25 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
   getTribeStatus() async {
     var childKeys = [];
     String? childKey = "";
-    // We limit the node from the Root Users to the last 1 , to get the current NODE - with the current user's tribe status
+    // We limit the node from the Root Users to the last 1 , to get the current NODE - with the CURRENT user's tribe status
     final dbRef = FirebaseDatabase.instance
         .ref()
-        .child("Users").orderByKey().limitToLast(1);
+        .child("Users")
+        .orderByKey()
+        .limitToLast(1);
     dbRef.onValue.listen((event) => {
-      event.snapshot.children.forEach((child) {
-        setState(() {
-          // childKeys.add(child.key);
-          childKey = child.key;
+          event.snapshot.children.forEach((child) {
+            // childKeys.add(child.key);
+            childKey = child.key;
+            // print(child.key);
+          })
         });
-        // print(child.key);
-      })
-    });
+    // lastMessage = await dbRef.ref.child("Users").orderByKey().limitToLast(1).once().then((snapshot) {
+    //   return (snapshot.snapshot).toList()[0]['message'];
+    // });
     print(childKey);
     // print(childKeys);
     // get the specific user details with these lines:
@@ -353,7 +355,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             },
                             child: const Text(
                               'SIGN OUT',
-                              style: TextStyle(color: Colors.red, fontSize: 30.0),
+                              style:
+                                  TextStyle(color: Colors.red, fontSize: 30.0),
                             ),
                           )
                         ],
