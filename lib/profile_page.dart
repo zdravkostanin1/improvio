@@ -14,9 +14,9 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  getTribeStatus() async {
-    var childKeys = [];
-    String? childKey = "";
+  String? currentNode = "";
+  String? tribeStatus = "";
+  getNodeOfUser() async {
     // We limit the node from the Root Users to the last 1 , to get the current NODE - with the CURRENT user's tribe status
     final dbRef = FirebaseDatabase.instance
         .ref()
@@ -24,30 +24,29 @@ class _ProfilePageState extends State<ProfilePage> {
         .orderByKey()
         .limitToLast(1);
     dbRef.onValue.listen((event) => {
-          event.snapshot.children.forEach((child) {
-            // childKeys.add(child.key);
-            childKey = child.key;
-            // print(child.key);
-          })
-        });
-    // lastMessage = await dbRef.ref.child("Users").orderByKey().limitToLast(1).once().then((snapshot) {
-    //   return (snapshot.snapshot).toList()[0]['message'];
-    // });
-    print(childKey);
-    // print(childKeys);
-    // get the specific user details with these lines:
-    // DatabaseReference starCountRef =
-    // FirebaseDatabase.instance.ref('Users/${childKeys.last}/username');
-    // starCountRef.onValue.listen((DatabaseEvent event) {
-    //   final data = event.snapshot.value;
-    //   print(data);
-    // });
+      for(var snap in event.snapshot.children) {
+        getTribeStatus(snap.key)
+      }});
   }
+
+  String? getTribeStatus(String? node) {
+    currentNode = node;
+    // get the specific user details with these lines:
+    DatabaseReference ref2 =
+    FirebaseDatabase.instance.ref('Users/$currentNode/tribe');
+    ref2.onValue.listen((DatabaseEvent event) {
+      tribeStatus = event.snapshot.value as String?;
+      // return tribeStatus;
+    });
+    return node;
+  }
+
+  //TODO: CREATE A METHOD FOR JUST GETTING USER'S CURRENT NODE
 
   @override
   void initState() {
     // TODO: implement initState
-    getTribeStatus();
+    getNodeOfUser();
     setState(() {});
     super.initState();
   }
@@ -167,11 +166,11 @@ class _ProfilePageState extends State<ProfilePage> {
                           const SizedBox(
                             height: 8,
                           ),
-                          const Center(
+                          Center(
                             // TODO: Get Tribe of user on this Text Widget
                             child: Text(
-                              'GORILLAS',
-                              style: TextStyle(
+                              tribeStatus!,
+                              style: const TextStyle(
                                   color: Colors.red,
                                   fontWeight: FontWeight.bold),
                             ),
