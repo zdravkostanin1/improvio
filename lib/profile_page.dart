@@ -15,7 +15,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   String? currentNode = "";
-  String? tribeStatus = "";
+
   getNodeOfUser() async {
     // We limit the node from the Root Users to the last 1 , to get the current NODE - with the CURRENT user's tribe status
     final dbRef = FirebaseDatabase.instance
@@ -25,23 +25,27 @@ class _ProfilePageState extends State<ProfilePage> {
         .limitToLast(1);
     dbRef.onValue.listen((event) => {
       for(var snap in event.snapshot.children) {
-        getTribeStatus(snap.key)
+        // We call this method to save the current key of the current USER node
+        getTribeName(snap.key)
       }});
   }
 
-  String? getTribeStatus(String? node) {
+  String? getTribeName(String? node) {
     currentNode = node;
     // get the specific user details with these lines:
-    DatabaseReference ref2 =
+    DatabaseReference dbRef =
     FirebaseDatabase.instance.ref('Users/$currentNode/tribe');
-    ref2.onValue.listen((DatabaseEvent event) {
-      tribeStatus = event.snapshot.value as String?;
-      // return tribeStatus;
+    dbRef.onValue.listen((DatabaseEvent event) {
+      // We call this method - to save the current user's tribe
+      saveCurrentUserTribe(event.snapshot.value as String);
+      // set state to update UI
+      setState(() {});
     });
     return node;
   }
 
-  //TODO: CREATE A METHOD FOR JUST GETTING USER'S CURRENT NODE
+  String tribeName = "";
+  saveCurrentUserTribe(String? tribe) => tribeName = tribe!;
 
   @override
   void initState() {
@@ -53,21 +57,12 @@ class _ProfilePageState extends State<ProfilePage> {
 
   static String? getUsername() {
     User? user = FirebaseAuth.instance.currentUser;
-    print(user?.displayName);
     return user?.displayName!;
   }
 
   String? username = getUsername();
   int lvlOfUser = 0;
-
-  // // FIREBASE REAL TIME DATABASE INSTANCES:
-  // FirebaseDatabase database = FirebaseDatabase.instance;
-  // DatabaseReference ref = FirebaseDatabase.instance.ref("users/profile-info");
-  //
-  // writeToFirebase() async {
-  //   await ref.set({"lvl": lvlOfUser, "tribe": "No tribe"});
-  // }
-
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -169,7 +164,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           Center(
                             // TODO: Get Tribe of user on this Text Widget
                             child: Text(
-                              tribeStatus!,
+                              tribeName,
                               style: const TextStyle(
                                   color: Colors.red,
                                   fontWeight: FontWeight.bold),
