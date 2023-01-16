@@ -15,6 +15,8 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   String? currentNode = "";
+  String tribeName = "";
+  int userLvl = 0;
 
   getNodeOfUser() async {
     // We limit the node from the Root Users to the last 1 , to get the current NODE - with the CURRENT user's tribe status
@@ -38,7 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
     FirebaseDatabase.instance.ref('Users/$currentNode/$data');
     dbRef.onValue.listen((DatabaseEvent event) {
       if (data == 'username') {
-        // TODO: Implement username later - for later use .. IF NEEDED
+        // TODO: Implement saving the username - for later use .. IF NEEDED
       } else if (data == 'tribe') {
         // read data and call method to save it
         saveCurrentUserTribe(event.snapshot.value as String);
@@ -51,8 +53,6 @@ class _ProfilePageState extends State<ProfilePage> {
     return node;
   }
 
-  String tribeName = "";
-  int userLvl = 0;
   // TO SAVE THE RETRIEVED DATA FOR FIREBASE, WE USE THESE METHODS:
   saveCurrentUserTribe(String? tribe) => tribeName = tribe!;
   // TODO:  MAYBE ADD SOME DELAY TO BELOW STATEMENT FOR LEVEL: to fix bug of zero showing first
