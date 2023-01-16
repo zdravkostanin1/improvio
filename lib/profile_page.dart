@@ -25,26 +25,12 @@ class _ProfilePageState extends State<ProfilePage> {
         .limitToLast(1);
     dbRef.onValue.listen((event) => {
       for(var snap in event.snapshot.children) {
-        // We call this method to save the current key of the current USER node
-        getTribeName(snap.key)
+        // We call these methods to save the current key of the current USER node, and SELECT WHICH DATA WE WANT TO RETRIEVE
+        getUserData(snap.key, 'tribe'),
+        getUserData(snap.key, 'lvl'),
       }});
   }
 
-  String? getTribeName(String? node) {
-    currentNode = node;
-    // get the specific user details with these lines:
-    DatabaseReference dbRef =
-    FirebaseDatabase.instance.ref('Users/$currentNode/tribe');
-    dbRef.onValue.listen((DatabaseEvent event) {
-      // We call this method - to save the current user's tribe
-      saveCurrentUserTribe(event.snapshot.value as String);
-      // set state to update UI
-      setState(() {});
-    });
-    return node;
-  }
-  
-  // TODO: Make a general function to retrieve all kinds of data from DB
   String? getUserData(String? node, String data) {
     currentNode = node;
     // get the specific user details with these lines:
@@ -54,9 +40,11 @@ class _ProfilePageState extends State<ProfilePage> {
       if (data == 'username') {
         // TODO: Implement username later - for later use .. IF NEEDED
       } else if (data == 'tribe') {
+        // read data and call method to save it
         saveCurrentUserTribe(event.snapshot.value as String);
       } else if (data == 'lvl') {
-        saveCurrentUserLevel(event.snapshot.value as String);
+        // read data and call method to save it
+        saveCurrentUserLevel(event.snapshot.value as int);
       }
       setState(() {});
     });
@@ -64,8 +52,11 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   String tribeName = "";
+  int userLvl = 0;
+  // TO SAVE THE RETRIEVED DATA FOR FIREBASE, WE USE THESE METHODS:
   saveCurrentUserTribe(String? tribe) => tribeName = tribe!;
-  saveCurrentUserLevel(String? lvl) => lvlOfUser = lvl! as int;
+  // TODO:  MAYBE ADD SOME DELAY TO BELOW STATEMENT FOR LEVEL: to fix bug of zero showing first
+  saveCurrentUserLevel(int lvl) => userLvl = lvl;
 
 
   @override
@@ -82,7 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   String? username = getUsername();
-  int lvlOfUser = 0;
+  // late int lvlOfUser;
 
   @override
   Widget build(BuildContext context) {
@@ -140,9 +131,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                   width: 5.5,
                                 ),
                                 // TODO: DISPLAY LVL OF USER HERE:
-                                Text(
-                                  lvlOfUser.toString(),
-                                  style: const TextStyle(
+                                const Text(
+                                  'lvl:',
+                                  style: TextStyle(
                                       color: Colors.green,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20.0),
@@ -152,7 +143,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                                 // TODO: DISPLAY LVL OF USER IN INTEGER HERE:
                                 Text(
-                                  lvlOfUser.toString(),
+                                  userLvl.toString(),
                                   style: const TextStyle(
                                       color: Colors.green,
                                       fontWeight: FontWeight.bold,
