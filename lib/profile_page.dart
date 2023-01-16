@@ -43,9 +43,30 @@ class _ProfilePageState extends State<ProfilePage> {
     });
     return node;
   }
+  
+  // TODO: Make a general function to retrieve all kinds of data from DB
+  String? getUserData(String? node, String data) {
+    currentNode = node;
+    // get the specific user details with these lines:
+    DatabaseReference dbRef =
+    FirebaseDatabase.instance.ref('Users/$currentNode/$data');
+    dbRef.onValue.listen((DatabaseEvent event) {
+      if (data == 'username') {
+        // TODO: Implement username later - for later use .. IF NEEDED
+      } else if (data == 'tribe') {
+        saveCurrentUserTribe(event.snapshot.value as String);
+      } else if (data == 'lvl') {
+        saveCurrentUserLevel(event.snapshot.value as String);
+      }
+      setState(() {});
+    });
+    return node;
+  }
 
   String tribeName = "";
   saveCurrentUserTribe(String? tribe) => tribeName = tribe!;
+  saveCurrentUserLevel(String? lvl) => lvlOfUser = lvl! as int;
+
 
   @override
   void initState() {
@@ -62,7 +83,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   String? username = getUsername();
   int lvlOfUser = 0;
-  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -119,9 +140,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                   width: 5.5,
                                 ),
                                 // TODO: DISPLAY LVL OF USER HERE:
-                                const Text(
-                                  'lvl:',
-                                  style: TextStyle(
+                                Text(
+                                  lvlOfUser.toString(),
+                                  style: const TextStyle(
                                       color: Colors.green,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20.0),
