@@ -17,6 +17,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String? currentNode = "";
   String tribeName = "";
   int userLvl = 0;
+  bool userInTribe = false;
 
   getNodeOfUser() async {
     // We limit the node from the Root Users to the last 1 , to get the current NODE - with the CURRENT user's tribe status
@@ -26,18 +27,20 @@ class _ProfilePageState extends State<ProfilePage> {
         .orderByKey()
         .limitToLast(1);
     dbRef.onValue.listen((event) => {
-      for(var snap in event.snapshot.children) {
-        // We call these methods to save the current key of the current USER node, and SELECT WHICH DATA WE WANT TO RETRIEVE
-        getUserData(snap.key, 'tribe'),
-        getUserData(snap.key, 'lvl'),
-      }});
+          for (var snap in event.snapshot.children)
+            {
+              // We call these methods to save the current key of the current USER node, and SELECT WHICH DATA WE WANT TO RETRIEVE
+              getUserData(snap.key, 'tribe'),
+              getUserData(snap.key, 'lvl'),
+            }
+        });
   }
 
   String? getUserData(String? node, String data) {
     currentNode = node;
     // get the specific user details with these lines:
     DatabaseReference dbRef =
-    FirebaseDatabase.instance.ref('Users/$currentNode/$data');
+        FirebaseDatabase.instance.ref('Users/$currentNode/$data');
     dbRef.onValue.listen((DatabaseEvent event) {
       if (data == 'username') {
         // TODO: Implement saving the username - for later use .. IF NEEDED
@@ -54,10 +57,20 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   // TO SAVE THE RETRIEVED DATA FOR FIREBASE, WE USE THESE METHODS:
-  saveCurrentUserTribe(String? tribe) => tribeName = tribe!;
+  saveCurrentUserTribe(String? tribe) {
+    tribeName = tribe!;
+    // We check if the user is in tribe - IF NOT - we do not display anything
+    // in the UI down below. We base it on userInTribe variable.
+    if (tribeName == 'N/A') {
+      userInTribe = false;
+    } else if (tribeName != 'N/A' ) {
+      userInTribe = true;
+    }
+    setState(() {});
+  }
+
   // TODO:  MAYBE ADD SOME DELAY TO BELOW STATEMENT FOR LEVEL: to fix bug of zero showing first
   saveCurrentUserLevel(int lvl) => userLvl = lvl;
-
 
   @override
   void initState() {
@@ -73,6 +86,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   String? username = getUsername();
+
   // late int lvlOfUser;
 
   @override
@@ -185,20 +199,27 @@ class _ProfilePageState extends State<ProfilePage> {
                           const SizedBox(
                             height: 5,
                           ),
-                          const Center(
-                            // TODO: Get Tribe ROLE of user on this Text Widget
-                            child: Text(
-                              'Warrior',
-                              style: TextStyle(
-                                  color: Colors.orange,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          const SizedBox(
+                          // IF USER IS IN ANY TRIBE, WE DISPLAY THE TRIBE ROLE..
+                          userInTribe
+                              ? const Center(
+                                  // TODO: Get Tribe ROLE of user in TRIBE use this Text Widget
+                                  child: Text(
+                                    '',
+                                    style: TextStyle(
+                                        color: Colors.orange,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                )
+                          // IF USER IS NOT IN ANY TRIBE, WE DON'T DISPLAY ANY TRIBE ROLE..
+                              : Container(),
+                          // WE CHANGE THE SPACING BETWEEN TRIBE ROLE AND TRIBE NAME
+                          // IF THE USER IS NOT IN ANY TRIBE..
+                          userInTribe ? const SizedBox(
                             height: 10.0,
-                          ),
+                          ) : const SizedBox(height: 0.0,),
                           // TODO: IMPLEMENT TROPHIES HERE
                           Row(
+                            // TODO: IF NO TROPHIES FUNCTIONALITY ..
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: const [
