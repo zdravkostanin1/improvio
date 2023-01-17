@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:improvio/sign_in.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'home_page.dart';
 import 'sign_up.dart';
@@ -112,6 +113,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             height: 170.0,
                             width: 420.0,
                             color: Colors.white,
+                            // TODO: Implement USER BACKGROUND photo here:
                             child: const Center(
                               child: SizedBox(
                                 height: 200.0,
@@ -166,24 +168,6 @@ class _ProfilePageState extends State<ProfilePage> {
                               ],
                             ),
                           ),
-                          // TODO: Make the person set the image and store it here in this CircleAvatar Widget
-                          // const CircleAvatar(
-                          //   backgroundImage: NetworkImage(
-                          //       'https://img.freepik.com/free-photo/cat-white-background_155003-15381.jpg?w=2000'),
-                          //   radius: 80,
-                          // ),
-                          // const SizedBox(
-                          //   height: 50,
-                          // ),
-                          // Center(
-                          //   child: Text(
-                          //     username!,
-                          //     style: const TextStyle(
-                          //         color: Colors.white,
-                          //         fontWeight: FontWeight.bold,
-                          //         fontSize: 20),
-                          //   ),
-                          // ),
                           const SizedBox(
                             height: 8,
                           ),
@@ -264,121 +248,145 @@ class _ProfilePageState extends State<ProfilePage> {
                           const SizedBox(
                             height: 3,
                           ),
-                          const Text(
-                            'SKILLS:',
-                            style: TextStyle(
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                          const SizedBox(
-                            height: 15.0,
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(right: 209.0),
+                          const SafeArea(
                             child: Text(
-                              'MEDITATION:',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 5.0,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(40.0, 5.0, 0, 0),
-                            child: LinearPercentIndicator(
-                              animation: true,
-                              animationDuration: 1000,
-                              width: 320.0,
-                              lineHeight: 14.0,
-                              percent: 0.1,
-                              backgroundColor: Colors.white,
-                              progressColor: Colors.green,
+                              'SKILLS:',
+                              style: TextStyle(
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
                             ),
                           ),
                           const SizedBox(
                             height: 15.0,
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(right: 247.0),
-                            child: Text(
-                              'STUDY:',
-                              style: TextStyle(color: Colors.white),
+                          const SafeArea(
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 209.0),
+                              child: Text(
+                                'MEDITATION:',
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
                           const SizedBox(
                             height: 5.0,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(40.0, 5.0, 0, 0),
-                            child: LinearPercentIndicator(
-                              animation: true,
-                              animationDuration: 1000,
-                              width: 320.0,
-                              lineHeight: 14.0,
-                              percent: 0.2,
-                              backgroundColor: Colors.white,
-                              progressColor: Colors.green,
+                          SafeArea(
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(40.0, 5.0, 0, 0),
+                              child: LinearPercentIndicator(
+                                animation: true,
+                                animationDuration: 1000,
+                                width: 320.0,
+                                lineHeight: 14.0,
+                                // this is what moves our metric
+                                percent: 0.0,
+                                backgroundColor: Colors.white,
+                                progressColor: Colors.green,
+                              ),
                             ),
                           ),
                           const SizedBox(
                             height: 15.0,
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(right: 256.0),
-                            child: Text(
-                              'READ:',
-                              style: TextStyle(color: Colors.white),
+                          const SafeArea(
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 247.0),
+                              child: Text(
+                                'STUDY:',
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
                           const SizedBox(
                             height: 5.0,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(40.0, 5.0, 0, 0),
-                            child: LinearPercentIndicator(
-                              animation: true,
-                              animationDuration: 1000,
-                              width: 320.0,
-                              lineHeight: 14.0,
-                              percent: 0.3,
-                              backgroundColor: Colors.white,
-                              progressColor: Colors.green,
+                          SafeArea(
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(40.0, 5.0, 0, 0),
+                              child: LinearPercentIndicator(
+                                animation: true,
+                                animationDuration: 1000,
+                                width: 320.0,
+                                lineHeight: 14.0,
+                                // this is what moves our metric
+                                percent: 0.0,
+                                backgroundColor: Colors.white,
+                                progressColor: Colors.green,
+                              ),
                             ),
                           ),
                           const SizedBox(
                             height: 15.0,
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(right: 230.0),
-                            child: Text(
-                              'EXERCISE:',
-                              style: TextStyle(color: Colors.white),
+                          const SafeArea(
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 256.0),
+                              child: Text(
+                                'READ:',
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
                           const SizedBox(
                             height: 5.0,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(40.0, 5.0, 0, 0),
-                            child: LinearPercentIndicator(
-                              animation: true,
-                              animationDuration: 1000,
-                              width: 320.0,
-                              lineHeight: 14.0,
-                              percent: 0.4,
-                              backgroundColor: Colors.white,
-                              progressColor: Colors.green,
+                          SafeArea(
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(40.0, 5.0, 0, 0),
+                              child: LinearPercentIndicator(
+                                animation: true,
+                                animationDuration: 1000,
+                                width: 320.0,
+                                lineHeight: 14.0,
+                                // this is what moves our metric
+                                percent: 0.0,
+                                backgroundColor: Colors.white,
+                                progressColor: Colors.green,
+                              ),
                             ),
                           ),
+                          const SizedBox(
+                            height: 15.0,
+                          ),
+                          const SafeArea(
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 230.0),
+                              child: Text(
+                                'EXERCISE:',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 5.0,
+                          ),
+                          SafeArea(
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(40.0, 5.0, 0, 0),
+                              child: LinearPercentIndicator(
+                                animation: true,
+                                animationDuration: 1000,
+                                width: 320.0,
+                                lineHeight: 14.0,
+                                // this is what moves our metric
+                                percent: 0.0,
+                                backgroundColor: Colors.white,
+                                progressColor: Colors.green,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20.0,),
+                          // TODO: At a later stage, remove code for SIGN OUT BUTTON
                           ElevatedButton(
                             onPressed: () {
                               signOut();
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //         const SignUp()));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                      const SignIn()));
                             },
                             child: const Text(
                               'SIGN OUT',
@@ -388,6 +396,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           )
                         ],
                       ),
+                      // TODO: Implement USER photo here: user imports it.
                       const Positioned(
                         top: 90.0,
                         // (background container size) - (circle height / 2)
