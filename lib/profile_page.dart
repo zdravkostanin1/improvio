@@ -64,7 +64,7 @@ class _ProfilePageState extends State<ProfilePage> {
     // in the UI down below. We base it on userInTribe variable.
     if (tribeName == 'N/A') {
       userInTribe = false;
-    } else if (tribeName != 'N/A' ) {
+    } else if (tribeName != 'N/A') {
       userInTribe = true;
     }
     setState(() {});
@@ -194,13 +194,17 @@ class _ProfilePageState extends State<ProfilePage> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 )
-                          // IF USER IS NOT IN ANY TRIBE, WE DON'T DISPLAY ANY TRIBE ROLE..
+                              // IF USER IS NOT IN ANY TRIBE, WE DON'T DISPLAY ANY TRIBE ROLE..
                               : Container(),
                           // WE CHANGE THE SPACING BETWEEN TRIBE ROLE AND TRIBE NAME
                           // IF THE USER IS NOT IN ANY TRIBE..
-                          userInTribe ? const SizedBox(
-                            height: 10.0,
-                          ) : const SizedBox(height: 0.0,),
+                          userInTribe
+                              ? const SizedBox(
+                                  height: 10.0,
+                                )
+                              : const SizedBox(
+                                  height: 0.0,
+                                ),
                           // TODO: IMPLEMENT TROPHIES HERE
                           Row(
                             // TODO: IF NO TROPHIES FUNCTIONALITY ..
@@ -246,26 +250,49 @@ class _ProfilePageState extends State<ProfilePage> {
                           const Divider(
                               height: 10.0, thickness: 6, color: Colors.white),
                           const SizedBox(
-                            height: 3,
+                            height: 10,
                           ),
                           const SafeArea(
-                            child: Text(
-                              'SKILLS:',
-                              style: TextStyle(
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 245.0),
+                              child: Text(
+                                'STATS:',
+                                style: TextStyle(
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.orange),
+                              ),
                             ),
                           ),
                           const SizedBox(
                             height: 15.0,
                           ),
-                          const SafeArea(
+                          SafeArea(
                             child: Padding(
-                              padding: EdgeInsets.only(right: 209.0),
-                              child: Text(
-                                'MEDITATION:',
-                                style: TextStyle(color: Colors.white),
+                              padding: const EdgeInsets.only(left: 49.0),
+                              child: Row(
+                                children: const [
+                                  Text(
+                                    'MINDFULNESS:',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  SizedBox(
+                                    width: 169.0,
+                                  ),
+                                  // THE INDIVIDUAL STATS FOR EACH PART OF IMPROVEMENT STARTS HERE
+                                  Text(
+                                    'Lvl:',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  // TODO: HERE IMPLEMENT THE STATS LVL IN AN INTEGER
+                                  SizedBox(
+                                    width: 5.0,
+                                  ),
+                                  Text(
+                                    '0',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -274,7 +301,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           SafeArea(
                             child: Padding(
-                              padding: const EdgeInsets.fromLTRB(40.0, 5.0, 0, 0),
+                              padding:
+                                  const EdgeInsets.fromLTRB(40.0, 5.0, 0, 0),
                               child: LinearPercentIndicator(
                                 animation: true,
                                 animationDuration: 1000,
@@ -290,21 +318,72 @@ class _ProfilePageState extends State<ProfilePage> {
                           const SizedBox(
                             height: 15.0,
                           ),
-                          const SafeArea(
+                          SafeArea(
                             child: Padding(
-                              padding: EdgeInsets.only(right: 247.0),
-                              child: Text(
-                                'STUDY:',
-                                style: TextStyle(color: Colors.white),
+                              padding: const EdgeInsets.only(left: 49.0),
+                              child: Row(
+                                children: const [
+                                  Text(
+                                    'LEARNING:',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  SizedBox(
+                                    width: 196.0,
+                                  ),
+                                  // THE INDIVIDUAL STATS FOR EACH PART OF IMPROVEMENT STARTS HERE
+                                  Text(
+                                    'Lvl:',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  // TODO: HERE IMPLEMENT THE STATS LVL IN AN INTEGER
+                                  SizedBox(
+                                    width: 5.0,
+                                  ),
+                                  Text(
+                                    '0',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
                           const SizedBox(
                             height: 5.0,
                           ),
+                          // SafeArea(
+                          //   child: Padding(
+                          //     padding: const EdgeInsets.fromLTRB(40.0, 5.0, 0, 0),
+                          //     child: LinearPercentIndicator(
+                          //       animation: true,
+                          //       animationDuration: 1000,
+                          //       width: 320.0,
+                          //       lineHeight: 14.0,
+                          //       // this is what moves our metric
+                          //       percent: 0.0,
+                          //       backgroundColor: Colors.white,
+                          //       progressColor: Colors.green,
+                          //     ),
+                          //   ),
+                          // ),
+                          // const SizedBox(
+                          //   height: 15.0,
+                          // ),
+                          // const SafeArea(
+                          //   child: Padding(
+                          //     padding: EdgeInsets.only(right: 256.0),
+                          //     child: Text(
+                          //       'READ:',
+                          //       style: TextStyle(color: Colors.white),
+                          //     ),
+                          //   ),
+                          // ),
+                          const SizedBox(
+                            height: 5.0,
+                          ),
                           SafeArea(
                             child: Padding(
-                              padding: const EdgeInsets.fromLTRB(40.0, 5.0, 0, 0),
+                              padding:
+                                  const EdgeInsets.fromLTRB(40.0, 5.0, 0, 0),
                               child: LinearPercentIndicator(
                                 animation: true,
                                 animationDuration: 1000,
@@ -320,12 +399,32 @@ class _ProfilePageState extends State<ProfilePage> {
                           const SizedBox(
                             height: 15.0,
                           ),
-                          const SafeArea(
+                          SafeArea(
                             child: Padding(
-                              padding: EdgeInsets.only(right: 256.0),
-                              child: Text(
-                                'READ:',
-                                style: TextStyle(color: Colors.white),
+                              padding: const EdgeInsets.only(left: 49.0),
+                              child: Row(
+                                children: const [
+                                  Text(
+                                    'EXERCISE:',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  SizedBox(
+                                    width: 200.0,
+                                  ),
+                                  // THE INDIVIDUAL STATS FOR EACH PART OF IMPROVEMENT STARTS HERE
+                                  Text(
+                                    'Lvl:',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  // TODO: HERE IMPLEMENT THE STATS LVL IN AN INTEGER
+                                  SizedBox(
+                                    width: 5.0,
+                                  ),
+                                  Text(
+                                    '0',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -334,7 +433,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           SafeArea(
                             child: Padding(
-                              padding: const EdgeInsets.fromLTRB(40.0, 5.0, 0, 0),
+                              padding:
+                                  const EdgeInsets.fromLTRB(40.0, 5.0, 0, 0),
                               child: LinearPercentIndicator(
                                 animation: true,
                                 animationDuration: 1000,
@@ -347,53 +447,56 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                           ),
+                          // TODO: ADD ACTIVE TRIBE MEMBERS HERE: MAYBE, A LIST OR SOMETHING.. ADD IT ON A LATER STAGE. (or not)
                           const SizedBox(
-                            height: 15.0,
+                            height: 20.0,
                           ),
                           const SafeArea(
                             child: Padding(
-                              padding: EdgeInsets.only(right: 230.0),
+                              padding: EdgeInsets.only(right: 150.0),
                               child: Text(
-                                'EXERCISE:',
-                                style: TextStyle(color: Colors.white),
+                                'Active Tribe Members: ',
+                                style: TextStyle(
+                                    color: Colors.green,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                           ),
+                          // IF USER IS NOT IN TRIBE.. WE SHOW THIS:
                           const SizedBox(
-                            height: 5.0,
+                            height: 20.0,
                           ),
-                          SafeArea(
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(40.0, 5.0, 0, 0),
-                              child: LinearPercentIndicator(
-                                animation: true,
-                                animationDuration: 1000,
-                                width: 320.0,
-                                lineHeight: 14.0,
-                                // this is what moves our metric
-                                percent: 0.0,
-                                backgroundColor: Colors.white,
-                                progressColor: Colors.green,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 20.0,),
+                          // TODO: IF USER IS IN TRIBE - SHOW THE TRIBE MEMBERS , OTHERWISE SHOW THE TEXT - AND MAKE SEE DETAILS CLICKABLE (HALF OF TEXT), AND THIS WILL PASS YOU DETAILS ABOUT TRIBES
+                          userInTribe
+                              ? Container()
+                              : const SafeArea(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(right: 61),
+                                    child: Text(
+                                      'You aren\'t in any tribe yet. See details',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                           // TODO: At a later stage, remove code for SIGN OUT BUTTON
-                          ElevatedButton(
-                            onPressed: () {
-                              signOut();
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                      const SignIn()));
-                            },
-                            child: const Text(
-                              'SIGN OUT',
-                              style:
-                                  TextStyle(color: Colors.red, fontSize: 30.0),
-                            ),
-                          )
+                          // ElevatedButton(
+                          //   onPressed: () {
+                          //     signOut();
+                          //     Navigator.push(
+                          //         context,
+                          //         MaterialPageRoute(
+                          //             builder: (context) =>
+                          //             const SignIn()));
+                          //   },
+                          //   child: const Text(
+                          //     'SIGN OUT',
+                          //     style:
+                          //         TextStyle(color: Colors.red, fontSize: 30.0),
+                          //   ),
+                          // )
                         ],
                       ),
                       // TODO: Implement USER photo here: user imports it.
