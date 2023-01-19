@@ -500,14 +500,26 @@ class _ProfilePageState extends State<ProfilePage> {
                         ],
                       ),
                       // TODO: Implement USER photo here: user imports it.
-                      const Positioned(
+                      Positioned(
                         top: 90.0,
                         // (background container size) - (circle height / 2)
-                        child: CircleAvatar(
-                          // maybe change the BORDER Of THE IMAGE TO BE BLACK
-                          backgroundImage: NetworkImage(
-                              'https://img.freepik.com/free-photo/cat-white-background_155003-15381.jpg?w=2000'),
-                          radius: 55.0,
+                        child: Stack(
+                          // alignment: AlignmentDirectional.topCenter,
+                          children: [
+                            CircleAvatar(
+                              // maybe change the BORDER Of THE IMAGE TO BE BLACK
+                              // WE SET A DEFAULT IMAGE - BEFORE THE USER HAS SELECTED ANY IMAGE AS OF YET.
+                              backgroundImage:
+                                  const AssetImage('assets/defaultUserPic.png'),
+                              backgroundColor: Colors.white,
+                              radius: 55.0,
+                              // ADD IMAGE ICON / BUTTON
+                              child: Container(
+                                alignment: const Alignment(0.9, 1.0),
+                                child: const Icon(Icons.add, color: Colors.white, size: 33,),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],

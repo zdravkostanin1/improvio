@@ -54,6 +54,8 @@ dependencies:
   percent_indicator: ^4.2.2
   loading_animation_widget: ^1.2.0+4
   progress_state_button: ^1.0.4
+  image_picker: ^0.8.6
+  firebase_storage: ^11.0.10
 
 dev_dependencies:
   flutter_test:
@@ -103,6 +105,7 @@ flutter:
     - assets/cup2.png
     - assets/cup3.png
     - assets/cup4.png
+    - assets/defaultUserPic.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
