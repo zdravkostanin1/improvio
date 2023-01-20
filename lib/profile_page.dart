@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:improvio/sign_in.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'home_page.dart';
@@ -19,6 +23,28 @@ class _ProfilePageState extends State<ProfilePage> {
   String tribeName = "";
   int userLvl = 0;
   bool userInTribe = false;
+  String imageUrl = " ";
+
+  // SELECT A PROFILE PICTURE AND UPLOAD IT TO FIREBASE:
+  void pickAndUploadProfilePic() async {
+    // TODO: Handle the CASE if user did NOT CHOOSE A PHOTO - after clicking the button .. - it throws a null exception now - 01.20.23
+    final ImagePicker picker = ImagePicker();
+    // TODO: MAYBE THINK ABOUT ADDING AN OPTION TO TAKE A PHOTO - WITH CAMERA .. - AT A LATER STAGE OF THE DEVELOPMENT. (or an update later on)
+    final image = await picker.pickImage(
+      // TO TAKE OPTION WITH CAMERA - ImageSource.camera
+      source: ImageSource.gallery,
+      maxHeight: 512,
+      maxWidth: 512,
+      imageQuality: 75
+    );
+
+    Reference ref = FirebaseStorage.instance.ref().child('profile_pic.jpg');
+    await ref.putFile(File(image!.path));
+    // value variable is our URL to the image
+    await ref.getDownloadURL().then((value) {
+      print(value);
+    });
+  }
 
   getNodeOfUser() async {
     // We limit the node from the Root Users to the last 1 , to get the current NODE - with the CURRENT user's tribe status
@@ -87,8 +113,6 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   String? username = getUsername();
-
-  // late int lvlOfUser;
 
   @override
   Widget build(BuildContext context) {
@@ -509,8 +533,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             CircleAvatar(
                               // maybe change the BORDER Of THE IMAGE TO BE BLACK
                               // WE SET A DEFAULT IMAGE - BEFORE THE USER HAS SELECTED ANY IMAGE AS OF YET.
-                              backgroundImage:
-                                  const AssetImage('assets/defaultUserPic.png'),
+                              backgroundImage: const AssetImage('assets/defaultUserPic.png'),
                               backgroundColor: Colors.white,
                               radius: 55.0,
                               // ADD PROFILE PIC BUTTON
@@ -523,7 +546,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                     size: 33,
                                   ),
                                   // Functionality:
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    pickAndUploadProfilePic();
+                                  },
                                 ),
                               ),
                             ),
