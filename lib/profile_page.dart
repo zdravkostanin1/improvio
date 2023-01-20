@@ -503,8 +503,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       Positioned(
                         top: 90.0,
                         // (background container size) - (circle height / 2)
+                        // WE USE A STACK WIDGET, SO WE CAN STACK THE PHOTO AND THE "IMPORT PHOTO" button on top of it
                         child: Stack(
-                          // alignment: AlignmentDirectional.topCenter,
                           children: [
                             CircleAvatar(
                               // maybe change the BORDER Of THE IMAGE TO BE BLACK
@@ -513,10 +513,18 @@ class _ProfilePageState extends State<ProfilePage> {
                                   const AssetImage('assets/defaultUserPic.png'),
                               backgroundColor: Colors.white,
                               radius: 55.0,
-                              // ADD IMAGE ICON / BUTTON
+                              // ADD PROFILE PIC BUTTON
                               child: Container(
-                                alignment: const Alignment(0.9, 1.0),
-                                child: const Icon(Icons.add, color: Colors.white, size: 33,),
+                                alignment: const Alignment(1.2, 1.0),
+                                child: IconButton(
+                                  icon: const Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                    size: 33,
+                                  ),
+                                  // Functionality:
+                                  onPressed: () {},
+                                ),
                               ),
                             ),
                           ],
