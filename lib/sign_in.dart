@@ -7,6 +7,15 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'home_page.dart';
 import 'package:email_validator/email_validator.dart';
 
+
+// SMALL LOADING BUTTON - WHEN USER CLICKS SIGN IN
+Widget loadingButton (bool isDone) {
+  return Container(
+    decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.yellow),
+    child: const Center(child: CircularProgressIndicator(color: Colors.black,)),
+  );
+}
+
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
 
@@ -17,10 +26,8 @@ class SignIn extends StatefulWidget {
 class UserMethods {
   static void signInUser(String emailAddress, String password) async {
     try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailAddress,
-          password: password
-      );
+      final credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: emailAddress, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -41,8 +48,11 @@ class UserMethods {
     }
   }
 }
-class _SignInState extends State<SignIn> {
 
+// STATES OF LOADING OUR SMALL BUTTON - WHICH REPRESENTS LOADING INDICATOR WHEN USER CLICKS SIGN UP
+enum ButtonState { init, loading}
+
+class _SignInState extends State<SignIn> {
   // bool termsAndConditions = false;
   String username = '';
   String emailAddress = '';
@@ -52,9 +62,9 @@ class _SignInState extends State<SignIn> {
   final passwordTextController = TextEditingController();
   ButtonState state = ButtonState.init;
 
-
   @override
   Widget build(BuildContext context) {
+    bool signUpButtonStretched = state == ButtonState.init;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       // theme: ThemeData(
@@ -170,7 +180,8 @@ class _SignInState extends State<SignIn> {
                                 // password = textFieldController.text;
                                 setState(() {
                                   password = passwordTextController.text;
-                                  if (validatePassword(passwordSetted) == true) {
+                                  if (validatePassword(passwordSetted) ==
+                                      true) {
                                     password = passwordSetted;
                                     print(password);
                                   } else {
@@ -189,25 +200,31 @@ class _SignInState extends State<SignIn> {
                           SizedBox(
                             height: 50,
                             width: 340,
-                            child: TextButton(
+                            child: signUpButtonStretched ? TextButton(
                               onPressed: () {
                                 if (emailAddress.isEmpty) {
                                   toastMessage('Your email field is empty');
                                 } else if (password.isEmpty) {
                                   toastMessage('Your password field is empty');
-                                }
-                                else if (EmailValidator.validate(emailAddress) != true) {
+                                } else if (EmailValidator.validate(
+                                        emailAddress) !=
+                                    true) {
                                   toastMessage('Invalid e-mail');
                                 } else {
                                   // MAYBE ADD CIRCULAR ANIMATION .. BUT YOU DO NOT NEED IT.
-                                  UserMethods.signInUser(emailAddress, password);
-                                  // USING FUTURE.DELAYED - TO WAIT FOR THE SIGN - UP TO FINISH SIGNING UP AND
-                                  // SETTING THE DISPLAY NAME OF THE USER.
-                                  // TODO: ADD SOME SORT OF CIRCULAR ANIMATION WHILE IT LOADS THE 3 SECONDS..
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>  const HomePage()));
+                                  UserMethods.signInUser(
+                                      emailAddress, password);
+                                  // SET THE STATE TO LOADING - TO LOAD ANIMATION OF PRESSING SING-UP BUTTON - CIRCULAR MOTION
+                                  setState(() => state = ButtonState.loading);
+                                  // USING FUTURE.DELAYED - TO WAIT FOR THE SIGN - IN TO FINISH SIGNING IN AND
+                                  // TO DISPLAY NAME OF THE USER.
+                                  Future.delayed(const Duration(seconds: 3), () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                            const HomePage()));
+                                  });
                                 }
                                 // to check if the user has signed in..
                                 // UserMethods.checkUserStatus();
@@ -225,7 +242,7 @@ class _SignInState extends State<SignIn> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                            ),
+                            ) : loadingButton(true),
                           ),
                           const SizedBox(
                             height: 2.0,
@@ -245,11 +262,11 @@ class _SignInState extends State<SignIn> {
                                 onPressed: () {
                                   // LoadingAnimationWidget.staggeredDotsWave(color: Colors.white, size: 200);
                                   // Future.delayed(const Duration(seconds: 3), () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                            const SignUp()));
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const SignUp()));
                                   // });
                                   // Navigator.push(
                                   //     context,
@@ -279,4 +296,3 @@ class _SignInState extends State<SignIn> {
     );
   }
 }
-
