@@ -23,7 +23,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String tribeName = "";
   int userLvl = 0;
   bool userInTribe = false;
-  String imageUrl = " ";
+  String imageUrl = "";
 
   // SELECT A PROFILE PICTURE AND UPLOAD IT TO FIREBASE:
   void pickAndUploadProfilePic() async {
@@ -35,6 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
       source: ImageSource.gallery,
       maxHeight: 512,
       maxWidth: 512,
+      // IMAGE QUALITY :
       imageQuality: 75
     );
 
@@ -43,6 +44,9 @@ class _ProfilePageState extends State<ProfilePage> {
     // value variable is our URL to the image
     await ref.getDownloadURL().then((value) {
       print(value);
+      setState(() {
+        imageUrl = value;
+      });
     });
   }
 
@@ -532,26 +536,26 @@ class _ProfilePageState extends State<ProfilePage> {
                           children: [
                             CircleAvatar(
                               // maybe change the BORDER Of THE IMAGE TO BE BLACK
-                              // WE SET A DEFAULT IMAGE - BEFORE THE USER HAS SELECTED ANY IMAGE AS OF YET.
+                              // WE SET A DEFAULT IMAGE - BEFORE THE USER HAS SELECTED ANY IMAGE.
                               backgroundImage: const AssetImage('assets/defaultUserPic.png'),
                               backgroundColor: Colors.white,
                               radius: 55.0,
                               // ADD PROFILE PIC BUTTON
                               child: Container(
-                                alignment: const Alignment(1.2, 1.0),
-                                child: IconButton(
-                                  icon: const Icon(
-                                    Icons.add,
-                                    color: Colors.white,
-                                    size: 33,
+                                alignment: const Alignment(1.0, 1.0),
+                                child: GestureDetector(
+                                  child: imageUrl == "" ? const Icon(
+                                      Icons.add,
+                                      color: Colors.white,
+                                      size: 33,
+                                    ) : Image.network(imageUrl),
+                                    // Functionality:
+                                    onTap: () {
+                                      pickAndUploadProfilePic();
+                                    },
                                   ),
-                                  // Functionality:
-                                  onPressed: () {
-                                    pickAndUploadProfilePic();
-                                  },
                                 ),
                               ),
-                            ),
                           ],
                         ),
                       ),
