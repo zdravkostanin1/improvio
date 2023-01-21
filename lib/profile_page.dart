@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +22,8 @@ class _ProfilePageState extends State<ProfilePage> {
   String tribeName = "";
   int userLvl = 0;
   bool userInTribe = false;
-  String imageUrl = "";
+  String profilePicUrl = "";
+  // String profilePicUrl = "";
 
   // SELECT A PROFILE PICTURE AND UPLOAD IT TO FIREBASE:
   void pickAndUploadProfilePic() async {
@@ -39,13 +39,13 @@ class _ProfilePageState extends State<ProfilePage> {
       imageQuality: 75
     );
 
-    Reference ref = FirebaseStorage.instance.ref().child('profile_pic.jpg');
+    Reference ref = FirebaseStorage.instance.ref().child('Profile Pictures/profile_pic.jpg');
     await ref.putFile(File(image!.path));
     // value variable is our URL to the image
     await ref.getDownloadURL().then((value) {
       print(value);
       setState(() {
-        imageUrl = value;
+        profilePicUrl = value;
       });
     });
   }
@@ -102,6 +102,15 @@ class _ProfilePageState extends State<ProfilePage> {
 
   // TODO:  MAYBE ADD SOME DELAY TO BELOW STATEMENT FOR LEVEL: to fix bug of zero showing first
   saveCurrentUserLevel(int lvl) => userLvl = lvl;
+
+  addProfilePicUrlToDb() async {
+    if (currentNode != null) {
+      DatabaseReference ref = FirebaseDatabase.instance.ref("users/$currentNode");
+      // await ref.set({
+      //   "profilePicUrl": profilePicUrl
+      // });
+    }
+  }
 
   @override
   void initState() {
@@ -544,14 +553,15 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: Container(
                                 alignment: const Alignment(1.0, 1.0),
                                 child: GestureDetector(
-                                  child: imageUrl == "" ? const Icon(
+                                  child: profilePicUrl == "" ? const Icon(
                                       Icons.add,
                                       color: Colors.white,
                                       size: 33,
-                                    ) : Image.network(imageUrl),
+                                    ) : Image.network(profilePicUrl),
                                     // Functionality:
                                     onTap: () {
                                       pickAndUploadProfilePic();
+                                      addProfilePicUrlToDb();
                                     },
                                   ),
                                 ),
