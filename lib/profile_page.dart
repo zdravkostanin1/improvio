@@ -39,7 +39,7 @@ class _ProfilePageState extends State<ProfilePage> {
       imageQuality: 75
     );
 
-    Reference ref = FirebaseStorage.instance.ref().child('Profile Pictures/profile_pic.jpg');
+    Reference ref = FirebaseStorage.instance.ref().child('Profile Pictures/$currentNode/profile_pic.jpg');
     await ref.putFile(File(image!.path));
     // value variable is our URL to the image
     await ref.getDownloadURL().then((value) {
