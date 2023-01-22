@@ -46,6 +46,8 @@ class _ProfilePageState extends State<ProfilePage> {
       print(value);
       setState(() {
         profilePicUrl = value;
+        // SAVE THE URL TO DB:
+        saveProfilePicUrlToDb(profilePicUrl);
       });
     });
   }
@@ -103,12 +105,17 @@ class _ProfilePageState extends State<ProfilePage> {
   // TODO:  MAYBE ADD SOME DELAY TO BELOW STATEMENT FOR LEVEL: to fix bug of zero showing first
   saveCurrentUserLevel(int lvl) => userLvl = lvl;
 
-  addProfilePicUrlToDb() async {
-    if (currentNode != null) {
-      DatabaseReference ref = FirebaseDatabase.instance.ref("users/$currentNode");
-      // await ref.set({
-      //   "profilePicUrl": profilePicUrl
-      // });
+  saveProfilePicUrlToDb(String url) async {
+    // get the url of profile pic
+    profilePicUrl = url;
+    // save profilePicUrl to current user of firebase realtime database :
+    if (currentNode != null && profilePicUrl != "") {
+      DatabaseReference ref = FirebaseDatabase.instance.ref("Users/$currentNode");
+      // Only update the name, leave the other days!
+      await ref.update({
+        "profilePicUrl": profilePicUrl,
+      });
+      setState(() {});
     }
   }
 
@@ -561,7 +568,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                     // Functionality:
                                     onTap: () {
                                       pickAndUploadProfilePic();
-                                      addProfilePicUrlToDb();
                                     },
                                   ),
                                 ),
