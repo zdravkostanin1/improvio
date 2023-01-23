@@ -23,6 +23,7 @@ class _ProfilePageState extends State<ProfilePage> {
   int userLvl = 0;
   bool userInTribe = false;
   String profilePicUrl = "";
+  String finalProfilePicUrl = "";
   // String profilePicUrl = "";
 
   // SELECT A PROFILE PICTURE AND UPLOAD IT TO FIREBASE:
@@ -46,8 +47,8 @@ class _ProfilePageState extends State<ProfilePage> {
       print(value);
       setState(() {
         profilePicUrl = value;
-        // SAVE THE URL TO DB:
-        saveProfilePicUrlToDb(profilePicUrl);
+        // UPDATE THE URL IN DB:
+        updateProfilePicUrlInDb(profilePicUrl);
       });
     });
   }
@@ -65,6 +66,7 @@ class _ProfilePageState extends State<ProfilePage> {
               // We call these methods to save the current key of the current USER node, and SELECT WHICH DATA WE WANT TO RETRIEVE
               getUserData(snap.key, 'tribe'),
               getUserData(snap.key, 'lvl'),
+              getUserData(snap.key, 'profilePicUrl'),
             }
         });
   }
@@ -83,6 +85,8 @@ class _ProfilePageState extends State<ProfilePage> {
       } else if (data == 'lvl') {
         // read data and call method to save it
         saveCurrentUserLevel(event.snapshot.value as int);
+      } else if (data == 'profilePicUrl') {
+        saveCurrentUserProfilePic(event.snapshot.value as String);
       }
       setState(() {});
     });
@@ -105,13 +109,15 @@ class _ProfilePageState extends State<ProfilePage> {
   // TODO:  MAYBE ADD SOME DELAY TO BELOW STATEMENT FOR LEVEL: to fix bug of zero showing first
   saveCurrentUserLevel(int lvl) => userLvl = lvl;
 
-  saveProfilePicUrlToDb(String url) async {
+  saveCurrentUserProfilePic(String profilePicUrl) => finalProfilePicUrl = profilePicUrl;
+
+  updateProfilePicUrlInDb(String url) async {
     // get the url of profile pic
     profilePicUrl = url;
-    // save profilePicUrl to current user of firebase realtime database :
+    // save profilePicUrl to current user of firebase realtime database:
     if (currentNode != null && profilePicUrl != "") {
       DatabaseReference ref = FirebaseDatabase.instance.ref("Users/$currentNode");
-      // Only update the name, leave the other days!
+      // Only update the profilePicUrl, leave the other things!
       await ref.update({
         "profilePicUrl": profilePicUrl,
       });
@@ -560,11 +566,13 @@ class _ProfilePageState extends State<ProfilePage> {
                               child: Container(
                                 alignment: const Alignment(1.0, 1.0),
                                 child: GestureDetector(
-                                  child: profilePicUrl == "" ? const Icon(
+                                  // profilePicUrl
+                                  child: finalProfilePicUrl == "" ? const Icon(
                                       Icons.add,
                                       color: Colors.white,
                                       size: 33,
-                                    ) : Image.network(profilePicUrl),
+                                    // profilePicUrl
+                                    ) : Image.network(finalProfilePicUrl),
                                     // Functionality:
                                     onTap: () {
                                       pickAndUploadProfilePic();
