@@ -22,9 +22,8 @@ class _ProfilePageState extends State<ProfilePage> {
   String tribeName = "";
   int userLvl = 0;
   bool userInTribe = false;
-  String profilePicUrl = "";
+  String getProfilePicUrl = "";
   String finalProfilePicUrl = "";
-  // String profilePicUrl = "";
 
   // SELECT A PROFILE PICTURE AND UPLOAD IT TO FIREBASE:
   void pickAndUploadProfilePic() async {
@@ -46,9 +45,9 @@ class _ProfilePageState extends State<ProfilePage> {
     await ref.getDownloadURL().then((value) {
       print(value);
       setState(() {
-        profilePicUrl = value;
+        getProfilePicUrl = value;
         // UPDATE THE URL IN DB:
-        updateProfilePicUrlInDb(profilePicUrl);
+        updateProfilePicUrlInDb(getProfilePicUrl);
       });
     });
   }
@@ -113,13 +112,13 @@ class _ProfilePageState extends State<ProfilePage> {
 
   updateProfilePicUrlInDb(String url) async {
     // get the url of profile pic
-    profilePicUrl = url;
+    getProfilePicUrl = url;
     // save profilePicUrl to current user of firebase realtime database:
-    if (currentNode != null && profilePicUrl != "") {
+    if (currentNode != null && getProfilePicUrl != "") {
       DatabaseReference ref = FirebaseDatabase.instance.ref("Users/$currentNode");
       // Only update the profilePicUrl, leave the other things!
       await ref.update({
-        "profilePicUrl": profilePicUrl,
+        "profilePicUrl": getProfilePicUrl,
       });
       setState(() {});
     }
