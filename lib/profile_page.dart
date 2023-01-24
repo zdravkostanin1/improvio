@@ -24,6 +24,19 @@ class _ProfilePageState extends State<ProfilePage> {
   bool userInTribe = false;
   String getProfilePicUrl = "";
   String finalProfilePicUrl = "";
+  // bool isLoadingProfilePic = false;
+
+  // TODO: Continue implementation of CircularProgressBar when user adds profile picture
+  buildShowDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        });
+  }
 
   // SELECT A PROFILE PICTURE AND UPLOAD IT TO FIREBASE:
   void pickAndUploadProfilePic() async {
@@ -31,15 +44,16 @@ class _ProfilePageState extends State<ProfilePage> {
     final ImagePicker picker = ImagePicker();
     // TODO: MAYBE THINK ABOUT ADDING AN OPTION TO TAKE A PHOTO - WITH CAMERA .. - AT A LATER STAGE OF THE DEVELOPMENT. (or an update later on)
     final image = await picker.pickImage(
-      // TO TAKE OPTION WITH CAMERA - ImageSource.camera
-      source: ImageSource.gallery,
-      maxHeight: 512,
-      maxWidth: 512,
-      // IMAGE QUALITY :
-      imageQuality: 75
-    );
+        // TO TAKE OPTION WITH CAMERA - ImageSource.camera
+        source: ImageSource.gallery,
+        maxHeight: 512,
+        maxWidth: 512,
+        // IMAGE QUALITY :
+        imageQuality: 75);
 
-    Reference ref = FirebaseStorage.instance.ref().child('Profile Pictures/$currentNode/profile_pic.jpg');
+    Reference ref = FirebaseStorage.instance
+        .ref()
+        .child('Profile Pictures/$currentNode/profile_pic.jpg');
     await ref.putFile(File(image!.path));
     // value variable is our URL to the image
     await ref.getDownloadURL().then((value) {
@@ -108,14 +122,16 @@ class _ProfilePageState extends State<ProfilePage> {
   // TODO:  MAYBE ADD SOME DELAY TO BELOW STATEMENT FOR LEVEL: to fix bug of zero showing first
   saveCurrentUserLevel(int lvl) => userLvl = lvl;
 
-  saveCurrentUserProfilePic(String profilePicUrl) => finalProfilePicUrl = profilePicUrl;
+  saveCurrentUserProfilePic(String profilePicUrl) =>
+      finalProfilePicUrl = profilePicUrl;
 
   updateProfilePicUrlInDb(String url) async {
     // get the url of profile pic
     getProfilePicUrl = url;
     // save profilePicUrl to current user of firebase realtime database:
     if (currentNode != null && getProfilePicUrl != "") {
-      DatabaseReference ref = FirebaseDatabase.instance.ref("Users/$currentNode");
+      DatabaseReference ref =
+          FirebaseDatabase.instance.ref("Users/$currentNode");
       // Only update the profilePicUrl, leave the other things!
       await ref.update({
         "profilePicUrl": getProfilePicUrl,
@@ -558,7 +574,8 @@ class _ProfilePageState extends State<ProfilePage> {
                             CircleAvatar(
                               // maybe change the BORDER Of THE IMAGE TO BE BLACK
                               // WE SET A DEFAULT IMAGE - BEFORE THE USER HAS SELECTED ANY IMAGE.
-                              backgroundImage: const AssetImage('assets/defaultUserPic.png'),
+                              backgroundImage:
+                                  const AssetImage('assets/defaultUserPic.png'),
                               backgroundColor: Colors.white,
                               radius: 55.0,
                               // ADD PROFILE PIC BUTTON
@@ -566,19 +583,25 @@ class _ProfilePageState extends State<ProfilePage> {
                                 alignment: const Alignment(1.0, 1.0),
                                 child: GestureDetector(
                                   // profilePicUrl
-                                  child: finalProfilePicUrl == "" ? const Icon(
-                                      Icons.add,
-                                      color: Colors.white,
-                                      size: 33,
-                                    // profilePicUrl
-                                    ) : Image.network(finalProfilePicUrl),
-                                    // Functionality:
-                                    onTap: () {
-                                      pickAndUploadProfilePic();
-                                    },
-                                  ),
+                                  child: finalProfilePicUrl == ""
+                                      ? const Icon(
+                                          Icons.add,
+                                          color: Colors.white,
+                                          size: 33,
+                                          // profilePicUrl
+                                        )
+                                      : Image.network(finalProfilePicUrl),
+                                  // Functionality:
+                                  onTap: () {
+                                    pickAndUploadProfilePic();
+                                    // if (finalProfilePicUrl == "") {
+                                      buildShowDialog(context);
+                                    // }
+                                    // setState(() {});
+                                  },
                                 ),
                               ),
+                            ),
                           ],
                         ),
                       ),
