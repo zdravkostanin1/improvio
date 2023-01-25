@@ -166,16 +166,19 @@ class _ProfilePageState extends State<ProfilePage> {
                             width: 420.0,
                             color: Colors.white,
                             // TODO: Implement USER BACKGROUND photo here:
-                            child: const Center(
+                            child: Center(
                               child: SizedBox(
                                 height: 200.0,
                                 width: 420.0,
                                 child: FittedBox(
                                   fit: BoxFit.fill,
-                                  child: Image(
-                                    image: NetworkImage(
-                                        'https://img.freepik.com/free-photo/wide-angle-shot-single-tree-growing-clouded-sky-during-sunset-surrounded-by-grass_181624-22807.jpg'),
-                                  ),
+                                  child: Stack(children: const [
+                                    Image(
+                                      // DEFAULT WHITE IMAGE BACKGROUND
+                                      image: NetworkImage(
+                                          'https://img.freepik.com/free-photo/abstract-luxury-plain-blur-grey-black-gradient-used-as-background-studio-wall-display-your-products_1258-63641.jpg?w=2000'),
+                                    ),
+                                  ],),
                                 ),
                               ),
                             ),
