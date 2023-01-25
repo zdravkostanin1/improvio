@@ -15,7 +15,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
       home: Scaffold(
         backgroundColor: Colors.black,
         body: Center(child: Text(
-          'Challenges', style: TextStyle(color: Colors.black),
+          'Challenges', style: TextStyle(color: Colors.white),
         ),),
       )
     );

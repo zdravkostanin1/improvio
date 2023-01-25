@@ -154,8 +154,8 @@ class _BottomNavState extends State<BottomNav> {
             backgroundColor: Colors.black,
             items: const <Widget>[
               Icon(Icons.person, size: 35),
-              Icon(Icons.calendar_month, size: 35),
               Icon(Icons.track_changes, size: 35),
+              Icon(Icons.calendar_month, size: 35),
               Icon(Icons.settings, size: 35),
             ],
             onTap: (index) {
