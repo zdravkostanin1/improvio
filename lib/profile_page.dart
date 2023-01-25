@@ -24,19 +24,6 @@ class _ProfilePageState extends State<ProfilePage> {
   bool userInTribe = false;
   String getProfilePicUrl = "";
   String finalProfilePicUrl = "";
-  // bool isLoadingProfilePic = false;
-
-  // TODO: Continue implementation of CircularProgressBar when user adds profile picture
-  buildShowDialog(BuildContext context) {
-    return showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        });
-  }
 
   // SELECT A PROFILE PICTURE AND UPLOAD IT TO FIREBASE:
   void pickAndUploadProfilePic() async {
@@ -590,13 +577,24 @@ class _ProfilePageState extends State<ProfilePage> {
                                           size: 33,
                                           // profilePicUrl
                                         )
-                                      : Image.network(finalProfilePicUrl),
+                                      : Image.network(
+                                          finalProfilePicUrl,
+                                          // TO SHOW CIRCULAR ANIMATION OF LOADING IMAGE:
+                                          loadingBuilder: (BuildContext context,
+                                              Widget child, loadingProgress) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            }
+                                            return const Center(
+                                              child: CircularProgressIndicator(
+                                                color: Colors.grey,
+                                              ),
+                                            );
+                                          },
+                                        ),
                                   // Functionality:
                                   onTap: () {
                                     pickAndUploadProfilePic();
-                                    // if (finalProfilePicUrl == "") {
-                                      buildShowDialog(context);
-                                    // }
                                     // setState(() {});
                                   },
                                 ),
