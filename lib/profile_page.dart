@@ -46,7 +46,7 @@ class _ProfilePageState extends State<ProfilePage> {
     await ref.putFile(File(image!.path));
     // value variable is our URL to the image
     await ref.getDownloadURL().then((value) {
-      print(value);
+      // print(value);
       setState(() {
         getProfilePicUrl = value;
         // UPDATE THE URL IN DB:
@@ -218,48 +218,46 @@ class _ProfilePageState extends State<ProfilePage> {
                             // TODO: Implement USER BACKGROUND photo here:
                             child: Center(
                               child: SizedBox(
+                                // play with these:
                                 height: 200.0,
                                 width: 420.0,
-                                child: FittedBox(
-                                  fit: BoxFit.fill,
-                                  child: Stack(
-                                    children: [
-                                      const Image(
-                                        // DEFAULT WHITE IMAGE BACKGROUND
-                                        image: AssetImage(
-                                            'assets/white_background.png'),
-                                      ),
-                                      GestureDetector(
-                                        child: finalBackGroundUrl == "" ? const Padding(
-                                          padding: EdgeInsets.only(left: 1650.0, top: 1030.0),
-                                          child: Icon(
-                                            Icons.edit,
-                                            color: Colors.black,
-                                            size: 140,
-                                            // profilePicUrl
-                                          ),
-                                        ) : Image.network(
-                                          finalBackGroundUrl,
-                                          // TO SHOW CIRCULAR ANIMATION OF LOADING IMAGE:
-                                          loadingBuilder: (BuildContext context,
-                                              Widget child, loadingProgress) {
-                                            if (loadingProgress == null) {
-                                              return child;
-                                            }
-                                            return const Center(
-                                              child: CircularProgressIndicator(
-                                                color: Colors.grey,
-                                              ),
-                                            );
-                                          },
+                                child: Stack(
+                                  children: [
+                                    const Image(
+                                      // DEFAULT WHITE IMAGE BACKGROUND
+                                      image: AssetImage(
+                                          'assets/white_background.png'),
+                                    ),
+                                    GestureDetector(
+                                      child: finalBackGroundUrl == "" ? const Padding(
+                                        padding: EdgeInsets.only(left: 1650.0, top: 1030.0),
+                                        child: Icon(
+                                          Icons.edit,
+                                          color: Colors.black,
+                                          size: 140,
+                                          // profilePicUrl
                                         ),
-                                        // Functionality:
-                                        onTap: () {
-                                          pickAndUploadBackgroundPic();
+                                      ) : Image.network(
+                                        finalBackGroundUrl,
+                                        // TO SHOW CIRCULAR ANIMATION OF LOADING IMAGE:
+                                        loadingBuilder: (BuildContext context,
+                                            Widget child, loadingProgress) {
+                                          if (loadingProgress == null) {
+                                            return child;
+                                          }
+                                          return const Center(
+                                            child: CircularProgressIndicator(
+                                              color: Colors.grey,
+                                            ),
+                                          );
                                         },
                                       ),
-                                    ],
-                                  ),
+                                      // Functionality:
+                                      onTap: () {
+                                        pickAndUploadBackgroundPic();
+                                      },
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
