@@ -24,8 +24,10 @@ class _ProfilePageState extends State<ProfilePage> {
   bool userInTribe = false;
   String getProfilePicUrl = "";
   String finalProfilePicUrl = "";
+  String getBackgroundPicUrl = "";
+  String finalBackGroundUrl = "";
 
-  // SELECT A PROFILE PICTURE AND UPLOAD IT TO FIREBASE:
+  // SELECT A PROFILE PICTURE AND UPLOAD IT TO FIREBASE STORAGE:
   void pickAndUploadProfilePic() async {
     // TODO: Handle the CASE if user did NOT CHOOSE A PHOTO - after clicking the button .. - it throws a null exception now - 01.20.23
     final ImagePicker picker = ImagePicker();
@@ -53,6 +55,33 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
+  // SELECT A BACKGROUND PICTURE AND UPLOAD IT TO FIREBASE STORAGE:
+  void pickAndUploadBackgroundPic() async {
+    // TODO: Handle the CASE if user did NOT CHOOSE A PHOTO - after clicking the button .. - it throws a null exception now - 01.20.23
+    final ImagePicker picker = ImagePicker();
+    // TODO: MAYBE THINK ABOUT ADDING AN OPTION TO TAKE A PHOTO - WITH CAMERA .. - AT A LATER STAGE OF THE DEVELOPMENT. (or an update later on)
+    final image = await picker.pickImage(
+      // TO TAKE OPTION WITH CAMERA - ImageSource.camera
+        source: ImageSource.gallery,
+        maxHeight: 512,
+        maxWidth: 512,
+        // IMAGE QUALITY :
+        imageQuality: 75);
+    Reference ref = FirebaseStorage.instance
+        .ref()
+        .child('Background Pictures/$currentNode/background_pic.jpg');
+    await ref.putFile(File(image!.path));
+    // value variable is our URL to the image
+    await ref.getDownloadURL().then((value) {
+      // print(value);
+      setState(() {
+        getBackgroundPicUrl = value;
+        // UPDATE THE URL IN DB:
+        updateBackgroundPicUrlInDB(getBackgroundPicUrl);
+      });
+    });
+  }
+
   getNodeOfUser() async {
     // We limit the node from the Root Users to the last 1 , to get the current NODE - with the CURRENT user's tribe status
     final dbRef = FirebaseDatabase.instance
@@ -67,6 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
               getUserData(snap.key, 'tribe'),
               getUserData(snap.key, 'lvl'),
               getUserData(snap.key, 'profilePicUrl'),
+              getUserData(snap.key, 'backgroundPicUrl'),
             }
         });
   }
@@ -87,6 +117,8 @@ class _ProfilePageState extends State<ProfilePage> {
         saveCurrentUserLevel(event.snapshot.value as int);
       } else if (data == 'profilePicUrl') {
         saveCurrentUserProfilePic(event.snapshot.value as String);
+      } else if (data == 'backgroundPicUrl') {
+        saveCurrentUserBackgroundPic(event.snapshot.value as String);
       }
       setState(() {});
     });
@@ -112,6 +144,9 @@ class _ProfilePageState extends State<ProfilePage> {
   saveCurrentUserProfilePic(String profilePicUrl) =>
       finalProfilePicUrl = profilePicUrl;
 
+  saveCurrentUserBackgroundPic(String backgroundPicUrl) =>
+      finalBackGroundUrl = backgroundPicUrl;
+
   updateProfilePicUrlInDb(String url) async {
     // get the url of profile pic
     getProfilePicUrl = url;
@@ -122,6 +157,21 @@ class _ProfilePageState extends State<ProfilePage> {
       // Only update the profilePicUrl, leave the other things!
       await ref.update({
         "profilePicUrl": getProfilePicUrl,
+      });
+      setState(() {});
+    }
+  }
+
+  updateBackgroundPicUrlInDB(String url) async {
+    // get the url of profile pic
+    getBackgroundPicUrl = url;
+    // save profilePicUrl to current user of firebase realtime database:
+    if (currentNode != null && getBackgroundPicUrl != "") {
+      DatabaseReference ref =
+      FirebaseDatabase.instance.ref("Users/$currentNode");
+      // Only update the profilePicUrl, leave the other things!
+      await ref.update({
+        "backgroundPicUrl": getBackgroundPicUrl,
       });
       setState(() {});
     }
@@ -172,13 +222,44 @@ class _ProfilePageState extends State<ProfilePage> {
                                 width: 420.0,
                                 child: FittedBox(
                                   fit: BoxFit.fill,
-                                  child: Stack(children: const [
-                                    Image(
-                                      // DEFAULT WHITE IMAGE BACKGROUND
-                                      image: NetworkImage(
-                                          'https://img.freepik.com/free-photo/abstract-luxury-plain-blur-grey-black-gradient-used-as-background-studio-wall-display-your-products_1258-63641.jpg?w=2000'),
-                                    ),
-                                  ],),
+                                  child: Stack(
+                                    children: [
+                                      const Image(
+                                        // DEFAULT WHITE IMAGE BACKGROUND
+                                        image: AssetImage(
+                                            'assets/white_background.png'),
+                                      ),
+                                      GestureDetector(
+                                        child: finalBackGroundUrl == "" ? const Padding(
+                                          padding: EdgeInsets.only(left: 1650.0, top: 1030.0),
+                                          child: Icon(
+                                            Icons.edit,
+                                            color: Colors.black,
+                                            size: 140,
+                                            // profilePicUrl
+                                          ),
+                                        ) : Image.network(
+                                          finalBackGroundUrl,
+                                          // TO SHOW CIRCULAR ANIMATION OF LOADING IMAGE:
+                                          loadingBuilder: (BuildContext context,
+                                              Widget child, loadingProgress) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            }
+                                            return const Center(
+                                              child: CircularProgressIndicator(
+                                                color: Colors.grey,
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                        // Functionality:
+                                        onTap: () {
+                                          pickAndUploadBackgroundPic();
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

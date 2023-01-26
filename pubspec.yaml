@@ -107,6 +107,7 @@ flutter:
     - assets/cup3.png
     - assets/cup4.png
     - assets/defaultUserPic.png
+    - assets/white_background.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

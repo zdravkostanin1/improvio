@@ -72,7 +72,7 @@ class CreateUser {
   //   }
   // }
 
-  static void addProfileInfoToDatabase(int lvlOfUser, String username, String tribeStatus, String profilePicUrl)  {
+  static void addProfileInfoToDatabase(int lvlOfUser, String username, String tribeStatus, String profilePicUrl, String backgroundPicUrl)  {
     // ADD USER DETAILS TO FIREBASE REAL TIME DATABASE:
     // FIREBASE REAL TIME DATABASE INSTANCES:
     FirebaseDatabase database = FirebaseDatabase.instance;
@@ -81,7 +81,8 @@ class CreateUser {
       "lvl": lvlOfUser,
       "tribe": tribeStatus,
       "username": username,
-      "profilePicUrl": profilePicUrl
+      "profilePicUrl": profilePicUrl,
+      "backgroundPicUrl": backgroundPicUrl,
     };
     databaseRef.push().set(userInfo);
     // print(databaseRef.ref.key);
@@ -130,6 +131,7 @@ class _SignUpState extends State<SignUp> {
   String emailAddress = '';
   String password = '';
   String profilePicUrl = "";
+  String backGroundPicUrl = "";
   bool obscureText = true;
   int forPasswordVisibilityToggle = 0;
   final passwordTextController = TextEditingController();
@@ -349,7 +351,7 @@ class _SignUpState extends State<SignUp> {
                                   toastMessage('Invalid e-mail');
                                 } else {
                                   CreateUser.signUpUser(username, emailAddress, password);
-                                  CreateUser.addProfileInfoToDatabase(0, username, "N\/A", profilePicUrl);
+                                  CreateUser.addProfileInfoToDatabase(0, username, "N\/A", profilePicUrl, backGroundPicUrl);
                                   // SET THE STATE TO LOADING - TO LOAD ANIMATION OF PRESSING SING-UP BUTTON - CIRCULAR MOTION
                                   setState(() => state = ButtonState.loading);
                                   // USING FUTURE.DELAYED - TO WAIT FOR THE SIGN - UP TO FINISH SIGNING UP AND
