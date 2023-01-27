@@ -61,7 +61,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final ImagePicker picker = ImagePicker();
     // TODO: MAYBE THINK ABOUT ADDING AN OPTION TO TAKE A PHOTO - WITH CAMERA .. - AT A LATER STAGE OF THE DEVELOPMENT. (or an update later on)
     final image = await picker.pickImage(
-      // TO TAKE OPTION WITH CAMERA - ImageSource.camera
+        // TO TAKE OPTION WITH CAMERA - ImageSource.camera
         source: ImageSource.gallery,
         maxHeight: 512,
         maxWidth: 512,
@@ -168,7 +168,7 @@ class _ProfilePageState extends State<ProfilePage> {
     // save profilePicUrl to current user of firebase realtime database:
     if (currentNode != null && getBackgroundPicUrl != "") {
       DatabaseReference ref =
-      FirebaseDatabase.instance.ref("Users/$currentNode");
+          FirebaseDatabase.instance.ref("Users/$currentNode");
       // Only update the profilePicUrl, leave the other things!
       await ref.update({
         "backgroundPicUrl": getBackgroundPicUrl,
@@ -211,55 +211,57 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       Column(
                         children: [
+                          // TODO: REMOVE CONTAINER - AND TRY TO RE-ALIGN WHOLE DESIGN - BECAUSE IT LIMITS YOU TO STRETCH BACKGROUND PICTURE..
                           Container(
                             height: 170.0,
                             width: 420.0,
                             color: Colors.white,
                             // TODO: Implement USER BACKGROUND photo here:
-                            child: Center(
-                              child: SizedBox(
-                                // play with these:
-                                height: 200.0,
-                                width: 420.0,
-                                child: Stack(
-                                  children: [
-                                    const Image(
-                                      // DEFAULT WHITE IMAGE BACKGROUND
-                                      image: AssetImage(
-                                          'assets/white_background.png'),
-                                    ),
-                                    GestureDetector(
-                                      child: finalBackGroundUrl == "" ? const Padding(
-                                        padding: EdgeInsets.only(left: 1650.0, top: 1030.0),
-                                        child: Icon(
-                                          Icons.edit,
-                                          color: Colors.black,
-                                          size: 140,
-                                          // profilePicUrl
+                            child: Stack(
+                              children: [
+                                // TODO: ADD IMAGE DEFAULT BACKGROUND - IF URL OF BACKGROUND IS == "" (TERNARY OPERATOR HERE:)
+                                // const Image(
+                                //   // DEFAULT WHITE IMAGE BACKGROUND
+                                //   image: AssetImage(
+                                //       'assets/white_background.png'),
+                                // ),
+                                GestureDetector(
+                                  child: finalBackGroundUrl == ""
+                                      ? const Padding(
+                                          padding: EdgeInsets.only(
+                                              left: 365, top: 143.0),
+                                          child: Icon(
+                                            Icons.edit,
+                                            color: Colors.black,
+                                            size: 25,
+                                            // profilePicUrl
+                                          ),
+                                        )
+                                      : Image.network(
+                                          finalBackGroundUrl,
+                                          fit: BoxFit.fitWidth,
+                                          // TO SHOW CIRCULAR ANIMATION OF LOADING IMAGE:
+                                          loadingBuilder:
+                                              (BuildContext context,
+                                                  Widget child,
+                                                  loadingProgress) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            }
+                                            return const Center(
+                                              child:
+                                                  CircularProgressIndicator(
+                                                color: Colors.grey,
+                                              ),
+                                            );
+                                          },
                                         ),
-                                      ) : Image.network(
-                                        finalBackGroundUrl,
-                                        // TO SHOW CIRCULAR ANIMATION OF LOADING IMAGE:
-                                        loadingBuilder: (BuildContext context,
-                                            Widget child, loadingProgress) {
-                                          if (loadingProgress == null) {
-                                            return child;
-                                          }
-                                          return const Center(
-                                            child: CircularProgressIndicator(
-                                              color: Colors.grey,
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                      // Functionality:
-                                      onTap: () {
-                                        pickAndUploadBackgroundPic();
-                                      },
-                                    ),
-                                  ],
+                                  // Functionality:
+                                  onTap: () {
+                                    pickAndUploadBackgroundPic();
+                                  },
                                 ),
-                              ),
+                              ],
                             ),
                           ),
                           const SizedBox(
