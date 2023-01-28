@@ -225,11 +225,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                         child: finalBackGroundUrl == ""
                                             ? const Padding(
                                                 padding: EdgeInsets.only(
-                                                    left: 365, top: 143.0),
+                                                    left: 305, top: 143.0),
                                                 child: Icon(
                                                   Icons.edit,
-                                                  color: Colors.red,
-                                                  size: 180,
+                                                  color: Colors.black,
+                                                  size: 25,
                                                   // profilePicUrl
                                                 ),
                                               )
