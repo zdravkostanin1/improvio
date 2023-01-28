@@ -66,7 +66,7 @@ class _ProfilePageState extends State<ProfilePage> {
         maxHeight: 512,
         maxWidth: 512,
         // IMAGE QUALITY :
-        imageQuality: 75);
+        imageQuality: 95);
     Reference ref = FirebaseStorage.instance
         .ref()
         .child('Background Pictures/$currentNode/background_pic.jpg');
@@ -211,57 +211,60 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       Column(
                         children: [
-                          // TODO: REMOVE CONTAINER - AND TRY TO RE-ALIGN WHOLE DESIGN - BECAUSE IT LIMITS YOU TO STRETCH BACKGROUND PICTURE..
-                          Container(
-                            height: 170.0,
-                            width: 420.0,
-                            color: Colors.white,
-                            // TODO: Implement USER BACKGROUND photo here:
-                            child: Stack(
-                              children: [
-                                // TODO: ADD IMAGE DEFAULT BACKGROUND - IF URL OF BACKGROUND IS == "" (TERNARY OPERATOR HERE:)
-                                // const Image(
-                                //   // DEFAULT WHITE IMAGE BACKGROUND
-                                //   image: AssetImage(
-                                //       'assets/white_background.png'),
-                                // ),
-                                GestureDetector(
-                                  child: finalBackGroundUrl == ""
-                                      ? const Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 365, top: 143.0),
-                                          child: Icon(
-                                            Icons.edit,
-                                            color: Colors.black,
-                                            size: 25,
-                                            // profilePicUrl
-                                          ),
-                                        )
-                                      : Image.network(
-                                          finalBackGroundUrl,
-                                          fit: BoxFit.fitWidth,
-                                          // TO SHOW CIRCULAR ANIMATION OF LOADING IMAGE:
-                                          loadingBuilder:
-                                              (BuildContext context,
-                                                  Widget child,
-                                                  loadingProgress) {
-                                            if (loadingProgress == null) {
-                                              return child;
-                                            }
-                                            return const Center(
-                                              child:
-                                                  CircularProgressIndicator(
-                                                color: Colors.grey,
+                          Center(
+                            child: Container(
+                              color: Colors.white,
+                              child: SizedBox(
+                                width: 420,
+                                height: 200,
+                                child: FittedBox(
+                                  fit: BoxFit.fill,
+                                  child: Stack(
+                                    children: [
+                                      GestureDetector(
+                                        child: finalBackGroundUrl == ""
+                                            ? const Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: 365, top: 143.0),
+                                                child: Icon(
+                                                  Icons.edit,
+                                                  color: Colors.red,
+                                                  size: 180,
+                                                  // profilePicUrl
+                                                ),
+                                              )
+                                            : SizedBox(
+                                                width: 2200,
+                                                height: 1200,
+                                                child: Image.network(
+                                                  finalBackGroundUrl,
+                                                  fit: BoxFit.fitWidth,
+                                                  // TO SHOW CIRCULAR ANIMATION OF LOADING IMAGE:
+                                                  loadingBuilder:
+                                                      (BuildContext context,
+                                                          Widget child,
+                                                          loadingProgress) {
+                                                    if (loadingProgress == null) {
+                                                      return child;
+                                                    }
+                                                    return const Center(
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        color: Colors.grey,
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
                                               ),
-                                            );
-                                          },
-                                        ),
-                                  // Functionality:
-                                  onTap: () {
-                                    pickAndUploadBackgroundPic();
-                                  },
+                                        // Functionality:
+                                        onTap: () {
+                                          pickAndUploadBackgroundPic();
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ],
+                              ),
                             ),
                           ),
                           const SizedBox(
@@ -637,7 +640,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       // TODO: Implement USER photo here: user imports it.
                       Positioned(
-                        top: 90.0,
+                        top: 124.0,
                         // (background container size) - (circle height / 2)
                         // WE USE A STACK WIDGET, SO WE CAN STACK THE PHOTO AND THE "IMPORT PHOTO" button on top of it
                         child: Stack(
