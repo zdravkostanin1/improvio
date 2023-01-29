@@ -18,7 +18,7 @@ String getMonth() {
 
 
 class _ChallengesPageState extends State<ChallengesPage> {
-  String month = getMonth();
+  String currentMonth = getMonth();
 
   @override
   void initState() {
@@ -55,9 +55,9 @@ class _ChallengesPageState extends State<ChallengesPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 13.5, top: 10.0, right: 0.0),
+              padding: const EdgeInsets.only(left: 13.5, top: 13.0, right: 0.0),
               child: Text(
-                'Goals for: $month',
+                'Goals for: $currentMonth',
                 style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,
