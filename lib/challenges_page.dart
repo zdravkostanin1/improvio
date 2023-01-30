@@ -8,14 +8,12 @@ class ChallengesPage extends StatefulWidget {
   State<ChallengesPage> createState() => _ChallengesPageState();
 }
 
-
 // TO GET THE CURRENT MONTH:
 String getMonth() {
   final dateObject = DateTime.now();
   // GET THE CURRENT MONTH:
   return DateFormat.MMMM().format(dateObject);
 }
-
 
 class _ChallengesPageState extends State<ChallengesPage> {
   String currentMonth = getMonth();
@@ -49,7 +47,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
               child: Text(
                 'SHORT-TERM:',
                 style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.orange,
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold),
               ),
@@ -64,6 +62,30 @@ class _ChallengesPageState extends State<ChallengesPage> {
                     fontWeight: FontWeight.bold),
               ),
             ),
+            const SizedBox(
+              height: 15.0,
+            ),
+            // TextButton(
+            //   onPressed: () {},
+            //   child: const Text(
+            //     'Click to add a goal',
+            //     style: TextStyle(
+            //         fontSize: 19.0,
+            //         color: Colors.white,
+            //         decoration: TextDecoration.underline),
+            //   ),
+            // )
+            Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Container(
+                padding: const EdgeInsets.all(24.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Text("Meditate 3 times"),
+              ),
+            )
           ],
         ),
       ),
