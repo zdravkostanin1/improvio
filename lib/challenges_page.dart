@@ -103,11 +103,14 @@ class _ChallengesPageState extends State<ChallengesPage> {
                             //   onPressed: () {/* ... */},
                             // ),
                             const SizedBox(width: 8),
-                            TextButton(
-                              child: const Text('ACHIEVE'),
-                              onPressed: () {
-                                /* ... */
-                              },
+                            TextField(
+                              decoration: InputDecoration(
+                                hintText: 'Add a goal ...',
+                              ),
+                              // child: const Text('ACHIEVE'),
+                              // onPressed: () {
+                              //   /* ... */
+                              // },
                             ),
                             const SizedBox(width: 8),
                           ],
