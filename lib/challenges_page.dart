@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -15,7 +16,14 @@ String getMonth() {
   return DateFormat.MMMM().format(dateObject);
 }
 
+// TO GET THE CURRENT USER'S USERNAME
+String? getUsername() {
+  User? user = FirebaseAuth.instance.currentUser;
+  return user?.displayName!;
+}
+
 class _ChallengesPageState extends State<ChallengesPage> {
+  String? username = getUsername();
   String currentMonth = getMonth();
 
   @override
@@ -32,7 +40,10 @@ class _ChallengesPageState extends State<ChallengesPage> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           // "YOUR DAILY TODOS, INSERT NAME HERE" - for todo page
-          title: Text('Your GOALS, {insert name here}', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
+          title: Text(
+            'Your GOALS, $username',
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
         ),
         backgroundColor: Colors.black,
         body: Column(
@@ -58,7 +69,8 @@ class _ChallengesPageState extends State<ChallengesPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 13.5, top: 13.0, right: 160.0),
+              padding:
+                  const EdgeInsets.only(left: 13.5, top: 13.0, right: 160.0),
               child: Text(
                 'Goals for: $currentMonth',
                 style: const TextStyle(
@@ -93,7 +105,9 @@ class _ChallengesPageState extends State<ChallengesPage> {
                             const SizedBox(width: 8),
                             TextButton(
                               child: const Text('ACHIEVE'),
-                              onPressed: () {/* ... */},
+                              onPressed: () {
+                                /* ... */
+                              },
                             ),
                             const SizedBox(width: 8),
                           ],
@@ -146,7 +160,9 @@ class _ChallengesPageState extends State<ChallengesPage> {
                             // ),
                             TextButton(
                               child: const Text('Add Goal ... '),
-                              onPressed: () {/* ... */},
+                              onPressed: () {
+                                /* ... */
+                              },
                             ),
                             const SizedBox(width: 200),
                             // TextButton(
