@@ -46,166 +46,203 @@ class _ChallengesPageState extends State<ChallengesPage> {
           ),
         ),
         backgroundColor: Colors.black,
-        body: Column(
-          children: [
-            // const Padding(
-            //   padding: EdgeInsets.only(left: 20.0, top: 50.0),
-            //   child: Text(
-            //     'GOALS',
-            //     style: TextStyle(
-            //         color: Colors.red,
-            //         fontSize: 55.0,
-            //         fontWeight: FontWeight.bold),
-            //   ),
-            // ),
-            const Padding(
-              padding: EdgeInsets.only(left: 1.0, top: 25.0, right: 182.0),
-              child: Text(
-                'SHORT-TERM:',
-                style: TextStyle(
-                    color: Colors.orange,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.only(left: 13.5, top: 13.0, right: 160.0),
-              child: Text(
-                'Goals for: $currentMonth',
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            const SizedBox(
-              height: 15.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 35.0, right: 35.0),
+        body: Padding(
+          padding: const EdgeInsets.only(top: 25.0, left: 15.0, right: 15.0),
+          child: SizedBox(
+            height: 250.0,
+            child: Card(
               child: Column(
                 children: [
-                  Card(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        // const ListTile(
-                        //   leading: Icon(Icons.album),
-                        //   title: Text('The Enchanted Nightingale'),
-                        //   subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
-                        // ),
-                        Row(
-                          children: [
-                            Text('Meditate 3 times'),
-                            // TextButton(
-                            //   child: const Text('BUY TICKETS'),
-                            //   onPressed: () {/* ... */},
-                            // ),
-                            const SizedBox(width: 8),
-                            TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Add a goal ...',
-                              ),
-                              // child: const Text('ACHIEVE'),
-                              // onPressed: () {
-                              //   /* ... */
-                              // },
-                            ),
-                            const SizedBox(width: 8),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  // Card(
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.end,
-                  //     children: [
-                  //       // const ListTile(
-                  //       //   leading: Icon(Icons.album),
-                  //       //   title: Text('The Enchanted Nightingale'),
-                  //       //   subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
-                  //       // ),
-                  //       Row(
-                  //         children: [
-                  //           Text('Meditate 20 times'),
-                  //           // TextButton(
-                  //           //   child: const Text('BUY TICKETS'),
-                  //           //   onPressed: () {/* ... */},
-                  //           // ),
-                  //           const SizedBox(width: 8),
-                  //           TextButton(
-                  //             child: const Text('ACHIEVE'),
-                  //             onPressed: () {/* ... */},
-                  //           ),
-                  //           const SizedBox(width: 8),
-                  //         ],
-                  //       ),
-                  //     ],
+                  // const Padding(
+                  //   padding: EdgeInsets.only(left: 20.0, top: 50.0),
+                  //   child: Text(
+                  //     'GOALS',
+                  //     style: TextStyle(
+                  //         color: Colors.red,
+                  //         fontSize: 55.0,
+                  //         fontWeight: FontWeight.bold),
                   //   ),
                   // ),
-                  Card(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                  const Padding(
+                    padding: EdgeInsets.only(left: 1.0, top: 25.0, right: 188.0),
+                    child: Text(
+                      'SHORT-TERM:',
+                      style: TextStyle(
+                          color: Colors.orange,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  // GOALS FOR THAT THE USER MAY HAVE FOR THE CURRENT MONTH:
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 13.5, top: 13.0, right: 160.0),
+                    child: Text(
+                      'Goals for: $currentMonth',
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                    child: Column(
                       children: [
-                        // const ListTile(
-                        //   leading: Icon(Icons.album),
-                        //   title: Text('The Enchanted Nightingale'),
-                        //   subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
+                        Card(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              // const ListTile(
+                              //   leading: Icon(Icons.album),
+                              //   title: Text('The Enchanted Nightingale'),
+                              //   subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
+                              // ),
+                              Row(
+                                children: [
+                                  // Text('Meditate 3 times'),
+                                  // // TextButton(
+                                  // //   child: const Text('BUY TICKETS'),
+                                  // //   onPressed: () {/* ... */},
+                                  // // ),
+                                  // const SizedBox(width: 8),
+                                  // TextButton(
+                                  //   child: const Text('ACHIEVE'),
+                                  //   onPressed: () {
+                                  //     /* ... */
+                                  //   },
+                                  // ),
+                                  // const SizedBox(width: 8),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        // Card(
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.end,
+                        //     children: [
+                        //       // const ListTile(
+                        //       //   leading: Icon(Icons.album),
+                        //       //   title: Text('The Enchanted Nightingale'),
+                        //       //   subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
+                        //       // ),
+                        //       Row(
+                        //         children: [
+                        //           Text('Meditate 20 times'),
+                        //           // TextButton(
+                        //           //   child: const Text('BUY TICKETS'),
+                        //           //   onPressed: () {/* ... */},
+                        //           // ),
+                        //           const SizedBox(width: 8),
+                        //           TextButton(
+                        //             child: const Text('ACHIEVE'),
+                        //             onPressed: () {/* ... */},
+                        //           ),
+                        //           const SizedBox(width: 8),
+                        //         ],
+                        //       ),
+                        //     ],
+                        //   ),
                         // ),
+                        Card(
+                          color: Colors.black,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              // const ListTile(
+                              //   leading: Icon(Icons.album),
+                              //   title: Text('The Enchanted Nightingale'),
+                              //   subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
+                              // ),
+                              Row(
+                                children: [
+                                  // Text('Add Goal ... '),
+                                  // TextButton(
+                                  //   child: const Text('BUY TICKETS'),
+                                  //   onPressed: () {/* ... */},
+                                  // ),
+                                  TextButton(
+                                    child: const Text('Add Goal .. ', style: TextStyle(color: Colors.greenAccent),),
+                                    onPressed: () {
+                                      /* ... */
+                                    },
+                                  ),
+                                  const SizedBox(width: 200),
+                                  // TextButton(
+                                  //   child: const Text('Add Goal ... '),
+                                  //   onPressed: () {/* ... */},
+                                  // ),
+                                  const SizedBox(width: 8),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        // OTHER SHORT TERM GOALS THAT USER MAY WANT TO ADD:
                         Row(
-                          children: [
-                            // Text('Add Goal ... '),
-                            // TextButton(
-                            //   child: const Text('BUY TICKETS'),
-                            //   onPressed: () {/* ... */},
-                            // ),
-                            TextButton(
-                              child: const Text('Add Goal ... '),
-                              onPressed: () {
-                                /* ... */
-                              },
+                          children: const [
+                            Padding(
+                              padding: EdgeInsets.only(left: 0, top: 20.0, right: 4.0),
+                              child: Text(
+                                'Other goals:',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
-                            const SizedBox(width: 200),
-                            // TextButton(
-                            //   child: const Text('Add Goal ... '),
-                            //   onPressed: () {/* ... */},
-                            // ),
-                            const SizedBox(width: 8),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            // TODO: IMPLEMENT DROP-DOWN IN WHICH USER CHOOSES A MONTH:
+                            Padding(
+                              padding: EdgeInsets.only(top: 24.0),
+                              child: Text(
+                                'Click to choose a month',
+                                style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    color: Colors.red,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
                           ],
                         ),
                       ],
                     ),
                   ),
+                  // TextButton(
+                  //   onPressed: () {},
+                  //   child: const Text(
+                  //     'Click to add a goal',
+                  //     style: TextStyle(
+                  //         fontSize: 19.0,
+                  //         color: Colors.white,
+                  //         decoration: TextDecoration.underline),
+                  //   ),
+                  // )
+                  // TODO: MAYBE USE THIS FOR THE TODO'S - PAGE. OR - HABITS
+                  // Padding(
+                  //   padding: const EdgeInsets.all(25.0),
+                  //   child: Center(
+                  //     child: Container(
+                  //       padding: const EdgeInsets.only(left: 24.0, top: 24.0, bottom: 24.0, right: 210.0),
+                  //       decoration: BoxDecoration(
+                  //         color: Colors.white,
+                  //         borderRadius: BorderRadius.circular(12),
+                  //       ),
+                  //       child: const Text("Meditate 3 times"),
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
-            )
-            // TextButton(
-            //   onPressed: () {},
-            //   child: const Text(
-            //     'Click to add a goal',
-            //     style: TextStyle(
-            //         fontSize: 19.0,
-            //         color: Colors.white,
-            //         decoration: TextDecoration.underline),
-            //   ),
-            // )
-            // TODO: MAYBE USE THIS FOR THE TODO'S - PAGE. OR - HABITS
-            // Padding(
-            //   padding: const EdgeInsets.all(25.0),
-            //   child: Center(
-            //     child: Container(
-            //       padding: const EdgeInsets.only(left: 24.0, top: 24.0, bottom: 24.0, right: 210.0),
-            //       decoration: BoxDecoration(
-            //         color: Colors.white,
-            //         borderRadius: BorderRadius.circular(12),
-            //       ),
-            //       child: const Text("Meditate 3 times"),
-            //     ),
-            //   ),
-            // )
-          ],
+            ),
+          ),
         ),
       ),
     );
