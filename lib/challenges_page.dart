@@ -26,6 +26,14 @@ class _ChallengesPageState extends State<ChallengesPage> {
   String? username = getUsername();
   String currentMonth = getMonth();
 
+  Future showDialog(
+          {required BuildContext context,
+          required AlertDialog Function(dynamic context) builder}) =>
+      showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(),
+      );
+
   @override
   void initState() {
     // TODO: implement initState
@@ -42,14 +50,16 @@ class _ChallengesPageState extends State<ChallengesPage> {
           // "YOUR DAILY TODOS, INSERT NAME HERE" - for todo page
           title: Text(
             'Your GOALS, $username',
-            style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+                color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ),
         backgroundColor: Colors.black,
         body: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 55.0, left: 15.0, right: 15.0),
+              padding:
+                  const EdgeInsets.only(top: 55.0, left: 15.0, right: 15.0),
               child: SizedBox(
                 height: 200.0,
                 child: Card(
@@ -66,7 +76,8 @@ class _ChallengesPageState extends State<ChallengesPage> {
                       //   ),
                       // ),
                       const Padding(
-                        padding: EdgeInsets.only(left: 1.0, top: 25.0, right: 188.0),
+                        padding:
+                            EdgeInsets.only(left: 1.0, top: 25.0, right: 188.0),
                         child: Text(
                           'SHORT-TERM:',
                           style: TextStyle(
@@ -155,8 +166,20 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                       // ),
                                       // TEXT WAS "Add Goal .. : below code of TextButton:
                                       TextButton(
-                                        child: const Text('+', style: TextStyle(color: Colors.greenAccent, fontSize: 30),),
+                                        child: const Text(
+                                          '+',
+                                          style: TextStyle(
+                                              color: Colors.greenAccent,
+                                              fontSize: 30),
+                                        ),
                                         onPressed: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                const AlertDialog(
+                                                  title: Text(''),
+                                                ),
+                                          );
                                           /* ... */
                                         },
                                       ),
@@ -238,14 +261,16 @@ class _ChallengesPageState extends State<ChallengesPage> {
             ),
             // "LONG-TERM" STARTS HERE
             Padding(
-              padding: const EdgeInsets.only(top: 15.0, left: 15.0, right: 15.0),
+              padding:
+                  const EdgeInsets.only(top: 15.0, left: 15.0, right: 15.0),
               child: SizedBox(
                 height: 200.0,
                 child: Card(
                   child: Column(
                     children: [
                       const Padding(
-                        padding: EdgeInsets.only(left: 1.0, top: 25.0, right: 188.0),
+                        padding:
+                            EdgeInsets.only(left: 1.0, top: 25.0, right: 188.0),
                         child: Text(
                           'LONG-TERM:',
                           style: TextStyle(
@@ -279,7 +304,12 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                   Row(
                                     children: [
                                       TextButton(
-                                        child: const Text('+', style: TextStyle(color: Colors.greenAccent, fontSize: 30),),
+                                        child: const Text(
+                                          '+',
+                                          style: TextStyle(
+                                              color: Colors.greenAccent,
+                                              fontSize: 30),
+                                        ),
                                         onPressed: () {
                                           /* ... */
                                         },
