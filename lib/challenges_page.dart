@@ -38,7 +38,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.lightBlueAccent,
+          backgroundColor: Colors.white,
           // "YOUR DAILY TODOS, INSERT NAME HERE" - for todo page
           title: Text(
             'Your GOALS, $username',
