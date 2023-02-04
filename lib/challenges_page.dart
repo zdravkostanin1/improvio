@@ -26,14 +26,6 @@ class _ChallengesPageState extends State<ChallengesPage> {
   String? username = getUsername();
   String currentMonth = getMonth();
 
-  Future showDialog(
-          {required BuildContext context,
-          required AlertDialog Function(dynamic context) builder}) =>
-      showDialog(
-        context: context,
-        builder: (context) => const AlertDialog(),
-      );
-
   @override
   void initState() {
     // TODO: implement initState
@@ -173,11 +165,12 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                               fontSize: 30),
                                         ),
                                         onPressed: () {
+                                          // SHOW DIALOG IN WHICH USER INPUTS GOAL DATA:
                                           showDialog(
                                             context: context,
                                             builder: (context) =>
                                                 const AlertDialog(
-                                                  title: Text(''),
+                                                  title: Text('Test'),
                                                 ),
                                           );
                                           /* ... */
@@ -311,6 +304,14 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                               fontSize: 30),
                                         ),
                                         onPressed: () {
+                                          // SHOW DIALOG IN WHICH USER INPUTS GOAL DATA:
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                            const AlertDialog(
+                                              title: Text('Test'),
+                                            ),
+                                          );
                                           /* ... */
                                         },
                                       ),
