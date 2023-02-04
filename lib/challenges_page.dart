@@ -168,10 +168,39 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                           // SHOW DIALOG IN WHICH USER INPUTS GOAL DATA:
                                           showDialog(
                                             context: context,
-                                            builder: (context) =>
-                                                const AlertDialog(
-                                                  title: Text('Test'),
+                                            builder: (context) => AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              title: const Text(
+                                                'Goal Details',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
                                                 ),
+                                              ),
+                                              content: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                                children: const [
+                                                  TextField(
+                                                    decoration: InputDecoration(
+                                                      labelText: 'Goal Name',
+                                                    ),
+                                                  ),
+                                                  // DropdownButton(items: [], onChanged: () {
+                                                  //
+                                                  // })
+                                                  // DropdownMenuItem(
+                                                  //   child: TextField(
+                                                  //     decoration: InputDecoration(
+                                                  //       labelText: 'Difficulty',
+                                                  //     ),
+                                                  //   ),
+                                                  // ),
+                                                ],
+                                              ),
+                                            ),
                                           );
                                           /* ... */
                                         },
@@ -308,8 +337,8 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                           showDialog(
                                             context: context,
                                             builder: (context) =>
-                                            const AlertDialog(
-                                              title: Text('Test'),
+                                                const AlertDialog(
+                                              title: Text('Goal Details'),
                                             ),
                                           );
                                           /* ... */
