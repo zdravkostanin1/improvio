@@ -25,6 +25,7 @@ String? getUsername() {
 class _ChallengesPageState extends State<ChallengesPage> {
   String? username = getUsername();
   String currentMonth = getMonth();
+  String chooseDifficultyDropDown = "Choose Difficulty";
 
   @override
   void initState() {
@@ -181,13 +182,64 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                               ),
                                               content: Column(
                                                 mainAxisSize: MainAxisSize.min,
-                                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                                children: const [
-                                                  TextField(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.stretch,
+                                                children: [
+                                                  const TextField(
                                                     decoration: InputDecoration(
                                                       labelText: 'Goal Name',
                                                     ),
                                                   ),
+                                                  DropdownButtonFormField(
+                                                      items: <String>[
+                                                        'Choose Difficulty',
+                                                        'Easy',
+                                                        'Medium',
+                                                        'Hard'
+                                                      ].map<
+                                                              DropdownMenuItem<
+                                                                  String>>(
+                                                          (String value) {
+                                                        return DropdownMenuItem<
+                                                            String>(
+                                                          value: value,
+                                                          child: Text(value,
+                                                              style:
+                                                                  const TextStyle(
+                                                                      fontSize:
+                                                                          20)),
+                                                        );
+                                                      }).toList(),
+                                                      onChanged:
+                                                          (String? newValue) {
+                                                        setState(() {
+                                                          chooseDifficultyDropDown =
+                                                              newValue!;
+                                                        });
+                                                      },
+                                                      value:
+                                                          chooseDifficultyDropDown),
+                                                  // DropdownButton<String>(
+                                                  //   // Step 3.
+                                                  //   value: chooseDifficultyDropDown,
+                                                  //   // Step 4.
+                                                  //   items: <String>['Choose Difficulty', 'Cat', 'Tiger', 'Lion']
+                                                  //       .map<DropdownMenuItem<String>>((String value) {
+                                                  //     return DropdownMenuItem<String>(
+                                                  //       value: value,
+                                                  //       child: Text(
+                                                  //         value,
+                                                  //         style: const TextStyle(fontSize: 20),
+                                                  //       ),
+                                                  //     );
+                                                  //   }).toList(),
+                                                  //   // Step 5.
+                                                  //   onChanged: (String? newValue) {
+                                                  //     setState(() {
+                                                  //       chooseDifficultyDropDown = newValue!;
+                                                  //     });
+                                                  //   },
+                                                  // ),
                                                   // DropdownButton(items: [], onChanged: () {
                                                   //
                                                   // })
