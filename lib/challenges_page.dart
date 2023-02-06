@@ -224,45 +224,46 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                       },
                                                       value:
                                                           chooseDifficultyDropDown),
-                                                  // MONTH DROP DOWN
-                                                  DropdownButtonFormField(
-                                                      items: <String>[
-                                                        'Choose month',
-                                                        'January',
-                                                        'February',
-                                                        'March',
-                                                        'April',
-                                                        'May',
-                                                        'June',
-                                                        'July',
-                                                        'August',
-                                                        'September',
-                                                        'October',
-                                                        'November',
-                                                        'December'
-                                                      ].map<
-                                                          DropdownMenuItem<
-                                                              String>>(
-                                                              (String value) {
-                                                            return DropdownMenuItem<
-                                                                String>(
-                                                              value: value,
-                                                              child: Text(value,
-                                                                  style:
-                                                                  const TextStyle(
-                                                                      fontSize:
-                                                                      20)),
-                                                            );
-                                                          }).toList(),
-                                                      onChanged:
-                                                          (String? newValue) {
-                                                        setState(() {
-                                                          chooseMonthDropDown =
-                                                          newValue!;
-                                                        });
-                                                      },
-                                                      value:
-                                                      chooseMonthDropDown),
+                                                  // DEADLINE - DATE PICKER WIDGET HERE:
+                                            TextButton(onPressed: () {}, child: Text(''),),
+                                                  // DropdownButtonFormField(
+                                                  //     items: <String>[
+                                                  //       'Choose month',
+                                                  //       'January',
+                                                  //       'February',
+                                                  //       'March',
+                                                  //       'April',
+                                                  //       'May',
+                                                  //       'June',
+                                                  //       'July',
+                                                  //       'August',
+                                                  //       'September',
+                                                  //       'October',
+                                                  //       'November',
+                                                  //       'December'
+                                                  //     ].map<
+                                                  //         DropdownMenuItem<
+                                                  //             String>>(
+                                                  //             (String value) {
+                                                  //           return DropdownMenuItem<
+                                                  //               String>(
+                                                  //             value: value,
+                                                  //             child: Text(value,
+                                                  //                 style:
+                                                  //                 const TextStyle(
+                                                  //                     fontSize:
+                                                  //                     20)),
+                                                  //           );
+                                                  //         }).toList(),
+                                                  //     onChanged:
+                                                  //         (String? newValue) {
+                                                  //       setState(() {
+                                                  //         chooseMonthDropDown =
+                                                  //         newValue!;
+                                                  //       });
+                                                  //     },
+                                                  //     value:
+                                                  //     chooseMonthDropDown),
                                                   // DropdownButton<String>(
                                                   //   // Step 3.
                                                   //   value: chooseDifficultyDropDown,
