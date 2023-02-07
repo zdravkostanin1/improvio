@@ -26,9 +26,10 @@ class _ChallengesPageState extends State<ChallengesPage> {
   String? username = getUsername();
   String currentMonth = getMonth();
   String chooseDifficultyDropDown = "Choose Difficulty";
-  String chooseMonthDropDown = "Choose month";
-  String chooseYearDropDown = "Choose year";
+  DateTime date = DateTime(2022, 12, 24);
 
+  // String chooseMonthDropDown = "Choose month";
+  // String chooseYearDropDown = "Choose year";
 
   @override
   void initState() {
@@ -180,9 +181,8 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                               title: const Text(
                                                 'Goal Details',
                                                 style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.red
-                                                ),
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.red),
                                               ),
                                               content: Column(
                                                 mainAxisSize: MainAxisSize.min,
@@ -225,7 +225,30 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                       value:
                                                           chooseDifficultyDropDown),
                                                   // DEADLINE - DATE PICKER WIDGET HERE:
-                                            TextButton(onPressed: () {}, child: Text(''),),
+                                                  TextButton(
+                                                    onPressed: () async {
+                                                      // SHOWS A CALENDAR WIDGET ON THE TAP OF THE CHOOSE DEADLINE TEXTBUTTON:
+                                                      // TODO: Continue implementation of DATEPICKER:
+                                                      DateTime? selectedDate = await showDatePicker(
+                                                          context: context,
+                                                          initialDate: date,
+                                                          firstDate:
+                                                              DateTime(2023),
+                                                          lastDate:
+                                                              DateTime(2123));
+                                                      if (selectedDate == null) return;
+                                                      setState(() {
+                                                        // save the selected deadline in date var
+                                                        date = selectedDate;
+                                                      });
+                                                    },
+                                                    // TODO: Figure out how to only show "choose deadline" - before the user has picked a date
+                                                    child: const Text(
+                                                      'Choose deadline',
+                                                      style: TextStyle(
+                                                          color: Colors.black),
+                                                    ),
+                                                  ),
                                                   // DropdownButtonFormField(
                                                   //     items: <String>[
                                                   //       'Choose month',
