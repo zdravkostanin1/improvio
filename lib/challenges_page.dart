@@ -226,6 +226,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                           chooseDifficultyDropDown),
                                                   // DEADLINE - DATE PICKER WIDGET HERE:
                                                   TextButton(
+                                                    // TODO: Fix initialDate is before firstDate - exception when click on choose deadline button
                                                     onPressed: () async {
                                                       // SHOWS A CALENDAR WIDGET ON THE TAP OF THE CHOOSE DEADLINE TEXTBUTTON:
                                                       // TODO: Continue implementation of DATEPICKER:
