@@ -27,6 +27,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
   String currentMonth = getMonth();
   String chooseDifficultyDropDown = "Choose Difficulty";
   DateTime currentDate = DateTime.now();
+  bool selectedDeadline = false;
 
   // String chooseMonthDropDown = "Choose month";
   // String chooseYearDropDown = "Choose year";
@@ -226,29 +227,49 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                           chooseDifficultyDropDown),
                                                   // DEADLINE - DATE PICKER WIDGET HERE:
                                                   TextButton(
-                                                    // TODO: Fix initialDate is before firstDate - exception when click on choose deadline button
                                                     onPressed: () async {
                                                       // SHOWS A CALENDAR WIDGET ON THE TAP OF THE CHOOSE DEADLINE TEXTBUTTON:
                                                       // TODO: Continue implementation of DATE PICKER:
-                                                      DateTime? selectedDate = await showDatePicker(
-                                                          context: context,
-                                                          initialDate: currentDate,
-                                                          firstDate:
-                                                              currentDate,
-                                                          lastDate:
-                                                              DateTime(2123));
-                                                      if (selectedDate == null) return;
+                                                      DateTime? selectedDate =
+                                                          await showDatePicker(
+                                                              context: context,
+                                                              initialDate:
+                                                                  currentDate,
+                                                              firstDate:
+                                                                  currentDate,
+                                                              lastDate:
+                                                                  DateTime(
+                                                                      2123));
+                                                      if (selectedDate ==
+                                                          null) {
+                                                        return;
+                                                      }
                                                       setState(() {
+                                                        // if the user has selected a deadline - set this var to true
+                                                        selectedDeadline = true;
                                                         // save the selected deadline in date var
-                                                        currentDate = selectedDate;
+                                                        currentDate =
+                                                            selectedDate;
                                                       });
                                                     },
                                                     // TODO: Figure out how to only show "choose deadline" - before the user has picked a date
-                                                    child: const Text(
-                                                      'Choose deadline',
-                                                      style: TextStyle(
-                                                          color: Colors.black),
-                                                    ),
+                                                    child:
+                                                        // we display "Choose deadline" text - if the user hasn't selected any deadline - as of yet
+                                                        // we base that off of a boolean ..
+                                                        selectedDeadline
+                                                            ? const Text(
+                                                                'Add a deadline',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black),
+                                                              )
+                                                            // if the user chooses a deadline - we display it like this:
+                                                            : Text(
+                                                                '${currentDate.year}/${currentDate.month}/${currentDate.day}',
+                                                                style: const TextStyle(
+                                                                    color: Colors
+                                                                        .black),
+                                                              ),
                                                   ),
                                                   // DropdownButtonFormField(
                                                   //     items: <String>[
