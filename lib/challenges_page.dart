@@ -245,11 +245,11 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                         return;
                                                       }
                                                       setState(() {
-                                                        // if the user has selected a deadline - set this var to true
-                                                        selectedDeadline = true;
                                                         // save the selected deadline in date var
                                                         currentDate =
                                                             selectedDate;
+                                                        // if the user has selected a deadline - set this var to true
+                                                        selectedDeadline = true;
                                                       });
                                                     },
                                                     // TODO: Figure out how to only show "choose deadline" - before the user has picked a date
@@ -257,16 +257,16 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                         // we display "Choose deadline" text - if the user hasn't selected any deadline - as of yet
                                                         // we base that off of a boolean ..
                                                         selectedDeadline
-                                                            ? const Text(
-                                                                'Add a deadline',
-                                                                style: TextStyle(
+                                                        // if the user chooses a deadline - we display it like this:
+                                                            ? Text(
+                                                                '${currentDate.year}/${currentDate.month}/${currentDate.day}',
+                                                                style: const TextStyle(
                                                                     color: Colors
                                                                         .black),
                                                               )
-                                                            // if the user chooses a deadline - we display it like this:
-                                                            : Text(
-                                                                '${currentDate.year}/${currentDate.month}/${currentDate.day}',
-                                                                style: const TextStyle(
+                                                            : const Text(
+                                                                'Add a deadline',
+                                                                style: TextStyle(
                                                                     color: Colors
                                                                         .black),
                                                               ),
