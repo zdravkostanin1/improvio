@@ -22,15 +22,32 @@ String? getUsername() {
   return user?.displayName!;
 }
 
+void saveDeadline(DateTime? selectedDate) {}
+
 class _ChallengesPageState extends State<ChallengesPage> {
   String? username = getUsername();
   String currentMonth = getMonth();
   String chooseDifficultyDropDown = "Choose Difficulty";
   DateTime currentDate = DateTime.now();
-  bool selectedDeadline = false;
+
+  // bool selectedDeadline = false;
 
   // String chooseMonthDropDown = "Choose month";
   // String chooseYearDropDown = "Choose year";
+
+  // void saveDeadline(DateTime? selectedDate) {
+  //   if (selectedDate ==
+  //       null) {
+  //     return;
+  //   }
+  //   setState(() {
+  //     // save the selected deadline in date var
+  //     currentDate =
+  //         selectedDate;
+  //     // if the user has selected a deadline - set this var to true
+  //     // selectedDeadline = true;
+  //   });
+  // }
 
   @override
   void initState() {
@@ -209,11 +226,13 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                         return DropdownMenuItem<
                                                             String>(
                                                           value: value,
-                                                          child: Text(value,
-                                                              style:
-                                                                  const TextStyle(
-                                                                      fontSize:
-                                                                          20)),
+                                                          child: Text(
+                                                            value,
+                                                            style:
+                                                                const TextStyle(
+                                                              fontSize: 20,
+                                                            ),
+                                                          ),
                                                         );
                                                       }).toList(),
                                                       onChanged:
@@ -249,27 +268,15 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                         currentDate =
                                                             selectedDate;
                                                         // if the user has selected a deadline - set this var to true
-                                                        selectedDeadline = true;
+                                                        // selectedDeadline = true;
                                                       });
                                                     },
-                                                    // TODO: Figure out how to only show "choose deadline" - before the user has picked a date
-                                                    child:
-                                                        // we display "Choose deadline" text - if the user hasn't selected any deadline - as of yet
-                                                        // we base that off of a boolean ..
-                                                        selectedDeadline
-                                                        // if the user chooses a deadline - we display it like this:
-                                                            ? Text(
-                                                                '${currentDate.year}/${currentDate.month}/${currentDate.day}',
-                                                                style: const TextStyle(
-                                                                    color: Colors
-                                                                        .black),
-                                                              )
-                                                            : const Text(
-                                                                'Add a deadline',
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .black),
-                                                              ),
+                                                    child: Text(
+                                                      '${currentDate.year}/${currentDate.month}/${currentDate.day}',
+                                                      style: const TextStyle(
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
                                                   ),
                                                   // DropdownButtonFormField(
                                                   //     items: <String>[
