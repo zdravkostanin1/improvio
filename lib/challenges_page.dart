@@ -272,10 +272,13 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                           // selectedDeadline = true;
                                                         });
                                                       },
-                                                      child: Text(
-                                                        '${currentDate.year}/${currentDate.month}/${currentDate.day}',
-                                                        style: const TextStyle(
-                                                          color: Colors.black,
+                                                      child: Padding(
+                                                        padding: const EdgeInsets.only(right: 180),
+                                                        child: Text(
+                                                          '${currentDate.day}/${currentDate.month}/${currentDate.year}',
+                                                          style: const TextStyle(
+                                                            color: Colors.black,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
