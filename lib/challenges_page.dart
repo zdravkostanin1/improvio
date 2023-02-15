@@ -191,163 +191,165 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                           // SHOW DIALOG IN WHICH USER INPUTS GOAL DATA:
                                           showDialog(
                                             context: context,
-                                            builder: (context) => AlertDialog(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              title: const Text(
-                                                'Goal Details',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.red),
-                                              ),
-                                              content: Column(
-                                                mainAxisSize: MainAxisSize.min,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.stretch,
-                                                children: [
-                                                  const TextField(
-                                                    decoration: InputDecoration(
-                                                      labelText: 'Goal Name',
-                                                    ),
-                                                  ),
-                                                  // DIFFICULTY DROPDOWN:
-                                                  DropdownButtonFormField(
-                                                      items: <String>[
-                                                        'Choose Difficulty',
-                                                        'Easy',
-                                                        'Medium',
-                                                        'Hard'
-                                                      ].map<
-                                                              DropdownMenuItem<
-                                                                  String>>(
-                                                          (String value) {
-                                                        return DropdownMenuItem<
-                                                            String>(
-                                                          value: value,
-                                                          child: Text(
-                                                            value,
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 20,
-                                                            ),
-                                                          ),
-                                                        );
-                                                      }).toList(),
-                                                      onChanged:
-                                                          (String? newValue) {
-                                                        setState(() {
-                                                          chooseDifficultyDropDown =
-                                                              newValue!;
-                                                        });
-                                                      },
-                                                      value:
-                                                          chooseDifficultyDropDown),
-                                                  // DEADLINE - DATE PICKER WIDGET HERE:
-                                                  TextButton(
-                                                    onPressed: () async {
-                                                      // SHOWS A CALENDAR WIDGET ON THE TAP OF THE CHOOSE DEADLINE TEXTBUTTON:
-                                                      // TODO: Continue implementation of DATE PICKER:
-                                                      DateTime? selectedDate =
-                                                          await showDatePicker(
-                                                              context: context,
-                                                              initialDate:
-                                                                  currentDate,
-                                                              firstDate:
-                                                                  currentDate,
-                                                              lastDate:
-                                                                  DateTime(
-                                                                      2123));
-                                                      if (selectedDate ==
-                                                          null) {
-                                                        return;
-                                                      }
-                                                      setState(() {
-                                                        // save the selected deadline in date var
-                                                        currentDate =
-                                                            selectedDate;
-                                                        // if the user has selected a deadline - set this var to true
-                                                        // selectedDeadline = true;
-                                                      });
-                                                    },
-                                                    child: Text(
-                                                      '${currentDate.year}/${currentDate.month}/${currentDate.day}',
-                                                      style: const TextStyle(
-                                                        color: Colors.black,
+                                            builder: (context) => StatefulBuilder(
+                                              builder: (context, setState) => AlertDialog(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(8.0),
+                                                ),
+                                                title: const Text(
+                                                  'Goal Details',
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.red),
+                                                ),
+                                                content: Column(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.stretch,
+                                                  children: [
+                                                    const TextField(
+                                                      decoration: InputDecoration(
+                                                        labelText: 'Goal Name',
                                                       ),
                                                     ),
-                                                  ),
-                                                  // DropdownButtonFormField(
-                                                  //     items: <String>[
-                                                  //       'Choose month',
-                                                  //       'January',
-                                                  //       'February',
-                                                  //       'March',
-                                                  //       'April',
-                                                  //       'May',
-                                                  //       'June',
-                                                  //       'July',
-                                                  //       'August',
-                                                  //       'September',
-                                                  //       'October',
-                                                  //       'November',
-                                                  //       'December'
-                                                  //     ].map<
-                                                  //         DropdownMenuItem<
-                                                  //             String>>(
-                                                  //             (String value) {
-                                                  //           return DropdownMenuItem<
-                                                  //               String>(
-                                                  //             value: value,
-                                                  //             child: Text(value,
-                                                  //                 style:
-                                                  //                 const TextStyle(
-                                                  //                     fontSize:
-                                                  //                     20)),
-                                                  //           );
-                                                  //         }).toList(),
-                                                  //     onChanged:
-                                                  //         (String? newValue) {
-                                                  //       setState(() {
-                                                  //         chooseMonthDropDown =
-                                                  //         newValue!;
-                                                  //       });
-                                                  //     },
-                                                  //     value:
-                                                  //     chooseMonthDropDown),
-                                                  // DropdownButton<String>(
-                                                  //   // Step 3.
-                                                  //   value: chooseDifficultyDropDown,
-                                                  //   // Step 4.
-                                                  //   items: <String>['Choose Difficulty', 'Cat', 'Tiger', 'Lion']
-                                                  //       .map<DropdownMenuItem<String>>((String value) {
-                                                  //     return DropdownMenuItem<String>(
-                                                  //       value: value,
-                                                  //       child: Text(
-                                                  //         value,
-                                                  //         style: const TextStyle(fontSize: 20),
-                                                  //       ),
-                                                  //     );
-                                                  //   }).toList(),
-                                                  //   // Step 5.
-                                                  //   onChanged: (String? newValue) {
-                                                  //     setState(() {
-                                                  //       chooseDifficultyDropDown = newValue!;
-                                                  //     });
-                                                  //   },
-                                                  // ),
-                                                  // DropdownButton(items: [], onChanged: () {
-                                                  //
-                                                  // })
-                                                  // DropdownMenuItem(
-                                                  //   child: TextField(
-                                                  //     decoration: InputDecoration(
-                                                  //       labelText: 'Difficulty',
-                                                  //     ),
-                                                  //   ),
-                                                  // ),
-                                                ],
+                                                    // DIFFICULTY DROPDOWN:
+                                                    DropdownButtonFormField(
+                                                        items: <String>[
+                                                          'Choose Difficulty',
+                                                          'Easy',
+                                                          'Medium',
+                                                          'Hard'
+                                                        ].map<
+                                                                DropdownMenuItem<
+                                                                    String>>(
+                                                            (String value) {
+                                                          return DropdownMenuItem<
+                                                              String>(
+                                                            value: value,
+                                                            child: Text(
+                                                              value,
+                                                              style:
+                                                                  const TextStyle(
+                                                                fontSize: 20,
+                                                              ),
+                                                            ),
+                                                          );
+                                                        }).toList(),
+                                                        onChanged:
+                                                            (String? newValue) {
+                                                          setState(() {
+                                                            chooseDifficultyDropDown =
+                                                                newValue!;
+                                                          });
+                                                        },
+                                                        value:
+                                                            chooseDifficultyDropDown),
+                                                    // DEADLINE - DATE PICKER WIDGET HERE:
+                                                    TextButton(
+                                                      onPressed: () async {
+                                                        // SHOWS A CALENDAR WIDGET ON THE TAP OF THE CHOOSE DEADLINE TEXTBUTTON:
+                                                        // TODO: Continue implementation of DATE PICKER:
+                                                        DateTime? selectedDate =
+                                                            await showDatePicker(
+                                                                context: context,
+                                                                initialDate:
+                                                                    currentDate,
+                                                                firstDate:
+                                                                    currentDate,
+                                                                lastDate:
+                                                                    DateTime(
+                                                                        2123));
+                                                        if (selectedDate ==
+                                                            null) {
+                                                          return;
+                                                        }
+                                                        setState(() {
+                                                          // save the selected deadline in date var
+                                                          currentDate =
+                                                              selectedDate;
+                                                          // if the user has selected a deadline - set this var to true
+                                                          // selectedDeadline = true;
+                                                        });
+                                                      },
+                                                      child: Text(
+                                                        '${currentDate.year}/${currentDate.month}/${currentDate.day}',
+                                                        style: const TextStyle(
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    // DropdownButtonFormField(
+                                                    //     items: <String>[
+                                                    //       'Choose month',
+                                                    //       'January',
+                                                    //       'February',
+                                                    //       'March',
+                                                    //       'April',
+                                                    //       'May',
+                                                    //       'June',
+                                                    //       'July',
+                                                    //       'August',
+                                                    //       'September',
+                                                    //       'October',
+                                                    //       'November',
+                                                    //       'December'
+                                                    //     ].map<
+                                                    //         DropdownMenuItem<
+                                                    //             String>>(
+                                                    //             (String value) {
+                                                    //           return DropdownMenuItem<
+                                                    //               String>(
+                                                    //             value: value,
+                                                    //             child: Text(value,
+                                                    //                 style:
+                                                    //                 const TextStyle(
+                                                    //                     fontSize:
+                                                    //                     20)),
+                                                    //           );
+                                                    //         }).toList(),
+                                                    //     onChanged:
+                                                    //         (String? newValue) {
+                                                    //       setState(() {
+                                                    //         chooseMonthDropDown =
+                                                    //         newValue!;
+                                                    //       });
+                                                    //     },
+                                                    //     value:
+                                                    //     chooseMonthDropDown),
+                                                    // DropdownButton<String>(
+                                                    //   // Step 3.
+                                                    //   value: chooseDifficultyDropDown,
+                                                    //   // Step 4.
+                                                    //   items: <String>['Choose Difficulty', 'Cat', 'Tiger', 'Lion']
+                                                    //       .map<DropdownMenuItem<String>>((String value) {
+                                                    //     return DropdownMenuItem<String>(
+                                                    //       value: value,
+                                                    //       child: Text(
+                                                    //         value,
+                                                    //         style: const TextStyle(fontSize: 20),
+                                                    //       ),
+                                                    //     );
+                                                    //   }).toList(),
+                                                    //   // Step 5.
+                                                    //   onChanged: (String? newValue) {
+                                                    //     setState(() {
+                                                    //       chooseDifficultyDropDown = newValue!;
+                                                    //     });
+                                                    //   },
+                                                    // ),
+                                                    // DropdownButton(items: [], onChanged: () {
+                                                    //
+                                                    // })
+                                                    // DropdownMenuItem(
+                                                    //   child: TextField(
+                                                    //     decoration: InputDecoration(
+                                                    //       labelText: 'Difficulty',
+                                                    //     ),
+                                                    //   ),
+                                                    // ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           );
