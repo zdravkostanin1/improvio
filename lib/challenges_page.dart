@@ -29,25 +29,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
   String currentMonth = getMonth();
   String chooseDifficultyDropDown = "Choose Difficulty";
   DateTime currentDate = DateTime.now();
-
-  // bool selectedDeadline = false;
-
-  // String chooseMonthDropDown = "Choose month";
-  // String chooseYearDropDown = "Choose year";
-
-  // void saveDeadline(DateTime? selectedDate) {
-  //   if (selectedDate ==
-  //       null) {
-  //     return;
-  //   }
-  //   setState(() {
-  //     // save the selected deadline in date var
-  //     currentDate =
-  //         selectedDate;
-  //     // if the user has selected a deadline - set this var to true
-  //     // selectedDeadline = true;
-  //   });
-  // }
+  bool selectedDeadline = false;
 
   @override
   void initState() {
@@ -191,25 +173,32 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                           // SHOW DIALOG IN WHICH USER INPUTS GOAL DATA:
                                           showDialog(
                                             context: context,
-                                            builder: (context) => StatefulBuilder(
-                                              builder: (context, setState) => AlertDialog(
+                                            builder: (context) =>
+                                                StatefulBuilder(
+                                              builder: (context, setState) =>
+                                                  AlertDialog(
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      BorderRadius.circular(8.0),
+                                                      BorderRadius.circular(
+                                                          8.0),
                                                 ),
                                                 title: const Text(
                                                   'Goal Details',
                                                   style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.red),
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.red,
+                                                  ),
                                                 ),
                                                 content: Column(
-                                                  mainAxisSize: MainAxisSize.min,
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
                                                   crossAxisAlignment:
-                                                      CrossAxisAlignment.stretch,
+                                                      CrossAxisAlignment
+                                                          .stretch,
                                                   children: [
                                                     const TextField(
-                                                      decoration: InputDecoration(
+                                                      decoration:
+                                                          InputDecoration(
                                                         labelText: 'Goal Name',
                                                       ),
                                                     ),
@@ -221,9 +210,9 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                           'Medium',
                                                           'Hard'
                                                         ].map<
-                                                                DropdownMenuItem<
-                                                                    String>>(
-                                                            (String value) {
+                                                            DropdownMenuItem<
+                                                                String>>((String
+                                                            value) {
                                                           return DropdownMenuItem<
                                                               String>(
                                                             value: value,
@@ -252,7 +241,8 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                         // TODO: Continue implementation of DATE PICKER:
                                                         DateTime? selectedDate =
                                                             await showDatePicker(
-                                                                context: context,
+                                                                context:
+                                                                    context,
                                                                 initialDate:
                                                                     currentDate,
                                                                 firstDate:
@@ -269,18 +259,28 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                           currentDate =
                                                               selectedDate;
                                                           // if the user has selected a deadline - set this var to true
-                                                          // selectedDeadline = true;
+                                                          selectedDeadline =
+                                                              true;
                                                         });
                                                       },
-                                                      child: Padding(
-                                                        padding: const EdgeInsets.only(right: 180),
-                                                        child: Text(
-                                                          '${currentDate.day}/${currentDate.month}/${currentDate.year}',
-                                                          style: const TextStyle(
-                                                            color: Colors.black,
-                                                          ),
-                                                        ),
-                                                      ),
+                                                      // IF THE USER HAS SELECTED A DEADLINE - DISPLAY DEADLINE.. :
+                                                      child: selectedDeadline
+                                                          ? Text(
+                                                              '${currentDate.day}/${currentDate.month}/${currentDate.year}',
+                                                              style:
+                                                                  const TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                              ),
+                                                            )
+                                                          // IF THE USER HASN'T SELECTED A DEADLINE... DISPLAY CHOOSE A DEADLINE TEXT .. :
+                                                          : const Text(
+                                                              'Choose a deadline for this goal',
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .blue,
+                                                              ),
+                                                            ),
                                                     ),
                                                     // DropdownButtonFormField(
                                                     //     items: <String>[
