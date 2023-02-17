@@ -75,7 +75,6 @@ class CreateUser {
   static void addProfileInfoToDatabase(int lvlOfUser, String username, String tribeStatus, String profilePicUrl, String backgroundPicUrl)  {
     // ADD USER DETAILS TO FIREBASE REAL TIME DATABASE:
     // FIREBASE REAL TIME DATABASE INSTANCES:
-    FirebaseDatabase database = FirebaseDatabase.instance;
     DatabaseReference databaseRef = FirebaseDatabase.instance.ref().child('Users');
     Map<String, dynamic> userInfo = {
       "lvl": lvlOfUser,
