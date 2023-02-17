@@ -266,10 +266,11 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                       // IF THE USER HAS SELECTED A DEADLINE - DISPLAY DEADLINE.. :
                                                       child: selectedDeadline
                                                           ? Text(
-                                                              '${currentDate.day}/${currentDate.month}/${currentDate.year}',
+                                                              'Deadline: ${currentDate.day}/${currentDate.month}/${currentDate.year}',
                                                               style:
                                                                   const TextStyle(
-                                                                color: Colors
+                                                                    fontSize: 18.0,
+                                                                    color: Colors
                                                                     .black,
                                                               ),
                                                             )
@@ -277,6 +278,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                           : const Text(
                                                               'Choose a deadline for this goal',
                                                               style: TextStyle(
+                                                                fontSize: 17.5,
                                                                 color: Colors
                                                                     .blue,
                                                               ),
