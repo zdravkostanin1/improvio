@@ -87,6 +87,11 @@ class CreateUser {
     // print(databaseRef.ref.key);
     // await ref.set({"lvl": lvlOfUser, "tribe": "No tribe"});
   }
+
+  // static void addGoalsSubNodes() {
+  //   DatabaseReference databaseRef = FirebaseDatabase.instance.ref().child('Users/Goals');
+  //   databaseRef.push();
+  // }
 }
 
 // TODO: CONTINUE IMPLEMENTATION , AND ADD TOAST MESSAGES IF PASS DOESN'T MEET REQUIREMENTS, ETC...
