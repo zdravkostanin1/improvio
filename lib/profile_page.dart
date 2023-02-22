@@ -39,7 +39,6 @@ class _ProfilePageState extends State<ProfilePage> {
         maxWidth: 512,
         // IMAGE QUALITY :
         imageQuality: 75);
-
     Reference ref = FirebaseStorage.instance
         .ref()
         .child('Profile Pictures/$currentNode/profile_pic.jpg');

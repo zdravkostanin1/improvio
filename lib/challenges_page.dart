@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -30,6 +31,51 @@ class _ChallengesPageState extends State<ChallengesPage> {
   String chooseDifficultyDropDown = "Choose Difficulty";
   DateTime currentDate = DateTime.now();
   bool selectedDeadline = false;
+  String? currentUserUID = "";
+
+  getNodeOfUser() async {
+    // We limit the node from the Root Users to the last 1 , to get the current NODE - with the CURRENT user's tribe status
+    final dbRef = FirebaseDatabase.instance
+        .ref()
+        .child("Users")
+        .orderByKey()
+        .limitToLast(1);
+    dbRef.onValue.listen((event) => {
+          for (var snap in event.snapshot.children)
+            {
+              saveUserUID(snap.key)
+              // We call these methods to save the current key of the current USER node, and SELECT WHICH DATA WE WANT TO RETRIEVE
+              // getUserData(snap.key, 'tribe'),
+              // getUserData(snap.key, 'lvl'),
+              // getUserData(snap.key, 'profilePicUrl'),
+              // getUserData(snap.key, 'backgroundPicUrl'),
+            }
+        });
+  }
+
+  saveUserUID(String? node) {
+    currentUserUID = node;
+    print(currentUserUID);
+    // return currentUserUID;
+  }
+
+  // ADD GOALS TO DATABASE: SHORT-TERM & LONG-TERM
+  addGoalsToDB(String goaly) {
+    // DatabaseReference ref = FirebaseDatabase.instance.ref('Users/$currentUserUID/goals/short-term');
+    DatabaseReference databaseRef = FirebaseDatabase.instance
+        .ref()
+        .child('Users/$currentUserUID/goals/short-term');
+    Map<String, dynamic> userInfo = {
+      "goal1": goaly,
+      // "tribe": tribeStatus,
+      // "username": username,
+      // "profilePicUrl": profilePicUrl,
+      // "backgroundPicUrl": backgroundPicUrl,
+    };
+    databaseRef.push().set(userInfo);
+    // print(databaseRef.ref.key);
+    // await ref.set({"lvl": lvlOfUser, "tribe": "No tribe"});
+  }
 
   @override
   void initState() {
@@ -262,6 +308,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                           selectedDeadline =
                                                               true;
                                                         });
+                                                        // getNodeOfUser();
                                                       },
                                                       // IF THE USER HAS SELECTED A DEADLINE - DISPLAY DEADLINE.. :
                                                       child: selectedDeadline
@@ -269,8 +316,8 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                               'Deadline: ${currentDate.day}/${currentDate.month}/${currentDate.year}',
                                                               style:
                                                                   const TextStyle(
-                                                                    fontSize: 18.0,
-                                                                    color: Colors
+                                                                fontSize: 18.0,
+                                                                color: Colors
                                                                     .black,
                                                               ),
                                                             )
@@ -279,8 +326,8 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                               'Choose a deadline for this goal',
                                                               style: TextStyle(
                                                                 fontSize: 17.5,
-                                                                color: Colors
-                                                                    .blue,
+                                                                color:
+                                                                    Colors.blue,
                                                               ),
                                                             ),
                                                     ),
@@ -355,6 +402,19 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                     // ),
                                                   ],
                                                 ),
+                                                actions: [
+                                                  // "Finish" button on Alert Dialog - to finish ur goal setting
+                                                  Center(
+                                                    child: TextButton(
+                                                      child: const Text("Finish"),
+                                                      onPressed: () {
+                                                        getNodeOfUser();
+                                                        addGoalsToDB(
+                                                            "meditate 3 times");
+                                                      },
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           );
