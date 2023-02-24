@@ -54,9 +54,8 @@ class _ChallengesPageState extends State<ChallengesPage> {
   }
 
   saveUserUID(String? node) {
-    currentUserUID = node;
-    print(currentUserUID);
-    // return currentUserUID;
+      currentUserUID = node;
+      print('This is the current USER UID: $currentUserUID');
   }
 
   // ADD GOALS TO DATABASE: SHORT-TERM & LONG-TERM
@@ -64,15 +63,15 @@ class _ChallengesPageState extends State<ChallengesPage> {
     // DatabaseReference ref = FirebaseDatabase.instance.ref('Users/$currentUserUID/goals/short-term');
     DatabaseReference databaseRef = FirebaseDatabase.instance
         .ref()
-        .child('Users/$currentUserUID/goals/short-term');
+        .child('Users').child('goals').child('short-term').push();
     Map<String, dynamic> userInfo = {
-      "goal1": goaly,
+      "goal": goaly,
       // "tribe": tribeStatus,
       // "username": username,
       // "profilePicUrl": profilePicUrl,
       // "backgroundPicUrl": backgroundPicUrl,
     };
-    databaseRef.push().set(userInfo);
+    databaseRef.update(userInfo);
     // print(databaseRef.ref.key);
     // await ref.set({"lvl": lvlOfUser, "tribe": "No tribe"});
   }
