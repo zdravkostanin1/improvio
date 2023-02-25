@@ -58,22 +58,9 @@ class _ChallengesPageState extends State<ChallengesPage> {
       print('This is the current USER UID: $currentUserUID');
   }
 
-  // ADD GOALS TO DATABASE: SHORT-TERM & LONG-TERM
-  addGoalsToDB(String goaly) {
-    // DatabaseReference ref = FirebaseDatabase.instance.ref('Users/$currentUserUID/goals/short-term');
-    DatabaseReference databaseRef = FirebaseDatabase.instance
-        .ref()
-        .child('Users').child('goals').child('short-term').push();
-    Map<String, dynamic> userInfo = {
-      "goal": goaly,
-      // "tribe": tribeStatus,
-      // "username": username,
-      // "profilePicUrl": profilePicUrl,
-      // "backgroundPicUrl": backgroundPicUrl,
-    };
-    databaseRef.update(userInfo);
-    // print(databaseRef.ref.key);
-    // await ref.set({"lvl": lvlOfUser, "tribe": "No tribe"});
+  // TODO: ADD GOALS TO DATABASE: SHORT-TERM & LONG-TERM
+  addGoalsToDB(String goal) {
+      DatabaseReference databaseRef = FirebaseDatabase.instance.ref().child('Users/$currentUserUID/goals');
   }
 
   @override
