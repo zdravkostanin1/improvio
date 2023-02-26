@@ -59,8 +59,16 @@ class _ChallengesPageState extends State<ChallengesPage> {
   }
 
   // TODO: ADD GOALS TO DATABASE: SHORT-TERM & LONG-TERM
-  addGoalsToDB(String goal) {
-      DatabaseReference databaseRef = FirebaseDatabase.instance.ref().child('Users/$currentUserUID/goals');
+  addGoalsToDB(String goal) async {
+    DatabaseReference ref = FirebaseDatabase.instance.ref("Users");
+    await ref.update({
+      "lvl": 10,
+    });
+      // DatabaseReference databaseRef = FirebaseDatabase.instance.ref('Users/$currentUserUID');
+      // Map<String, dynamic> userInfo = {
+      //   "lvl": 200,
+      // };
+      // databaseRef.update(userInfo);
   }
 
   @override
