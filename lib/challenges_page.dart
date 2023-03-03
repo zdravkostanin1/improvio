@@ -60,7 +60,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
 
   // TODO: ADD GOALS TO DATABASE: SHORT-TERM & LONG-TERM
   addGoalsToDB(String goal) async {
-    // await getNodeOfUser();
+    // TODO: FIGURE OUT HOW TO DETERMINE IF GOAL IS LONG-TERM OR SHORT-TERM
     if (currentUserUID == "") {
       print("USER UID IS EMPTY..");
     } else {
@@ -77,6 +77,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    // TO GET CURRENT USER UID IN FIREBASE REALTIME DATABASE:
     getNodeOfUser();
   }
 
