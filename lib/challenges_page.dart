@@ -11,11 +11,11 @@ class ChallengesPage extends StatefulWidget {
 }
 
 // TO GET THE CURRENT MONTH:
-String getMonth() {
-  final dateObject = DateTime.now();
-  // GET THE CURRENT MONTH:
-  return DateFormat.MMMM().format(dateObject);
-}
+// String getMonth() {
+//   final dateObject = DateTime.now();
+//   // GET THE CURRENT MONTH:
+//   return DateFormat.MMMM().format(dateObject);
+// }
 
 // TO GET THE CURRENT USER'S USERNAME
 String? getUsername() {
@@ -27,7 +27,7 @@ void saveDeadline(DateTime? selectedDate) {}
 
 class _ChallengesPageState extends State<ChallengesPage> {
   String? username = getUsername();
-  String currentMonth = getMonth();
+  // String currentMonth = getMonth();
   String chooseDifficultyDropDown = "Choose Difficulty";
   DateTime currentDate = DateTime.now();
   bool selectedDeadline = false;
@@ -60,22 +60,24 @@ class _ChallengesPageState extends State<ChallengesPage> {
 
   // TODO: ADD GOALS TO DATABASE: SHORT-TERM & LONG-TERM
   addGoalsToDB(String goal) async {
-    DatabaseReference ref = FirebaseDatabase.instance.ref("Users");
-    await ref.update({
-      "lvl": 10,
-    });
-      // DatabaseReference databaseRef = FirebaseDatabase.instance.ref('Users/$currentUserUID');
-      // Map<String, dynamic> userInfo = {
-      //   "lvl": 200,
-      // };
-      // databaseRef.update(userInfo);
+    // await getNodeOfUser();
+    if (currentUserUID == "") {
+      print("USER UID IS EMPTY..");
+    } else {
+      DatabaseReference ref = FirebaseDatabase.instance.ref("Users").child(
+          "$currentUserUID").child("Goals").child("short-term");
+      Map<String, dynamic> userInfo = {
+        "goal1": goal,
+      };
+      ref.push().set(userInfo);
+    }
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getMonth();
+    getNodeOfUser();
   }
 
   @override
@@ -402,7 +404,6 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                     child: TextButton(
                                                       child: const Text("Finish"),
                                                       onPressed: () {
-                                                        getNodeOfUser();
                                                         addGoalsToDB(
                                                             "meditate 3 times");
                                                       },
