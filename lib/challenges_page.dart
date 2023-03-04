@@ -27,12 +27,12 @@ void saveDeadline(DateTime? selectedDate) {}
 
 class _ChallengesPageState extends State<ChallengesPage> {
   String? username = getUsername();
-  // String currentMonth = getMonth();
-  String chooseDifficultyDropDown = "Choose Difficulty";
-  DateTime currentDate = DateTime.now();
-  bool selectedDeadline = false;
   String? currentUserUID = "";
+  // GOAL DETAILS VARS:
   String goalName = "";
+  bool selectedDeadline = false;
+  DateTime currentDate = DateTime.now();
+  String chooseDifficultyDropDown = "Choose Difficulty";
 
   getNodeOfUser() async {
     // We limit the node from the Root Users to the last 1 , to get the current NODE - with the CURRENT user's tribe status
@@ -60,16 +60,17 @@ class _ChallengesPageState extends State<ChallengesPage> {
   }
 
   // TODO: ADD GOALS TO DATABASE: SHORT-TERM & LONG-TERM
-  addGoalsToDB(String goalName) async {
+  addGoalsToDB(String goalName, String difficulty) async {
     // TODO: FIGURE OUT HOW TO DETERMINE IF GOAL IS LONG-TERM OR SHORT-TERM
     if (currentUserUID == "") {
-      print("USER UID IS EMPTY..");
+      // USER UID IS EMPTY ...
+      // print("USER UID IS EMPTY..");
     } else {
       DatabaseReference ref = FirebaseDatabase.instance.ref("Users").child(
           "$currentUserUID").child("Goals").child("short-term").child(goalName);
       Map<String, dynamic> userInfo = {
-        "deadline": 150223,
-        "difficulty": "Hard",
+        "deadline": "${currentDate.day}/${currentDate.month}/${currentDate.year}",
+        "difficulty": difficulty,
       };
       ref.set(userInfo);
     }
@@ -412,7 +413,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                     child: TextButton(
                                                       child: const Text("Finish"),
                                                       onPressed: () {
-                                                        addGoalsToDB(goalName);
+                                                        addGoalsToDB(goalName, chooseDifficultyDropDown);
                                                       },
                                                     ),
                                                   ),
