@@ -32,6 +32,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
   DateTime currentDate = DateTime.now();
   bool selectedDeadline = false;
   String? currentUserUID = "";
+  String goalName = "";
 
   getNodeOfUser() async {
     // We limit the node from the Root Users to the last 1 , to get the current NODE - with the CURRENT user's tribe status
@@ -59,15 +60,16 @@ class _ChallengesPageState extends State<ChallengesPage> {
   }
 
   // TODO: ADD GOALS TO DATABASE: SHORT-TERM & LONG-TERM
-  addGoalsToDB(String goal) async {
+  addGoalsToDB(String goalName) async {
     // TODO: FIGURE OUT HOW TO DETERMINE IF GOAL IS LONG-TERM OR SHORT-TERM
     if (currentUserUID == "") {
       print("USER UID IS EMPTY..");
     } else {
       DatabaseReference ref = FirebaseDatabase.instance.ref("Users").child(
-          "$currentUserUID").child("Goals").child("short-term");
+          "$currentUserUID").child("Goals").child("short-term").child(goalName);
       Map<String, dynamic> userInfo = {
-        "goal1": goal,
+        "deadline": 150223,
+        "difficulty": "Hard",
       };
       ref.set(userInfo);
     }
@@ -239,11 +241,16 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                       CrossAxisAlignment
                                                           .stretch,
                                                   children: [
-                                                    const TextField(
+                                                    TextField(
                                                       decoration:
-                                                          InputDecoration(
+                                                          const InputDecoration(
                                                         labelText: 'Goal Name',
                                                       ),
+                                                      // TODO: MAYBE ADD A TEXT CONTROLLER TO REPLACE THIS:
+                                                      // SAVE GOAL NAME TO LATER PASS IT TO A FUNCTION TO BE SAVED IN DB:
+                                                      onChanged: (nameOfGoal) {
+                                                        goalName = nameOfGoal;
+                                                      },
                                                     ),
                                                     // DIFFICULTY DROPDOWN:
                                                     DropdownButtonFormField(
@@ -405,8 +412,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                     child: TextButton(
                                                       child: const Text("Finish"),
                                                       onPressed: () {
-                                                        addGoalsToDB(
-                                                            "meditate 3 times");
+                                                        addGoalsToDB(goalName);
                                                       },
                                                     ),
                                                   ),
