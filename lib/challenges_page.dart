@@ -69,7 +69,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
       Map<String, dynamic> userInfo = {
         "goal1": goal,
       };
-      ref.push().set(userInfo);
+      ref.set(userInfo);
     }
   }
 
