@@ -119,7 +119,13 @@ class _ProfilePageState extends State<ProfilePage> {
       } else if (data == 'backgroundPicUrl') {
         saveCurrentUserBackgroundPic(event.snapshot.value as String);
       }
-      setState(() {});
+      // CLICKING FINISH ON CHALLENGS_PAGE.DART - WHILE USER ADDED A HABIT AND CLICKED FINISH
+      // THE CODE BROKE HERE AND GAVE THIS ERROR: SetState setState() called after dispose()
+      // fixed it w adding the if mounted condition :
+      // (previously was just setting the state)
+      if (mounted) {
+        setState(() {});
+      }
     });
     return node;
   }
@@ -134,7 +140,15 @@ class _ProfilePageState extends State<ProfilePage> {
     } else if (tribeName != 'N/A') {
       userInTribe = true;
     }
-    setState(() {});
+    // CLICKING FINISH ON CHALLENGS_PAGE.DART - WHILE USER ADDED A HABIT AND CLICKED FINISH
+    // THE CODE BROKE HERE AND GAVE THIS ERROR: SetState setState() called after dispose()
+    // fixed it w adding the if mounted condition :
+    // (previously was just setting the state)
+    if (mounted) {
+      setState(() {
+        // Your state change code goes here
+      });
+    }
   }
 
   // TODO:  MAYBE ADD SOME DELAY TO BELOW STATEMENT FOR LEVEL: to fix bug of zero showing first
