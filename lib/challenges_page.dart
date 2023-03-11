@@ -33,6 +33,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
   bool selectedDeadline = false;
   DateTime currentDate = DateTime.now();
   String chooseDifficultyDropDown = "Choose Difficulty";
+  String longTermOrShortTermGoal = "";
 
   getNodeOfUser() async {
     // We limit the node from the Root Users to the last 1 , to get the current NODE - with the CURRENT user's tribe status
@@ -59,12 +60,10 @@ class _ChallengesPageState extends State<ChallengesPage> {
       print('This is the current USER UID: $currentUserUID');
   }
 
-  // TODO: ADD GOALS TO DATABASE: SHORT-TERM & LONG-TERM
   addGoalsToDB(String goalName, String difficulty) async {
     // TODO: FIGURE OUT HOW TO DETERMINE IF GOAL IS LONG-TERM OR SHORT-TERM
     if (currentUserUID == "") {
       // USER UID IS EMPTY ...
-      // print("USER UID IS EMPTY..");
     } else {
       DatabaseReference ref = FirebaseDatabase.instance.ref("Users").child(
           "$currentUserUID").child("Goals").child("short-term").child(goalName);
