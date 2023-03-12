@@ -20,6 +20,7 @@ void saveDeadline(DateTime? selectedDate) {}
 class _ChallengesPageState extends State<ChallengesPage> {
   String? username = getUsername();
   String? currentUserUID = "";
+
   // GOAL DETAILS VARS:
   String goalName = "";
   bool selectedDeadline = false;
@@ -48,7 +49,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
   }
 
   saveUserUID(String? node) {
-      currentUserUID = node;
+    currentUserUID = node;
   }
 
   addGoalsToDB(String goalName, String difficulty) async {
@@ -58,19 +59,29 @@ class _ChallengesPageState extends State<ChallengesPage> {
     } else {
       // ---> IF USER WANTS TO ADD A SHOR-TERM E.G. CLICKED ON SHORT-TERM "ADD" BUTTON
       if (longTermOrShortTermGoal == "short-term") {
-        DatabaseReference ref = FirebaseDatabase.instance.ref("Users").child(
-            "$currentUserUID").child("Goals").child("short-term").child(goalName);
+        DatabaseReference ref = FirebaseDatabase.instance
+            .ref("Users")
+            .child("$currentUserUID")
+            .child("Goals")
+            .child("short-term")
+            .child(goalName);
         Map<String, dynamic> userInfo = {
-          "deadline": "${currentDate.day}/${currentDate.month}/${currentDate.year}",
+          "deadline":
+              "${currentDate.day}/${currentDate.month}/${currentDate.year}",
           "difficulty": difficulty,
         };
         ref.set(userInfo);
-      } else if (longTermOrShortTermGoal == "long-term"){
+      } else if (longTermOrShortTermGoal == "long-term") {
         // ---> USER WANTS TO ADD A LONG-TERM GOAL..
-        DatabaseReference ref = FirebaseDatabase.instance.ref("Users").child(
-            "$currentUserUID").child("Goals").child("long-term").child(goalName);
+        DatabaseReference ref = FirebaseDatabase.instance
+            .ref("Users")
+            .child("$currentUserUID")
+            .child("Goals")
+            .child("long-term")
+            .child(goalName);
         Map<String, dynamic> userInfo = {
-          "deadline": "${currentDate.day}/${currentDate.month}/${currentDate.year}",
+          "deadline":
+              "${currentDate.day}/${currentDate.month}/${currentDate.year}",
           "difficulty": difficulty,
         };
         ref.set(userInfo);
@@ -124,8 +135,8 @@ class _ChallengesPageState extends State<ChallengesPage> {
                         //   ),
                         // ),
                         const Padding(
-                          padding:
-                              EdgeInsets.only(left: 1.0, top: 25.0, right: 188.0),
+                          padding: EdgeInsets.only(
+                              left: 1.0, top: 25.0, right: 188.0),
                           child: Text(
                             'SHORT-TERM:',
                             style: TextStyle(
@@ -150,7 +161,8 @@ class _ChallengesPageState extends State<ChallengesPage> {
                           height: 20.0,
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                          padding:
+                              const EdgeInsets.only(left: 20.0, right: 20.0),
                           child: Column(
                             children: [
                               Card(
@@ -222,7 +234,8 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                           ),
                                           onPressed: () {
                                             // --> USER HAS SELECTED TO ADD A SHORT-TERM GOAL:
-                                            longTermOrShortTermGoal = "short-term";
+                                            longTermOrShortTermGoal =
+                                                "short-term";
                                             // SHOW DIALOG IN WHICH USER INPUTS GOAL DATA:
                                             showDialog(
                                               context: context,
@@ -238,11 +251,13 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                   title: const Text(
                                                     'Goal Details',
                                                     style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       color: Colors.red,
                                                     ),
                                                   ),
-                                                  content: SingleChildScrollView(
+                                                  content:
+                                                      SingleChildScrollView(
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.min,
@@ -253,12 +268,15 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                         TextField(
                                                           decoration:
                                                               const InputDecoration(
-                                                            labelText: 'Goal Name',
+                                                            labelText:
+                                                                'Goal Name',
                                                           ),
                                                           // TODO: MAYBE ADD A TEXT CONTROLLER TO REPLACE THIS:
                                                           // SAVE GOAL NAME TO LATER PASS IT TO A FUNCTION TO BE SAVED IN DB:
-                                                          onChanged: (nameOfGoal) {
-                                                            goalName = nameOfGoal;
+                                                          onChanged:
+                                                              (nameOfGoal) {
+                                                            goalName =
+                                                                nameOfGoal;
                                                           },
                                                         ),
                                                         // DIFFICULTY DROPDOWN:
@@ -279,13 +297,14 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                                   value,
                                                                   style:
                                                                       const TextStyle(
-                                                                    fontSize: 20,
+                                                                    fontSize:
+                                                                        20,
                                                                   ),
                                                                 ),
                                                               );
                                                             }).toList(),
-                                                            onChanged:
-                                                                (String? newValue) {
+                                                            onChanged: (String?
+                                                                newValue) {
                                                               setState(() {
                                                                 chooseDifficultyDropDown =
                                                                     newValue!;
@@ -298,7 +317,8 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                           onPressed: () async {
                                                             // SHOWS A CALENDAR WIDGET ON THE TAP OF THE CHOOSE DEADLINE TEXTBUTTON:
                                                             // TODO: Continue implementation of DATE PICKER:
-                                                            DateTime? selectedDate =
+                                                            DateTime?
+                                                                selectedDate =
                                                                 await showDatePicker(
                                                                     context:
                                                                         context,
@@ -329,7 +349,8 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                                   'Deadline: ${currentDate.day}/${currentDate.month}/${currentDate.year}',
                                                                   style:
                                                                       const TextStyle(
-                                                                    fontSize: 18.0,
+                                                                    fontSize:
+                                                                        18.0,
                                                                     color: Colors
                                                                         .black,
                                                                   ),
@@ -337,10 +358,12 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                               // IF THE USER HASN'T SELECTED A DEADLINE... DISPLAY CHOOSE A DEADLINE TEXT .. :
                                                               : const Text(
                                                                   'Choose a deadline for this goal',
-                                                                  style: TextStyle(
-                                                                    fontSize: 17.5,
-                                                                    color:
-                                                                        Colors.blue,
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        17.5,
+                                                                    color: Colors
+                                                                        .blue,
                                                                   ),
                                                                 ),
                                                         ),
@@ -351,9 +374,11 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                     // "Finish" button on Alert Dialog - to finish ur goal setting
                                                     Center(
                                                       child: TextButton(
-                                                        child: const Text("Finish"),
+                                                        child: const Text(
+                                                            "Finish"),
                                                         onPressed: () {
-                                                          addGoalsToDB(goalName, chooseDifficultyDropDown);
+                                                          addGoalsToDB(goalName,
+                                                              chooseDifficultyDropDown);
                                                         },
                                                       ),
                                                     ),
@@ -410,8 +435,8 @@ class _ChallengesPageState extends State<ChallengesPage> {
                     child: Column(
                       children: [
                         const Padding(
-                          padding:
-                              EdgeInsets.only(left: 1.0, top: 25.0, right: 188.0),
+                          padding: EdgeInsets.only(
+                              left: 1.0, top: 25.0, right: 188.0),
                           child: Text(
                             'LONG-TERM:',
                             style: TextStyle(
@@ -424,7 +449,8 @@ class _ChallengesPageState extends State<ChallengesPage> {
                           height: 20.0,
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                          padding:
+                              const EdgeInsets.only(left: 20.0, right: 20.0),
                           child: Column(
                             children: [
                               Card(
@@ -452,12 +478,158 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                 fontSize: 30),
                                           ),
                                           onPressed: () {
+                                            // --> USER HAS SELECTED TO ADD A LONG-TERM GOAL:
+                                            longTermOrShortTermGoal =
+                                                "long-term";
                                             // SHOW DIALOG IN WHICH USER INPUTS GOAL DATA:
+                                            // TODO: INSTEAD OF RE-USING THE CODE ABOVE FROM THE SHORT-TERM - put in some function and organize it in future.
                                             showDialog(
                                               context: context,
                                               builder: (context) =>
-                                                  const AlertDialog(
-                                                title: Text('Goal Details'),
+                                                  StatefulBuilder(
+                                                builder: (context, setState) =>
+                                                    AlertDialog(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
+                                                  ),
+                                                  title: const Text(
+                                                    'Goal Details',
+                                                    style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.red,
+                                                    ),
+                                                  ),
+                                                  content:
+                                                      SingleChildScrollView(
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .stretch,
+                                                      children: [
+                                                        TextField(
+                                                          decoration:
+                                                              const InputDecoration(
+                                                            labelText:
+                                                                'Goal Name',
+                                                          ),
+                                                          // TODO: MAYBE ADD A TEXT CONTROLLER TO REPLACE THIS:
+                                                          // SAVE GOAL NAME TO LATER PASS IT TO A FUNCTION TO BE SAVED IN DB:
+                                                          onChanged:
+                                                              (nameOfGoal) {
+                                                            goalName =
+                                                                nameOfGoal;
+                                                          },
+                                                        ),
+                                                        // DIFFICULTY DROPDOWN:
+                                                        DropdownButtonFormField(
+                                                            items: <String>[
+                                                              'Choose Difficulty',
+                                                              'Easy',
+                                                              'Medium',
+                                                              'Hard'
+                                                            ].map<
+                                                                DropdownMenuItem<
+                                                                    String>>((String
+                                                                value) {
+                                                              return DropdownMenuItem<
+                                                                  String>(
+                                                                value: value,
+                                                                child: Text(
+                                                                  value,
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    fontSize:
+                                                                        20,
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            }).toList(),
+                                                            onChanged: (String?
+                                                                newValue) {
+                                                              setState(() {
+                                                                chooseDifficultyDropDown =
+                                                                    newValue!;
+                                                              });
+                                                            },
+                                                            value:
+                                                                chooseDifficultyDropDown),
+                                                        // DEADLINE - DATE PICKER WIDGET HERE:
+                                                        TextButton(
+                                                          onPressed: () async {
+                                                            // SHOWS A CALENDAR WIDGET ON THE TAP OF THE CHOOSE DEADLINE TEXTBUTTON:
+                                                            // TODO: Continue implementation of DATE PICKER:
+                                                            DateTime?
+                                                                selectedDate =
+                                                                await showDatePicker(
+                                                                    context:
+                                                                        context,
+                                                                    initialDate:
+                                                                        currentDate,
+                                                                    firstDate:
+                                                                        currentDate,
+                                                                    lastDate:
+                                                                        DateTime(
+                                                                            2123));
+                                                            if (selectedDate ==
+                                                                null) {
+                                                              return;
+                                                            }
+                                                            setState(() {
+                                                              // save the selected deadline in date var
+                                                              currentDate =
+                                                                  selectedDate;
+                                                              // if the user has selected a deadline - set this var to true
+                                                              selectedDeadline =
+                                                                  true;
+                                                            });
+                                                            // getNodeOfUser();
+                                                          },
+                                                          // IF THE USER HAS SELECTED A DEADLINE - DISPLAY DEADLINE.. :
+                                                          child: selectedDeadline
+                                                              ? Text(
+                                                                  'Deadline: ${currentDate.day}/${currentDate.month}/${currentDate.year}',
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    fontSize:
+                                                                        18.0,
+                                                                    color: Colors
+                                                                        .black,
+                                                                  ),
+                                                                )
+                                                              // IF THE USER HASN'T SELECTED A DEADLINE... DISPLAY CHOOSE A DEADLINE TEXT .. :
+                                                              : const Text(
+                                                                  'Choose a deadline for this goal',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontSize:
+                                                                        17.5,
+                                                                    color: Colors
+                                                                        .blue,
+                                                                  ),
+                                                                ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  actions: [
+                                                    // "Finish" button on Alert Dialog - to finish ur goal setting
+                                                    Center(
+                                                      child: TextButton(
+                                                        child: const Text(
+                                                            "Finish"),
+                                                        onPressed: () {
+                                                          addGoalsToDB(goalName,
+                                                              chooseDifficultyDropDown);
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             );
                                             /* ... */
