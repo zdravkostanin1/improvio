@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class ChallengesPage extends StatefulWidget {
   const ChallengesPage({Key? key}) : super(key: key);
@@ -9,13 +8,6 @@ class ChallengesPage extends StatefulWidget {
   @override
   State<ChallengesPage> createState() => _ChallengesPageState();
 }
-
-// TO GET THE CURRENT MONTH:
-// String getMonth() {
-//   final dateObject = DateTime.now();
-//   // GET THE CURRENT MONTH:
-//   return DateFormat.MMMM().format(dateObject);
-// }
 
 // TO GET THE CURRENT USER'S USERNAME
 String? getUsername() {
@@ -57,7 +49,6 @@ class _ChallengesPageState extends State<ChallengesPage> {
 
   saveUserUID(String? node) {
       currentUserUID = node;
-      print('This is the current USER UID: $currentUserUID');
   }
 
   addGoalsToDB(String goalName, String difficulty) async {
@@ -65,13 +56,27 @@ class _ChallengesPageState extends State<ChallengesPage> {
     if (currentUserUID == "") {
       // USER UID IS EMPTY ...
     } else {
-      DatabaseReference ref = FirebaseDatabase.instance.ref("Users").child(
-          "$currentUserUID").child("Goals").child("short-term").child(goalName);
-      Map<String, dynamic> userInfo = {
-        "deadline": "${currentDate.day}/${currentDate.month}/${currentDate.year}",
-        "difficulty": difficulty,
-      };
-      ref.set(userInfo);
+      // ---> IF USER WANTS TO ADD A SHOR-TERM E.G. CLICKED ON SHORT-TERM "ADD" BUTTON
+      if (longTermOrShortTermGoal == "short-term") {
+        DatabaseReference ref = FirebaseDatabase.instance.ref("Users").child(
+            "$currentUserUID").child("Goals").child("short-term").child(goalName);
+        Map<String, dynamic> userInfo = {
+          "deadline": "${currentDate.day}/${currentDate.month}/${currentDate.year}",
+          "difficulty": difficulty,
+        };
+        ref.set(userInfo);
+      } else if (longTermOrShortTermGoal == "long-term"){
+        // ---> USER WANTS TO ADD A LONG-TERM GOAL..
+        DatabaseReference ref = FirebaseDatabase.instance.ref("Users").child(
+            "$currentUserUID").child("Goals").child("long-term").child(goalName);
+        Map<String, dynamic> userInfo = {
+          "deadline": "${currentDate.day}/${currentDate.month}/${currentDate.year}",
+          "difficulty": difficulty,
+        };
+        ref.set(userInfo);
+      } else {
+        // USER HASN'T SELECTED A GOAL TO ADD.
+      }
     }
   }
 
@@ -216,6 +221,8 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                 fontSize: 30),
                                           ),
                                           onPressed: () {
+                                            // --> USER HAS SELECTED TO ADD A SHORT-TERM GOAL:
+                                            longTermOrShortTermGoal = "short-term";
                                             // SHOW DIALOG IN WHICH USER INPUTS GOAL DATA:
                                             showDialog(
                                               context: context,
