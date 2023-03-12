@@ -344,75 +344,6 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                                                   ),
                                                                 ),
                                                         ),
-                                                        // DropdownButtonFormField(
-                                                        //     items: <String>[
-                                                        //       'Choose month',
-                                                        //       'January',
-                                                        //       'February',
-                                                        //       'March',
-                                                        //       'April',
-                                                        //       'May',
-                                                        //       'June',
-                                                        //       'July',
-                                                        //       'August',
-                                                        //       'September',
-                                                        //       'October',
-                                                        //       'November',
-                                                        //       'December'
-                                                        //     ].map<
-                                                        //         DropdownMenuItem<
-                                                        //             String>>(
-                                                        //             (String value) {
-                                                        //           return DropdownMenuItem<
-                                                        //               String>(
-                                                        //             value: value,
-                                                        //             child: Text(value,
-                                                        //                 style:
-                                                        //                 const TextStyle(
-                                                        //                     fontSize:
-                                                        //                     20)),
-                                                        //           );
-                                                        //         }).toList(),
-                                                        //     onChanged:
-                                                        //         (String? newValue) {
-                                                        //       setState(() {
-                                                        //         chooseMonthDropDown =
-                                                        //         newValue!;
-                                                        //       });
-                                                        //     },
-                                                        //     value:
-                                                        //     chooseMonthDropDown),
-                                                        // DropdownButton<String>(
-                                                        //   // Step 3.
-                                                        //   value: chooseDifficultyDropDown,
-                                                        //   // Step 4.
-                                                        //   items: <String>['Choose Difficulty', 'Cat', 'Tiger', 'Lion']
-                                                        //       .map<DropdownMenuItem<String>>((String value) {
-                                                        //     return DropdownMenuItem<String>(
-                                                        //       value: value,
-                                                        //       child: Text(
-                                                        //         value,
-                                                        //         style: const TextStyle(fontSize: 20),
-                                                        //       ),
-                                                        //     );
-                                                        //   }).toList(),
-                                                        //   // Step 5.
-                                                        //   onChanged: (String? newValue) {
-                                                        //     setState(() {
-                                                        //       chooseDifficultyDropDown = newValue!;
-                                                        //     });
-                                                        //   },
-                                                        // ),
-                                                        // DropdownButton(items: [], onChanged: () {
-                                                        //
-                                                        // })
-                                                        // DropdownMenuItem(
-                                                        //   child: TextField(
-                                                        //     decoration: InputDecoration(
-                                                        //       labelText: 'Difficulty',
-                                                        //     ),
-                                                        //   ),
-                                                        // ),
                                                       ],
                                                     ),
                                                   ),
@@ -444,49 +375,9 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                   ],
                                 ),
                               ),
-                              // OTHER SHORT TERM GOALS THAT USER MAY WANT TO ADD:
-                              // Row(
-                              //   children: const [
-                              //     Padding(
-                              //       padding: EdgeInsets.only(left: 0, top: 20.0, right: 4.0),
-                              //       child: Text(
-                              //         'Other goals:',
-                              //         style: TextStyle(
-                              //             color: Colors.black,
-                              //             fontSize: 20.0,
-                              //             fontWeight: FontWeight.bold),
-                              //       ),
-                              //     ),
-                              //     SizedBox(
-                              //       width: 10.0,
-                              //     ),
-                              //     // TODO: IMPLEMENT DROP-DOWN IN WHICH USER CHOOSES A MONTH:
-                              //     Padding(
-                              //       padding: EdgeInsets.only(top: 24.0),
-                              //       child: Text(
-                              //         'Click to choose a month',
-                              //         style: TextStyle(
-                              //             decoration: TextDecoration.underline,
-                              //             color: Colors.red,
-                              //             fontSize: 16.0,
-                              //             fontWeight: FontWeight.bold),
-                              //       ),
-                              //     ),
-                              //   ],
-                              // ),
                             ],
                           ),
                         ),
-                        // TextButton(
-                        //   onPressed: () {},
-                        //   child: const Text(
-                        //     'Click to add a goal',
-                        //     style: TextStyle(
-                        //         fontSize: 19.0,
-                        //         color: Colors.white,
-                        //         decoration: TextDecoration.underline),
-                        //   ),
-                        // )
                         // TODO: MAYBE USE THIS FOR THE TODO'S - PAGE. OR - HABITS
                         // Padding(
                         //   padding: const EdgeInsets.all(25.0),
