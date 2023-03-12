@@ -176,11 +176,6 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
-                                        // const ListTile(
-                                        //   leading: Icon(Icons.album),
-                                        //   title: Text('The Enchanted Nightingale'),
-                                        //   subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
-                                        // ),
                                         Row(
                                           children: [
                                             Text('Meditate 20 times'),
