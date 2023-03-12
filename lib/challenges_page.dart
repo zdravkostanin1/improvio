@@ -145,18 +145,6 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                        // GOALS FOR THAT THE USER MAY HAVE FOR THE CURRENT MONTH:
-                        // Padding(
-                        //   padding:
-                        //       const EdgeInsets.only(left: 13.5, top: 13.0, right: 160.0),
-                        //   child: Text(
-                        //     'Goals for: $currentMonth',
-                        //     style: const TextStyle(
-                        //         color: Colors.black,
-                        //         fontSize: 20.0,
-                        //         fontWeight: FontWeight.bold),
-                        //   ),
-                        // ),
                         const SizedBox(
                           height: 20.0,
                         ),
@@ -180,6 +168,40 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                   ],
                                 ),
                               ),
+                              ListView(
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                children: [
+                                  Card(
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        // const ListTile(
+                                        //   leading: Icon(Icons.album),
+                                        //   title: Text('The Enchanted Nightingale'),
+                                        //   subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
+                                        // ),
+                                        Row(
+                                          children: [
+                                            Text('Meditate 20 times'),
+                                            // TextButton(
+                                            //   child: const Text('BUY TICKETS'),
+                                            //   onPressed: () {/* ... */},
+                                            // ),
+                                            const SizedBox(width: 8),
+                                            TextButton(
+                                              child: const Text('ACHIEVE'),
+                                              onPressed: () {/* ... */},
+                                            ),
+                                            const SizedBox(width: 8),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              // TODO: USE THIS CARD WIDGET FOR THE GOALS TO SHOW THEM IN UI:
                               // Card(
                               //   child: Row(
                               //     mainAxisAlignment: MainAxisAlignment.end,
