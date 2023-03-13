@@ -168,34 +168,45 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                   ],
                                 ),
                               ),
-                              ListView(
-                                scrollDirection: Axis.vertical,
-                                shrinkWrap: true,
-                                children: [
-                                  Card(
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text('Meditate 20 times'),
-                                            // TextButton(
-                                            //   child: const Text('BUY TICKETS'),
-                                            //   onPressed: () {/* ... */},
-                                            // ),
-                                            const SizedBox(width: 8),
-                                            TextButton(
-                                              child: const Text('ACHIEVE'),
-                                              onPressed: () {/* ... */},
-                                            ),
-                                            const SizedBox(width: 8),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
+                              ListView.builder(
+                                itemCount: 2,
+                                prototypeItem: const ListTile(
+                                  title: Text('asd'),
+                                ),
+                                itemBuilder: (context, index) {
+                                  return const ListTile(
+                                    title: Text('assT422'),
+                                  );
+                                },
                               ),
+                              // ListView(
+                              //   scrollDirection: Axis.vertical,
+                              //   shrinkWrap: true,
+                              //   children: [
+                              //     Card(
+                              //       child: Row(
+                              //         mainAxisAlignment: MainAxisAlignment.end,
+                              //         children: [
+                              //           Row(
+                              //             children: [
+                              //               Text('Meditate 20 times'),
+                              //               // TextButton(
+                              //               //   child: const Text('BUY TICKETS'),
+                              //               //   onPressed: () {/* ... */},
+                              //               // ),
+                              //               const SizedBox(width: 8),
+                              //               TextButton(
+                              //                 child: const Text('ACHIEVE'),
+                              //                 onPressed: () {/* ... */},
+                              //               ),
+                              //               const SizedBox(width: 8),
+                              //             ],
+                              //           ),
+                              //         ],
+                              //       ),
+                              //     ),
+                              //   ],
+                              // ),
                               // TODO: USE THIS CARD WIDGET FOR THE GOALS TO SHOW THEM IN UI:
                               // Card(
                               //   child: Row(
