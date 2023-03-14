@@ -169,10 +169,13 @@ class _ChallengesPageState extends State<ChallengesPage> {
                                 ),
                               ),
                               ListView.builder(
-                                itemCount: 2,
-                                prototypeItem: const ListTile(
-                                  title: Text('asd'),
-                                ),
+                                scrollDirection: Axis.vertical,
+                                // physics: ScrollPhysics(parent: null)
+                                shrinkWrap: true,
+                                itemCount: 1,
+                                // prototypeItem: const ListTile(
+                                //   title: Text('asd'),
+                                // ),
                                 itemBuilder: (context, index) {
                                   return const ListTile(
                                     title: Text('assT422'),
