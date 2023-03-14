@@ -92,6 +92,7 @@ class _ChallengesPageState extends State<ChallengesPage> {
     }
   }
 
+  // --> count method - increase goalCount var
   void count() {
     setState(() {
       goalCount++;
